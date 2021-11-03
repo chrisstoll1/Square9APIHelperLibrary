@@ -20,6 +20,7 @@ namespace APITest
         #endregion
 
         [TestMethod]
+        [TestCategory("Basic")]
         public void BasicAPIConnection()
         {
             Square9API Connection = new Square9API(Endpoint, Username, Password);
@@ -29,6 +30,7 @@ namespace APITest
             Assert.AreEqual(1, TestDatabaseList.Databases[0].Id);
         }
         [TestMethod]
+        [TestCategory("Basic")]
         public void ReadDatabasesAndArchives()
         {
             Square9API Connection = new Square9API(Endpoint, Username, Password);
@@ -43,6 +45,7 @@ namespace APITest
             Assert.IsTrue(SubArchives[0].Name != null);
         }
         [TestMethod]
+        [TestCategory("Database")]
         public void CreateUpdateDeleteDatabase()
         {
             Square9API Connection = new Square9API(Endpoint, Username, Password);
@@ -58,6 +61,7 @@ namespace APITest
             Connection.DeleteLicense();
         }
         [TestMethod]
+        [TestCategory("Basic")]
         public void CheckIfAdmin()
         {
             Square9API Connection = new Square9API(Endpoint, Username, Password);
@@ -67,6 +71,7 @@ namespace APITest
             Connection.DeleteLicense();
         }
         [TestMethod]
+        [TestCategory("Database")]
         public void GetAdminDatabases()
         {
             Square9API Connection = new Square9API(Endpoint, Username, Password);
@@ -78,6 +83,7 @@ namespace APITest
             Connection.DeleteLicense();
         }
         [TestMethod]
+        [TestCategory("Database")]
         public void RebuildDatabaseIndex()
         {
             Square9API Connection = new Square9API(Endpoint, Username, Password);
@@ -86,6 +92,7 @@ namespace APITest
             Connection.DeleteLicense();
         }
         [TestMethod]
+        [TestCategory("Archive")]
         public void GetAdminArchives()
         {
             Square9API Connection = new Square9API(Endpoint, Username, Password);
@@ -96,6 +103,7 @@ namespace APITest
             Connection.DeleteLicense();
         }
         [TestMethod]
+        [TestCategory("Archive")]
         public void GetArchiveFields()
         {
             Square9API Connection = new Square9API(Endpoint, Username, Password);
@@ -105,6 +113,7 @@ namespace APITest
             Connection.DeleteLicense();
         }
         [TestMethod]
+        [TestCategory("Archive")]
         public void CreateUpdateDeleteArchive()
         {
             Square9API Connection = new Square9API(Endpoint, Username, Password);
@@ -120,6 +129,7 @@ namespace APITest
             Connection.DeleteLicense();
         }
         [TestMethod]
+        [TestCategory("Database")]
         public void GetUpdateGlobalArchiveOptions()
         {
             Square9API Connection = new Square9API(Endpoint, Username, Password);
@@ -134,6 +144,7 @@ namespace APITest
             Connection.DeleteLicense();
         }
         [TestMethod]
+        [TestCategory("Archive")]
         public void RebuildContentIndex()
         {
             Square9API Connection = new Square9API(Endpoint, Username, Password);
@@ -142,14 +153,43 @@ namespace APITest
             Connection.DeleteLicense();
         }
         [TestMethod]
+        [TestCategory("Search")]
         public void GetSearches()
         {
             Square9API Connection = new Square9API(Endpoint, Username, Password);
             Connection.CreateLicense();
             List<Search> searches = Connection.GetSearches(1);
-            List<Search> archiveSearches = Connection.GetSearches(1, 1);
+            List<Search> archiveSearches = Connection.GetSearches(1, archiveId: 1);
+            List<Search> search = Connection.GetSearches(1, searchId: 6);
             Console.WriteLine(searches[0].Name);
             Console.WriteLine(archiveSearches[0].Name);
+            Console.WriteLine(search[0].Name);
+            Connection.DeleteLicense();
+        }
+        [TestMethod]
+        [TestCategory("Search")]
+        public void GetSearchResults()
+        {
+            Square9API Connection = new Square9API(Endpoint, Username, Password);
+            Connection.CreateLicense();
+            Search search = Connection.GetSearches(1, searchId: 20)[0];
+            search.Detail[1].Val = "test";
+            search.Detail[2].Val = "10/29/2020";
+            Result results = Connection.GetSearchResults(1, search);
+            Console.WriteLine(JsonConvert.SerializeObject(results));
+            Connection.DeleteLicense();
+        }
+        [TestMethod]
+        [TestCategory("Search")]
+        public void GetSearchCount()
+        {
+            Square9API Connection = new Square9API(Endpoint, Username, Password);
+            Connection.CreateLicense();
+            Search search = Connection.GetSearches(1, searchId: 20)[0];
+            search.Detail[1].Val = "test";
+            search.Detail[2].Val = "10/29/2020";
+            ArchiveCount results = Connection.GetSearchCount(1, search);
+            Console.WriteLine(JsonConvert.SerializeObject(results));
             Connection.DeleteLicense();
         }
     }
