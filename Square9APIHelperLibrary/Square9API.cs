@@ -463,6 +463,71 @@ namespace Square9APIHelperLibrary
             }
             return Response.Data;
         }
+        /// <summary>
+        /// Creates a new search on the server
+        /// </summary>
+        /// <param name="databaseId">The database id where the search should be created</param>
+        /// <param name="search">The search to be created</param>
+        /// <returns><see cref="AdminSearch"/></returns>
+        public AdminSearch CreateSearch(int databaseId, NewAdminSearch search)
+        {
+            var Request = new RestRequest($"api/admin/databases/{databaseId}/searches", Method.POST);
+            Request.AddJsonBody(search);
+            var Response = ApiClient.Execute<AdminSearch>(Request);
+            if (Response.StatusCode != HttpStatusCode.OK)
+            {
+                throw new Exception($"Unable to create search: {Response.Content} \n {JsonConvert.SerializeObject(search)}");
+            }
+            return Response.Data;
+        }
+        /// <summary>
+        /// Deletes a search on the server
+        /// </summary>
+        /// <param name="databaseId">Database ID that relates to the search</param>
+        /// <param name="searchId">Search ID of the search to be deleted</param>
+        public void DeleteSearch(int databaseId, int searchId)
+        {
+            var Request = new RestRequest($"api/admin/databases/{databaseId}/searches/{searchId}", Method.DELETE);
+            var Response = ApiClient.Execute(Request);
+            if (Response.StatusCode != HttpStatusCode.OK)
+            {
+                throw new Exception($"Unable to delete search: {Response.Content}");
+            }
+        }
+        /// <summary>
+        /// Edit the properties of a archive
+        /// </summary>
+        /// <param name="databaseId">Database ID that relates to the archive</param>
+        /// <param name="search">Archive to be updated</param>
+        /// <returns></returns>
+        public AdminSearch UpdateSearch(int databaseId, AdminSearch search)
+        {
+            var Request = new RestRequest($"api/admin/databases/{databaseId}/searches/{search.Id}", Method.PUT);
+            Request.AddJsonBody(search);
+            var Response = ApiClient.Execute<AdminSearch>(Request);
+            if (Response.StatusCode != HttpStatusCode.OK)
+            {
+                throw new Exception($"Unable to update search: {Response.Content} \n {JsonConvert.SerializeObject(search)}");
+            }
+            return Response.Data;
+        } 
+        /// <summary>
+        /// Requests a list of searches from the server
+        /// Can be used to request a list of all searches from a database, or individual search
+        /// </summary>
+        /// <param name="databaseId">Database ID</param>
+        /// <param name="searchId">Optional: Search ID</param>
+        /// <returns><see cref="AdminSearch"/></returns>
+        public List<AdminSearch> GetAdminSearches(int databaseId, int searchId = 0)
+        {
+            var Request = (searchId >= 1) ? new RestRequest($"api/admin/databases/{databaseId}/searches/{searchId}") : new RestRequest($"api/admin/databases/{databaseId}/searches");
+            var Response = ApiClient.Execute<List<AdminSearch>>(Request);
+            if (Response.StatusCode != HttpStatusCode.OK)
+            {
+                throw new Exception($"Unable to get searches: {Response.Content}");
+            }
+            return Response.Data;
+        }
         #endregion
 
         #region Inbox

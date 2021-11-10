@@ -50,10 +50,12 @@
   <ItemGroup>
     <Compile Include="DataTypes\AdminArchive.cs" />
     <Compile Include="DataTypes\AdminDatabase.cs" />
+    <Compile Include="DataTypes\AdminSearch.cs" />
     <Compile Include="DataTypes\Archive.cs" />
     <Compile Include="DataTypes\ArchiveCount.cs" />
     <Compile Include="DataTypes\ArchiveList.cs" />
     <Compile Include="DataTypes\BasePath.cs" />
+    <Compile Include="DataTypes\ContentSearch.cs" />
     <Compile Include="DataTypes\Database.cs" />
     <Compile Include="DataTypes\DatabaseList.cs" />
     <Compile Include="DataTypes\DBAuth.cs" />
@@ -64,10 +66,12 @@
     <Compile Include="DataTypes\License.cs" />
     <Compile Include="DataTypes\NewAdminArchive.cs" />
     <Compile Include="DataTypes\NewAdminDatabase.cs" />
+    <Compile Include="DataTypes\NewAdminSearch.cs" />
     <Compile Include="DataTypes\Notification.cs" />
     <Compile Include="DataTypes\Result.cs" />
     <Compile Include="DataTypes\Search.cs" />
     <Compile Include="DataTypes\SearchDetail.cs" />
+    <Compile Include="DataTypes\SearchParameter.cs" />
     <Compile Include="DataTypes\Views.cs" />
     <Compile Include="DataTypes\ViewValue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

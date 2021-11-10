@@ -192,5 +192,33 @@ namespace APITest
             Console.WriteLine(JsonConvert.SerializeObject(results));
             Connection.DeleteLicense();
         }
+        [TestMethod]
+        [TestCategory("Search")]
+        public void CreateUpdateDeleteSearch()
+        {
+            Square9API Connection = new Square9API(Endpoint, Username, Password);
+            Connection.CreateLicense();
+            NewAdminSearch newSearch = new NewAdminSearch("New Test Search");
+            newSearch.AddParameter(3, "contains", "Date:");
+            newSearch.Parent = 3;
+            newSearch.Archives.Add(3);
+            AdminSearch search = Connection.CreateSearch(1, newSearch);
+            Console.WriteLine(JsonConvert.SerializeObject(search));
+            search.Name = "Newest Test Search";
+            AdminSearch updatedSearch = Connection.UpdateSearch(1, search);
+            Console.WriteLine(updatedSearch.Name);
+            Connection.DeleteSearch(1, search.Id);
+            Connection.DeleteLicense();
+        }
+        [TestMethod]
+        [TestCategory("Search")]
+        public void GetAdminSearches()
+        {
+            Square9API Connection = new Square9API(Endpoint, Username, Password);
+            Connection.CreateLicense();
+            List<AdminSearch> searches = Connection.GetAdminSearches(1, 6);
+            Console.WriteLine(searches[0].Name);
+            Connection.DeleteLicense();
+        }
     }
 }
