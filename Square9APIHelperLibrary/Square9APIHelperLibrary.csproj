@@ -34,8 +34,8 @@
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="RestSharp, Version=106.12.0.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
-      <HintPath>..\packages\RestSharp.106.12.0\lib\net452\RestSharp.dll</HintPath>
+    <Reference Include="RestSharp, Version=106.13.0.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.106.13.0\lib\net452\RestSharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="DataTypes\AdminArchive.cs" />
     <Compile Include="DataTypes\AdminDatabase.cs" />
+    <Compile Include="DataTypes\AdminInbox.cs" />
     <Compile Include="DataTypes\AdminSearch.cs" />
     <Compile Include="DataTypes\Archive.cs" />
     <Compile Include="DataTypes\ArchiveCount.cs" />
@@ -62,16 +63,22 @@
     <Compile Include="DataTypes\Doc.cs" />
     <Compile Include="DataTypes\Field.cs" />
     <Compile Include="DataTypes\FieldItem.cs" />
+    <Compile Include="DataTypes\File.cs" />
     <Compile Include="DataTypes\GlobalArchiveOptions.cs" />
+    <Compile Include="DataTypes\GlobalInboxOptions.cs" />
+    <Compile Include="DataTypes\Inbox.cs" />
+    <Compile Include="DataTypes\InboxList.cs" />
     <Compile Include="DataTypes\License.cs" />
     <Compile Include="DataTypes\NewAdminArchive.cs" />
     <Compile Include="DataTypes\NewAdminDatabase.cs" />
+    <Compile Include="DataTypes\NewAdminInbox.cs" />
     <Compile Include="DataTypes\NewAdminSearch.cs" />
     <Compile Include="DataTypes\Notification.cs" />
     <Compile Include="DataTypes\Result.cs" />
     <Compile Include="DataTypes\Search.cs" />
     <Compile Include="DataTypes\SearchDetail.cs" />
     <Compile Include="DataTypes\SearchParameter.cs" />
+    <Compile Include="DataTypes\Security.cs" />
     <Compile Include="DataTypes\Views.cs" />
     <Compile Include="DataTypes\ViewValue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

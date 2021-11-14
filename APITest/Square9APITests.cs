@@ -220,5 +220,82 @@ namespace APITest
             Console.WriteLine(searches[0].Name);
             Connection.DeleteLicense();
         }
+        [TestMethod]
+        [TestCategory("Inbox")]
+        public void GetInboxes()
+        {
+            Square9API Connection = new Square9API(Endpoint, Username, Password);
+            Connection.CreateLicense();
+            InboxList inboxes = Connection.GetInboxes();
+            Console.WriteLine(JsonConvert.SerializeObject(inboxes));
+            Connection.DeleteLicense();
+        }
+        [TestMethod]
+        [TestCategory("Inbox")]
+        public void GetInbox()
+        {
+            Square9API Connection = new Square9API(Endpoint, Username, Password);
+            Connection.CreateLicense();
+            Inbox inbox = Connection.GetInbox(1);
+            Console.WriteLine(JsonConvert.SerializeObject(inbox));
+            Connection.DeleteLicense();
+        }
+        [TestMethod]
+        [TestCategory("Inbox")]
+        public void GetAdminInboxes()
+        {
+            Square9API Connection = new Square9API(Endpoint, Username, Password);
+            Connection.CreateLicense();
+            List<AdminInbox> inboxes = Connection.GetAdminInboxes();
+            Console.WriteLine(JsonConvert.SerializeObject(inboxes));
+            Connection.DeleteLicense();
+        }
+        [TestMethod]
+        [TestCategory("Inbox")]
+        public void GetAdminInboxSecurity()
+        {
+            Square9API Connection = new Square9API(Endpoint, Username, Password);
+            Connection.CreateLicense();
+            List<Security> security = Connection.GetAdminInboxSecurity(1);
+            Console.WriteLine(JsonConvert.SerializeObject(security));
+            Connection.DeleteLicense();
+        }
+        [TestMethod]
+        [TestCategory("Inbox")]
+        public void GetGlobalInboxOptions()
+        {
+            Square9API Connection = new Square9API(Endpoint, Username, Password);
+            Connection.CreateLicense();
+            GlobalInboxOptions options = Connection.GetGlobalInboxOptions();
+            Console.WriteLine(JsonConvert.SerializeObject(options));
+            Connection.DeleteLicense();
+        }
+        [TestMethod]
+        [TestCategory("Inbox")]
+        public void UpdateGlobalInboxOptions()
+        {
+            Square9API Connection = new Square9API(Endpoint, Username, Password);
+            Connection.CreateLicense();
+            GlobalInboxOptions options = Connection.GetGlobalInboxOptions();
+            options.ShowAll = false;
+            GlobalInboxOptions updatedOptions = Connection.UpdateGlobalInboxOptions(options);
+            Console.WriteLine(JsonConvert.SerializeObject(options));
+            Console.WriteLine(JsonConvert.SerializeObject(updatedOptions));
+            Connection.DeleteLicense();
+        }
+        [TestMethod]
+        [TestCategory("Inbox")]
+        public void CreateDeleteInbox()
+        {
+            Square9API Connection = new Square9API(Endpoint, Username, Password);
+            Connection.CreateLicense();
+            NewAdminInbox newInbox = new NewAdminInbox();
+            newInbox.Name = "BIGTEST";
+            Console.WriteLine(JsonConvert.SerializeObject(newInbox));
+            AdminInbox inbox = Connection.CreateInbox(newInbox);
+            Console.WriteLine(JsonConvert.SerializeObject(inbox));
+            Connection.DeleteInbox(inbox.Id);
+            Connection.DeleteLicense();
+        }
     }
 }
