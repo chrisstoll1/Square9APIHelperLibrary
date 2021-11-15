@@ -4,10 +4,7 @@ using RestSharp.Authenticators;
 using Square9APIHelperLibrary.DataTypes;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Square9APIHelperLibrary
 {
@@ -916,7 +913,52 @@ namespace Square9APIHelperLibrary
         #endregion
 
         #region Document
-
+        /// <summary>
+        /// Requests all meta data for a given document
+        /// </summary>
+        /// <param name="databaseId">DatabaseID</param>
+        /// <param name="archiveId">ArchiveID</param>
+        /// <param name="document"><see cref="Doc"/></param>
+        /// <returns>Returns the same <see cref="Result"/> that <see cref="GetSearchResults(int, Search, int, int, int, int, int)"/> would return</returns>
+        /// <exception cref="Exception"></exception>
+        public Result GetDocumentMetaData(int databaseId, int archiveId, Doc document)
+        {
+            var Request = new RestRequest($"api/dbs/{databaseId}/archives/{archiveId}/documents/{document.Id}?SecureId={document.Hash}");
+            var Response = ApiClient.Execute<Result>(Request);
+            if (Response.StatusCode != HttpStatusCode.OK)
+            {
+                throw new Exception($"Unable to get document Meta Data: {Response.Content}");
+            }
+            return Response.Data;
+        }
+        /// <summary>
+        /// Downloads a given documents file to either a temp path or specific local path
+        /// </summary>
+        /// <param name="databaseId">DatabaseID</param>
+        /// <param name="archiveId">ArchiveID</param>
+        /// <param name="document"><see cref="Doc"/> to be downloaded from the server</param>
+        /// <param name="savePath">Optional: Local path to save the documents file to</param>
+        /// <returns>A <see cref="string"/> of the downloaded files filepath</returns>
+        /// <exception cref="Exception"></exception>
+        public string GetDocumentFile(int databaseId, int archiveId, Doc document, string savePath = "")
+        {
+            var fileName = (savePath == "") ? $"{System.IO.Path.GetTempPath()}{Guid.NewGuid().ToString()}{document.FileType}" : $"{savePath}{document.Id}{document.FileType}";
+            var writer = System.IO.File.OpenWrite(fileName);
+            var Request = new RestRequest($"api/dbs/{databaseId}/archives/{archiveId}/documents/{document.Id}/file?SecureId={document.Hash}");
+            Request.ResponseWriter = responseStream =>
+            {
+                using (responseStream)
+                {
+                    responseStream.CopyTo(writer);
+                }
+            };
+            var Response = ApiClient.Execute(Request);
+            if (Response.StatusCode != HttpStatusCode.OK)
+            {
+                throw new Exception($"Unable to download file: {Response.Content}");
+            }
+            return fileName;
+        }
         #endregion
 
         #region Administration

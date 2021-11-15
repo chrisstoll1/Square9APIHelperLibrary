@@ -2,10 +2,8 @@
 using Square9APIHelperLibrary;
 using Square9APIHelperLibrary.DataTypes;
 using System;
+using System.IO;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
 
 namespace APITest
@@ -173,8 +171,8 @@ namespace APITest
             Square9API Connection = new Square9API(Endpoint, Username, Password);
             Connection.CreateLicense();
             Search search = Connection.GetSearches(1, searchId: 20)[0];
-            search.Detail[1].Val = "test";
-            search.Detail[2].Val = "10/29/2020";
+            search.Detail[0].Val = "test";
+            search.Detail[1].Val = "10/29/2020";
             Result results = Connection.GetSearchResults(1, search);
             Console.WriteLine(JsonConvert.SerializeObject(results));
             Connection.DeleteLicense();
@@ -185,10 +183,12 @@ namespace APITest
         {
             Square9API Connection = new Square9API(Endpoint, Username, Password);
             Connection.CreateLicense();
-            Search search = Connection.GetSearches(1, searchId: 20)[0];
-            search.Detail[1].Val = "test";
-            search.Detail[2].Val = "10/29/2020";
-            ArchiveCount results = Connection.GetSearchCount(1, search);
+            List<Search> search = Connection.GetSearches(1, searchId: 20);
+            Console.WriteLine(JsonConvert.SerializeObject(search));
+            search[0].Detail[0].Val = "test";
+            search[0].Detail[1].Val = "10/29/2020";
+            Console.WriteLine(JsonConvert.SerializeObject(search));
+            ArchiveCount results = Connection.GetSearchCount(1, search[0]);
             Console.WriteLine(JsonConvert.SerializeObject(results));
             Connection.DeleteLicense();
         }
@@ -396,6 +396,31 @@ namespace APITest
             Connection.CreateLicense();
             AdminList list = Connection.LoadAssemblyList(1, Connection.GetList(1, 19));
             Console.WriteLine(JsonConvert.SerializeObject(list.Values));
+            Connection.DeleteLicense();
+        }
+        [TestMethod]
+        [TestCategory("Document")]
+        public void GetDocumentMetaData()
+        {
+            Square9API Connection = new Square9API(Endpoint, Username, Password);
+            Connection.CreateLicense();
+            Search search = Connection.GetSearches(1, searchId: 20)[0];
+            Doc document = Connection.GetSearchResults(1, search).Docs[0];
+            Console.WriteLine(JsonConvert.SerializeObject(document));
+            Result result = Connection.GetDocumentMetaData(1, 1, document);
+            Console.WriteLine(JsonConvert.SerializeObject(result));
+            Connection.DeleteLicense();
+        }
+        [TestMethod]
+        [TestCategory("Document")]
+        public void GetDocumentFile()
+        {
+            Square9API Connection = new Square9API(Endpoint, Username, Password);
+            Connection.CreateLicense();
+            Search search = Connection.GetSearches(1, searchId: 20)[0];
+            Doc document = Connection.GetSearchResults(1, search).Docs[0];
+            var fileName = Connection.GetDocumentFile(1, 1, document, "C:\\test\\");
+            Console.WriteLine(fileName);
             Connection.DeleteLicense();
         }
     }
