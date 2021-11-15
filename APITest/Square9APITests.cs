@@ -297,5 +297,106 @@ namespace APITest
             Connection.DeleteInbox(inbox.Id);
             Connection.DeleteLicense();
         }
+        [TestMethod]
+        [TestCategory("Field")]
+        public void GetFields()
+        {
+            Square9API Connection = new Square9API(Endpoint, Username, Password);
+            Connection.CreateLicense();
+            List<AdminField> fields = Connection.GetFields(1);
+            Console.WriteLine(JsonConvert.SerializeObject(fields));
+            Connection.DeleteLicense();
+        }
+        [TestMethod]
+        [TestCategory("Field")]
+        public void CreateGetUpdateDeleteField()
+        {
+            Square9API Connection = new Square9API(Endpoint, Username, Password);
+            Connection.CreateLicense();
+            NewAdminField field = new NewAdminField();
+            field.Name = "Tester Field";
+            field.Type = "character";
+            field.Length = 50;
+            Console.WriteLine(JsonConvert.SerializeObject(field));
+            AdminField newField = Connection.CreateField(1, field);
+            Console.WriteLine(JsonConvert.SerializeObject(newField));
+            AdminField retrievedField = Connection.GetFields(1, newField.Id)[0];
+            Console.WriteLine(JsonConvert.SerializeObject(retrievedField));
+            retrievedField.Name = "Tester Field Updated";
+            AdminField updatedField = Connection.UpdateField(1, retrievedField);
+            Console.WriteLine(JsonConvert.SerializeObject(updatedField));
+            Connection.DeleteField(1, updatedField.Id);
+            Connection.DeleteLicense();
+        }
+        [TestMethod]
+        [TestCategory("Field")]
+        public void GetTableFields()
+        {
+            Square9API Connection = new Square9API(Endpoint, Username, Password);
+            Connection.CreateLicense();
+            List<AdminTableField> fields = Connection.GetTableFields(1);
+            Console.WriteLine(JsonConvert.SerializeObject(fields));
+            Connection.DeleteLicense();
+        }
+        [TestMethod]
+        [TestCategory("Field")]
+        public void CreateGetUpdateDeleteTableField()
+        {
+            Square9API Connection = new Square9API(Endpoint, Username, Password);
+            Connection.CreateLicense();
+            NewAdminTableField tableField = new NewAdminTableField();
+            tableField.Name = "Tester Table Field";
+            tableField.Fields.Add(2);
+            Console.WriteLine(JsonConvert.SerializeObject(tableField));
+            AdminTableField newTableField = Connection.CreateTableField(1, tableField);
+            Console.WriteLine(JsonConvert.SerializeObject(newTableField));
+            AdminTableField retreivedTableField = Connection.GetTableField(1, newTableField.Id);
+            Console.WriteLine(JsonConvert.SerializeObject(retreivedTableField));
+            retreivedTableField.Name = "Tester Table Field Updated";
+            AdminTableField updatedTableField = Connection.UpdateTableField(1, retreivedTableField);
+            Console.WriteLine(JsonConvert.SerializeObject(updatedTableField));
+            Connection.DeleteTableField(1, updatedTableField.Id);
+            Connection.DeleteLicense();
+        }
+        [TestMethod]
+        [TestCategory("Field")]
+        public void GetLists()
+        {
+            Square9API Connection = new Square9API(Endpoint, Username, Password);
+            Connection.CreateLicense();
+            List<AdminList> fields = Connection.GetLists(1);
+            Console.WriteLine(JsonConvert.SerializeObject(fields));
+            Connection.DeleteLicense();
+        }
+        [TestMethod]
+        [TestCategoryAttribute("Field")]
+        public void CreateGetUpdateDeleteList()
+        {
+            Square9API Connection = new Square9API(Endpoint, Username, Password);
+            Connection.CreateLicense();
+            NewAdminList list = new NewAdminList();
+            list.Name = "Tester List";
+            list.Values.Add("test value 1");
+            Console.WriteLine(JsonConvert.SerializeObject(list));
+            AdminList newList = Connection.CreateList(1, list);
+            Console.WriteLine(JsonConvert.SerializeObject(newList));
+            AdminList retrievedList = Connection.GetList(1, newList.Id);
+            retrievedList.Name = "Tester List Updated";
+            Console.WriteLine(JsonConvert.SerializeObject(retrievedList));
+            AdminList updatedList = Connection.UpdateList(1, retrievedList);
+            Console.WriteLine(JsonConvert.SerializeObject(updatedList));
+            Connection.DeleteList(1, updatedList.Id);
+            Connection.DeleteLicense();
+        }
+        [TestMethod]
+        [TestCategory("Field")]
+        public void LoadAssemblyList()
+        {
+            Square9API Connection = new Square9API(Endpoint, Username, Password);
+            Connection.CreateLicense();
+            AdminList list = Connection.LoadAssemblyList(1, Connection.GetList(1, 19));
+            Console.WriteLine(JsonConvert.SerializeObject(list.Values));
+            Connection.DeleteLicense();
+        }
     }
 }

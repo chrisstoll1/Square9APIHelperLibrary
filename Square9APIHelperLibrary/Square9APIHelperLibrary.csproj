@@ -50,8 +50,13 @@
   <ItemGroup>
     <Compile Include="DataTypes\AdminArchive.cs" />
     <Compile Include="DataTypes\AdminDatabase.cs" />
+    <Compile Include="DataTypes\AdminField.cs" />
+    <Compile Include="DataTypes\AdminFieldList.cs" />
     <Compile Include="DataTypes\AdminInbox.cs" />
+    <Compile Include="DataTypes\AdminList.cs" />
+    <Compile Include="DataTypes\AdminMapping.cs" />
     <Compile Include="DataTypes\AdminSearch.cs" />
+    <Compile Include="DataTypes\AdminTableField.cs" />
     <Compile Include="DataTypes\Archive.cs" />
     <Compile Include="DataTypes\ArchiveCount.cs" />
     <Compile Include="DataTypes\ArchiveList.cs" />
@@ -71,8 +76,11 @@
     <Compile Include="DataTypes\License.cs" />
     <Compile Include="DataTypes\NewAdminArchive.cs" />
     <Compile Include="DataTypes\NewAdminDatabase.cs" />
+    <Compile Include="DataTypes\NewAdminField.cs" />
     <Compile Include="DataTypes\NewAdminInbox.cs" />
+    <Compile Include="DataTypes\NewAdminList.cs" />
     <Compile Include="DataTypes\NewAdminSearch.cs" />
+    <Compile Include="DataTypes\NewAdminTableField.cs" />
     <Compile Include="DataTypes\Notification.cs" />
     <Compile Include="DataTypes\Result.cs" />
     <Compile Include="DataTypes\Search.cs" />
