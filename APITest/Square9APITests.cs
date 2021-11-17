@@ -159,6 +159,7 @@ namespace APITest
             List<Search> searches = Connection.GetSearches(1);
             List<Search> archiveSearches = Connection.GetSearches(1, archiveId: 1);
             List<Search> search = Connection.GetSearches(1, searchId: 6);
+            Console.WriteLine(JsonConvert.SerializeObject(archiveSearches));
             Console.WriteLine(searches[0].Name);
             Console.WriteLine(archiveSearches[0].Name);
             Console.WriteLine(search[0].Name);
@@ -422,6 +423,69 @@ namespace APITest
             var fileName = Connection.GetDocumentFile(1, 1, document, "C:\\test\\");
             Console.WriteLine(fileName);
             Connection.DeleteLicense();
+        }
+        [TestMethod]
+        [TestCategory("Document")]
+        public void GetDocumentThumbnail()
+        {
+            Square9API Connection = new Square9API(Endpoint, Username, Password);
+            Connection.CreateLicense();
+            Search search = Connection.GetSearches(1, searchId: 20)[0];
+            Doc document = Connection.GetSearchResults(1, search).Docs[0];
+            var fileName = Connection.GetDocumentThumbnail(1, 1, document, "C:\\test\\", 1000, 1000);
+            Console.WriteLine(fileName);
+            Connection.DeleteLicense();
+        }
+        [TestMethod]
+        [TestCategory("Document")]
+        public void UpdateDocumentIndexData()
+        {
+            Square9API Connection = new Square9API(Endpoint, Username, Password);
+            Connection.CreateLicense();
+            Search search = Connection.GetSearches(1, searchId: 20)[0];
+            Doc document = Connection.GetSearchResults(1, search).Docs[0];
+            Console.WriteLine(JsonConvert.SerializeObject(document));
+            Random random = new Random();
+            int num = random.Next(1000);
+            document.Fields[0].Val = $"{num}";
+            Console.WriteLine(JsonConvert.SerializeObject(document));
+            Connection.UpdateDocumentIndexData(1, 1, document);
+            Doc updatedDoc = Connection.GetSearchResults(1, search).Docs[0];
+            Console.WriteLine(JsonConvert.SerializeObject(updatedDoc));
+            Connection.DeleteLicense();
+        }
+        [TestMethod]
+        [TestCategory("Document")]
+        public void UploadAndIndexDocument()
+        {
+            Square9API Connection = new Square9API(Endpoint, Username, Password);
+            Connection.CreateLicense();
+            UploadedFiles files = Connection.UploadDocument("C:\\test\\testuploadDoc.pdf");
+            Console.WriteLine(JsonConvert.SerializeObject(files));
+            NewFile newFile = new NewFile();
+            newFile.Files = files.Files;
+            newFile.Fields.Add(new FileField("2", "Test Last Name 1234"));
+            newFile.Fields.Add(new FileField("3", "11/16/2021"));
+            Console.WriteLine(JsonConvert.SerializeObject(newFile));
+            Connection.ImportDocument(1, 1, newFile);
+            Connection.DeleteLicense();
+        }
+        [TestMethod]
+        [TestCategory("Document")]
+        public void ExportDocuments()
+        {
+            Square9API Connection = new Square9API(Endpoint, Username, Password);
+            Connection.CreateLicense();
+            Search search = Connection.GetSearches(1, searchId: 20)[0];
+            List<FileExport> files = new List<FileExport>();
+            Console.WriteLine(JsonConvert.SerializeObject(Connection.GetSearchResults(1, search)));
+            files.Add(new FileExport(1, Connection.GetSearchResults(1, search).Docs[0]));
+            files.Add(new FileExport(1, Connection.GetSearchResults(1, search).Docs[1]));
+            Console.WriteLine(JsonConvert.SerializeObject(files));
+            string exportedFiles = Connection.ExportDocument(1, 2, files, "C:\\test\\");
+            Console.WriteLine(exportedFiles);
+            Connection.DeleteLicense();
+            throw new Exception("This method has currently not been tested fully (have observed empty zip files being returned)");
         }
     }
 }

@@ -959,6 +959,127 @@ namespace Square9APIHelperLibrary
             }
             return fileName;
         }
+        /// <summary>
+        /// Downloads a thumbnail of the document in JPG format
+        /// </summary>
+        /// <param name="databaseId"><see cref="Database.Id"/></param>
+        /// <param name="archiveId"><see cref="Archive.Id"/></param>
+        /// <param name="document"><see cref="Doc"/></param>
+        /// <param name="savePath">The local filepath where you would like to save the thumbnail</param>
+        /// <param name="height"><see cref="int"/> height in pixels the thumbnail should be downloaded in</param>
+        /// <param name="width"><see cref="int"/> width in pixels the thumbnail should be downloaded in</param>
+        /// <returns>a <see cref="string"/> containing the local file path of the downloaded thumbnail</returns>
+        /// <exception cref="Exception"></exception>
+        public string GetDocumentThumbnail(int databaseId, int archiveId, Doc document, string savePath = "", int height = 0, int width = 0)
+        {
+            var fileName = (savePath == "") ? $"{System.IO.Path.GetTempPath()}{Guid.NewGuid().ToString()}.jpg" : $"{savePath}{document.Id}.jpg";
+            var writer = System.IO.File.OpenWrite(fileName);
+            var Request = (height == 0 || width == 0) ? new RestRequest($"api/dbs/{databaseId}/archives/{archiveId}/documents/{document.Id}/thumb?SecureId={document.Hash}") : new RestRequest($"api/dbs/{databaseId}/archives/{archiveId}/documents/{document.Id}/thumb?SecureId={document.Hash}&height={height}&width={width}");
+            Request.ResponseWriter = responseStream =>
+            {
+                using (responseStream)
+                {
+                    responseStream.CopyTo(writer);
+                }
+            };
+            var Response = ApiClient.Execute(Request);
+            if (Response.StatusCode != HttpStatusCode.OK)
+            {
+                throw new Exception($"Unable to download thumbnail: {Response.Content}");
+            }
+            return fileName;
+        }
+        /// <summary>
+        /// Updates a documents index data on the server
+        /// </summary>
+        /// <param name="databaseId"><see cref="Database.Id"/></param>
+        /// <param name="archiveId"><see cref="Archive.Id"/></param>
+        /// <param name="document">Document to update on the server</param>
+        /// <returns><see cref="Doc"/> *Document object returned is the same one passed to the method, the server returns nothing*</returns>
+        /// <exception cref="Exception"></exception>
+        public Doc UpdateDocumentIndexData(int databaseId, int archiveId, Doc document)
+        {
+            var Request = new RestRequest($"api/dbs/{databaseId}/archives/{archiveId}/documents/{document.Id}/save?SecureId={document.Hash}", Method.POST);
+            DocumentIndexData IndexData = new DocumentIndexData();
+            IndexData.IndexData.IndexFields = document.Fields;
+            Request.AddJsonBody(IndexData);
+            var Response = ApiClient.Execute(Request);
+            if (Response.StatusCode != HttpStatusCode.OK)
+            {
+                throw new Exception($"Unable to update document index data: {Response.Content}");
+            }
+            return document;
+        }
+        /// <summary>
+        /// Uploads a file to the server
+        /// </summary>
+        /// <param name="fileName">The full local path of the file to be uploaded</param>
+        /// <returns><see cref="UploadedFiles"/></returns>
+        /// <exception cref="Exception"></exception>
+        public UploadedFiles UploadDocument(string fileName)
+        {
+            var Request = new RestRequest($"api/files", Method.POST);
+            Request.AddFile("File", fileName);
+            var Response = ApiClient.Execute(Request);
+            if (Response.StatusCode != HttpStatusCode.OK)
+            {
+                throw new Exception($"Unable to upload file: {Response.Content}");
+            }
+            return JsonConvert.DeserializeObject<UploadedFiles>(Response.Content);
+        }
+        /// <summary>
+        /// Imports a uploaded document into a archive
+        /// </summary>
+        /// <param name="databaseId"><see cref="Database.Id"/></param>
+        /// <param name="archiveId"><see cref="Archive.Id"/></param>
+        /// <param name="newFile"><see cref="NewFile"/></param>
+        /// <exception cref="Exception"></exception>
+        public void ImportDocument(int databaseId, int archiveId, NewFile newFile)
+        {
+            var Request = new RestRequest($"api/dbs/{databaseId}/archives/{archiveId}", Method.POST);
+            Request.AddJsonBody(newFile);
+            var Response = ApiClient.Execute(Request);
+            if (Response.StatusCode != HttpStatusCode.OK)
+            {
+                throw new Exception($"Unable to index document: {Response.Content}");
+            }
+        }
+        /// <summary>
+        /// Downloads a zip file containing the specified documents
+        /// </summary>
+        /// <param name="databaseId"><see cref="Database.Id"/></param>
+        /// <param name="fieldId"><see cref="Doc.Fields"/></param>
+        /// <param name="files"><see cref="FileExport"/></param>
+        /// <param name="savePath">Optional: Path to save Zip file to</param>
+        /// <returns><see cref="string"/> containing the local path of the downloaded zip file</returns>
+        /// <exception cref="Exception"></exception>
+        public string ExportDocument(int databaseId, int fieldId, List<FileExport> files, string savePath = "")
+        {
+            var CreateExportJobRequest = new RestRequest($"api/dbs/{databaseId}/export?alwaysExportZip=true&auditEntry=Document+Exported&field={fieldId}", Method.POST);
+            CreateExportJobRequest.AddJsonBody(files);
+            var CreateExportJobResponse = ApiClient.Execute(CreateExportJobRequest);
+            if (CreateExportJobResponse.StatusCode != HttpStatusCode.OK)
+            {
+                throw new Exception($"Unable to create export job: {CreateExportJobResponse.Content}");
+            }
+            var fileName = (savePath == "") ? $"{System.IO.Path.GetTempPath()}{Guid.NewGuid().ToString()}.zip" : $"{savePath}{CreateExportJobResponse.Content.Replace("\"", "")}.zip";
+            var writer = System.IO.File.OpenWrite(fileName);
+            Console.WriteLine($"api/dbs/{databaseId}/export?jobid={CreateExportJobResponse.Content.Replace("\"", "")}");
+            var GetJobZipRequest = new RestRequest($"api/dbs/{databaseId}/export?jobid={CreateExportJobResponse.Content.Replace("\"", "")}");
+            GetJobZipRequest.ResponseWriter = responseStream =>
+            {
+                using (responseStream)
+                {
+                    responseStream.CopyTo(writer);
+                }
+            };
+            var GetJobZipResponse = ApiClient.Execute(GetJobZipRequest);
+            if (GetJobZipResponse.StatusCode != HttpStatusCode.OK)
+            {
+                throw new Exception($"Unable to download export zip: {GetJobZipResponse.Content}");
+            }
+            return fileName;
+        }
         #endregion
 
         #region Administration
