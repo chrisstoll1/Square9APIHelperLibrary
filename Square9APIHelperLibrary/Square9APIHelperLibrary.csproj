@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataTypes\Action.cs" />
     <Compile Include="DataTypes\AdminArchive.cs" />
     <Compile Include="DataTypes\AdminDatabase.cs" />
     <Compile Include="DataTypes\AdminField.cs" />
@@ -88,7 +89,9 @@
     <Compile Include="DataTypes\NewAdminTableField.cs" />
     <Compile Include="DataTypes\NewFile.cs" />
     <Compile Include="DataTypes\Notification.cs" />
+    <Compile Include="DataTypes\Queue.cs" />
     <Compile Include="DataTypes\Result.cs" />
+    <Compile Include="DataTypes\Revision.cs" />
     <Compile Include="DataTypes\Search.cs" />
     <Compile Include="DataTypes\SearchDetail.cs" />
     <Compile Include="DataTypes\SearchParameter.cs" />

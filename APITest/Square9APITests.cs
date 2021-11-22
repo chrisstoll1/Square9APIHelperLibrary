@@ -456,7 +456,7 @@ namespace APITest
         }
         [TestMethod]
         [TestCategory("Document")]
-        public void UploadAndIndexDocument()
+        public void UploadIndexDeleteDocument()
         {
             Square9API Connection = new Square9API(Endpoint, Username, Password);
             Connection.CreateLicense();
@@ -468,6 +468,9 @@ namespace APITest
             newFile.Fields.Add(new FileField("3", "11/16/2021"));
             Console.WriteLine(JsonConvert.SerializeObject(newFile));
             Connection.ImportDocument(1, 1, newFile);
+            Search search = Connection.GetSearches(1, searchId: 20)[0];
+            Doc document = Connection.GetSearchResults(1, search).Docs[0];
+            Connection.DeleteDocument(1, 1, document);
             Connection.DeleteLicense();
         }
         [TestMethod]
@@ -485,7 +488,47 @@ namespace APITest
             string exportedFiles = Connection.ExportDocument(1, 2, files, "C:\\test\\");
             Console.WriteLine(exportedFiles);
             Connection.DeleteLicense();
-            throw new Exception("This method has currently not been tested fully (have observed empty zip files being returned)");
+            //throw new Exception("This method has currently not been tested fully (have observed empty zip files being returned)");
+        }
+        [TestMethod]
+        [TestCategory("Document")]
+        public void TransferDocument()
+        {
+            Square9API Connection = new Square9API(Endpoint, Username, Password);
+            Connection.CreateLicense();
+            Search search = Connection.GetSearches(1, searchId: 20)[0];
+            Doc document = Connection.GetSearchResults(1, search).Docs[0];
+            int docID = Connection.TransferDocument(1, 1, 2, document);
+            Console.WriteLine(docID);
+            Connection.DeleteLicense();
+        }
+        [TestMethod]
+        [TestCategory("Document")]
+        public void GetDocumentRevisions()
+        {
+            Square9API Connection = new Square9API(Endpoint, Username, Password);
+            Connection.CreateLicense();
+            Search search = Connection.GetSearches(1, searchId: 1082)[0];
+            Doc document = Connection.GetSearchResults(1, search).Docs[0];
+            Revision revision = Connection.GetDocumentRevisions(1, 52, document)[0];
+            Console.WriteLine(JsonConvert.SerializeObject(revision));
+            Doc revisionDoc = revision.ReturnDoc();
+            Console.WriteLine(JsonConvert.SerializeObject(revisionDoc));
+            //Connection.GetDocumentMetaData(1, 15, revisionDoc);
+            Connection.DeleteLicense();
+        }
+        [TestMethod]
+        [TestCategory("Document")]
+        public void GetDocumentQueue()
+        {
+            Square9API Connection = new Square9API(Endpoint, Username, Password);
+            Connection.CreateLicense();
+            Search search = Connection.GetSearches(1, searchId: 1083)[0];
+            Doc document = Connection.GetSearchResults(1, search).Docs[0];
+            Console.WriteLine(JsonConvert.SerializeObject(document));
+            Queue documentQueue = Connection.GetDocumentQueue(1, 53, document);
+            Console.WriteLine(JsonConvert.SerializeObject(documentQueue));  
+            Connection.DeleteLicense();
         }
     }
 }

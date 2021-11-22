@@ -1080,6 +1080,71 @@ namespace Square9APIHelperLibrary
             }
             return fileName;
         }
+        /// <summary>
+        /// Deletes a document from the server
+        /// </summary>
+        /// <param name="databaseId"><see cref="Database.Id"/></param>
+        /// <param name="archiveId"><see cref="Archive.Id"/></param>
+        /// <param name="document"><see cref="Doc"/></param>
+        /// <exception cref="Exception"></exception>
+        public void DeleteDocument(int databaseId, int archiveId, Doc document)
+        {
+            var Request = new RestRequest($"api/dbs/{databaseId}/archives/{archiveId}/documents/{document.Id}/delete?SecureId={document.Hash}");
+            var Response = ApiClient.Execute(Request);
+            if (Response.StatusCode != HttpStatusCode.OK)
+            {
+                throw new Exception($"Unable delete document: {Response.Content}");
+            }
+        }
+        /// <summary>
+        /// Performs either a move or copy operation to a given document on the server
+        /// </summary>
+        /// <param name="databaseId"><see cref="Database.Id"/></param>
+        /// <param name="archiveId"><see cref="Archive.Id"/> The source archive ID</param>
+        /// <param name="destArchiveId"><see cref="Archive.Id"/> The destination archive ID</param>
+        /// <param name="document"><see cref="Doc"/></param>
+        /// <param name="move"><see cref="bool"/> Flag to perform move operation (Cut/Paste)</param>
+        /// <returns><see cref="int"/> Doc ID of the moved/copied document</returns>
+        /// <exception cref="Exception"></exception>
+        public int TransferDocument(int databaseId, int archiveId, int destArchiveId, Doc document, bool move = false)
+        {
+            string type = (move) ? "move" : "copy";
+            var Request = new RestRequest($"api/dbs/{databaseId}/archives/{archiveId}/documents/{document.Id}/{type}?DestinationArchive={destArchiveId}&SecureID={document.Hash}");
+            var Response = ApiClient.Execute<int>(Request);
+            if (Response.StatusCode != HttpStatusCode.OK)
+            {
+                throw new Exception($"Unable to transfer document: {Response.Content}");
+            }
+            return Response.Data;
+        }
+        /// <summary>
+        /// Returns a list of document revisions from the server
+        /// </summary>
+        /// <param name="databaseId"><see cref="Database.Id"/></param>
+        /// <param name="archiveId"><see cref="Archive.Id"/></param>
+        /// <param name="documentId"><see cref="Doc.Id"/></param>
+        /// <returns><see cref="Revision"/></returns>
+        /// <exception cref="Exception"></exception>
+        public List<Revision> GetDocumentRevisions(int databaseId, int archiveId, Doc document)
+        {
+            var Request = new RestRequest($"api/dbs/{databaseId}/archives/{archiveId}/documents/{document.Id}/rev?SecureId={document.Hash}");
+            var Response = ApiClient.Execute<List<Revision>>(Request);
+            if (Response.StatusCode != HttpStatusCode.OK)
+            {
+                throw new Exception($"Unable to get document revisions: {Response.Content}");
+            }
+            return Response.Data;
+        }
+        public Queue GetDocumentQueue(int databaseId, int archiveId, Doc document)
+        {
+            var Request = new RestRequest($"api/useraction?Database={databaseId}&Archive={archiveId}&Document={document.Id}&SecureId={document.Hash}");
+            var Response = ApiClient.Execute<Queue>(Request);
+            if (Response.StatusCode != HttpStatusCode.OK)
+            {
+                throw new Exception($"Unable to get document queue: {Response.Content}");
+            }
+            return Response.Data;
+        }
         #endregion
 
         #region Administration
