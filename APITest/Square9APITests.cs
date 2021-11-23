@@ -519,7 +519,7 @@ namespace APITest
         }
         [TestMethod]
         [TestCategory("Document")]
-        public void GetDocumentQueue()
+        public void GetTriggerDocumentQueue()
         {
             Square9API Connection = new Square9API(Endpoint, Username, Password);
             Connection.CreateLicense();
@@ -527,7 +527,8 @@ namespace APITest
             Doc document = Connection.GetSearchResults(1, search).Docs[0];
             Console.WriteLine(JsonConvert.SerializeObject(document));
             Queue documentQueue = Connection.GetDocumentQueue(1, 53, document);
-            Console.WriteLine(JsonConvert.SerializeObject(documentQueue));  
+            Console.WriteLine(JsonConvert.SerializeObject(documentQueue));
+            Connection.FireDocumentQueueAction(1, 53, document, documentQueue.Actions[1]);
             Connection.DeleteLicense();
         }
     }

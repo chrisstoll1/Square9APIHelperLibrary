@@ -1135,6 +1135,14 @@ namespace Square9APIHelperLibrary
             }
             return Response.Data;
         }
+        /// <summary>
+        /// Returns a queue object that the document is in 
+        /// </summary>
+        /// <param name="databaseId"><see cref="Database.Id"/></param>
+        /// <param name="archiveId"><see cref="Archive.Id"/></param>
+        /// <param name="document"><see cref="Doc"/></param>
+        /// <returns><see cref="Queue"/></returns>
+        /// <exception cref="Exception"></exception>
         public Queue GetDocumentQueue(int databaseId, int archiveId, Doc document)
         {
             var Request = new RestRequest($"api/useraction?Database={databaseId}&Archive={archiveId}&Document={document.Id}&SecureId={document.Hash}");
@@ -1144,6 +1152,23 @@ namespace Square9APIHelperLibrary
                 throw new Exception($"Unable to get document queue: {Response.Content}");
             }
             return Response.Data;
+        }
+        /// <summary>
+        /// Triggers a GlobalAction action on a given document
+        /// </summary>
+        /// <param name="databaseId"><see cref="Database.Id"/></param>
+        /// <param name="archiveId"><see cref="Archive.Id"/></param>
+        /// <param name="document"><see cref="Doc"/></param>
+        /// <param name="action"><see cref="DataTypes.Action"/></param>
+        /// <exception cref="Exception"></exception>
+        public void FireDocumentQueueAction(int databaseId, int archiveId, Doc document, DataTypes.Action action)
+        {
+            var Request = new RestRequest($"api/useraction?Database={databaseId}&Archive={archiveId}&Document={document.Id}&ActionId={action.Key}&SecureId={document.Hash}", Method.POST);
+            var Response = ApiClient.Execute(Request);
+            if (Response.StatusCode != HttpStatusCode.OK)
+            {
+                throw new Exception($"Unable to trigger document action: {Response.Content}");
+            }
         }
         #endregion
 
