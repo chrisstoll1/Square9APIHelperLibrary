@@ -532,12 +532,15 @@ namespace APITest
             Connection.DeleteLicense();
         }
         [TestMethod]
-        [TestCategory("")]
+        [TestCategory("Administration")]
         public void GetSecuredAndUnsecuredUsersAndGroups()
         {
             Square9API Connection = new Square9API(Endpoint, Username, Password);
             Connection.CreateLicense();
-
+            List<SecuredGroup> securedGroups = Connection.GetSecuredUsersAndGroups();
+            Console.WriteLine(JsonConvert.SerializeObject(securedGroups));
+            List<SecuredGroup> unsecuredGroups = Connection.GetUnsecuredUsersAndGroups();
+            Console.WriteLine(JsonConvert.SerializeObject(unsecuredGroups));
             Connection.DeleteLicense();
         }
     }
