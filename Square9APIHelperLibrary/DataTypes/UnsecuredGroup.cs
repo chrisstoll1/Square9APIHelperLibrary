@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Square9APIHelperLibrary.DataTypes
 {
-    public class SecuredGroup
+    public class UnsecuredGroup
     {
-        public SecuredGroup() { }
+        public UnsecuredGroup() { }
         public string Name { get; set; }
         public string Email { get; set; }
         public int License { get; set; }

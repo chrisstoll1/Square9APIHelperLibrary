@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Square9APIHelperLibrary.DataTypes
 {
-    public class SearchSecurity
+    public class ArchiveSecurity
     {
-        public SearchSecurity() { }
+        public ArchiveSecurity() { }
         public List<User> Users { get; set; } = new List<User>();
         public List<Target> Targets { get; set; } = new List<Target>();
-        public List<SearchPermission> Permissions { get; set; } = new List<SearchPermission>();
+        public ArchivePermission Permissions { get; set; }
     }
 }

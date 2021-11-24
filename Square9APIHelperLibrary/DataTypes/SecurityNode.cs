@@ -16,6 +16,6 @@ namespace Square9APIHelperLibrary.DataTypes
         public bool DefaultSearch { get; set; }
         public bool QueueSearch { get; set; }
         public bool DirectSearch { get; set; }
-        public List<SecurityNode> Children { get; set; }
+        public List<SecurityNode> Children { get; set; } = new List<SecurityNode>();
     }
 }

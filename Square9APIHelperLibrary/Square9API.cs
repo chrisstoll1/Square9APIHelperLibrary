@@ -1193,10 +1193,10 @@ namespace Square9APIHelperLibrary
         /// </summary>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        public List<SecuredGroup> GetUnsecuredUsersAndGroups()
+        public List<UnsecuredGroup> GetUnsecuredUsersAndGroups()
         {
             var Request = new RestRequest($"api/userAdmin/unsecured");
-            var Response = ApiClient.Execute<List<SecuredGroup>>(Request);
+            var Response = ApiClient.Execute<List<UnsecuredGroup>>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
                 throw new Exception($"Unable to get unsecured users and groups: {Response.Content}");
@@ -1241,17 +1241,33 @@ namespace Square9APIHelperLibrary
         /// </summary>
         /// <param name="databaseId"><see cref="Database.Id"/></param>
         /// <param name="username">Username to return search properties of</param>
-        /// <returns><see cref="SearchSecurity"/></returns>
+        /// <returns><see cref="SearchProperties"/></returns>
         /// <exception cref="Exception"></exception>
-        public List<SearchSecurity> GetUserSearchProperties(int databaseId, string username)
+        public List<SearchProperties> GetUserSearchProperties(int databaseId, string username)
         {
             var Request = new RestRequest($"api/userAdmin/searches?db={databaseId}&username={username}");
-            var Response = ApiClient.Execute<List<SearchSecurity>>(Request);
+            var Response = ApiClient.Execute<List<SearchProperties>>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
                 throw new Exception($"Cannot get user search properties: {Response.Content}");
             }
             return Response.Data;
+        }
+        /// <summary>
+        /// Sets the security for a given user/group on a given archive
+        /// </summary>
+        /// <param name="archiveSecurity"><see cref="ArchiveSecurity"/></param>
+        /// <exception cref="Exception"></exception>
+        public void SetArchiveSecurity(ArchiveSecurity archiveSecurity)
+        {
+            var Request = new RestRequest($"api/userAdmin/archives", Method.POST);
+            Request.AddJsonBody(archiveSecurity);
+            var Response = ApiClient.Execute(Request); 
+            if (Response.StatusCode != HttpStatusCode.OK || !Response.Content.Contains("\"Saved\":1"))
+            {
+                throw new Exception($"Unable to save archive security: {Response.Content}");
+            }
+            Console.WriteLine(Response.Content);
         }
         #endregion
 

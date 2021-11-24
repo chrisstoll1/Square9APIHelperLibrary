@@ -17,6 +17,7 @@ namespace APITest
         private string Password = "Square9!";
         #endregion
 
+        #region Basic
         [TestMethod]
         [TestCategory("Basic")]
         public void BasicAPIConnection()
@@ -43,6 +44,19 @@ namespace APITest
             Assert.IsTrue(SubArchives[0].Name != null);
         }
         [TestMethod]
+        [TestCategory("Basic")]
+        public void CheckIfAdmin()
+        {
+            Square9API Connection = new Square9API(Endpoint, Username, Password);
+            Connection.CreateLicense();
+            Console.WriteLine(Connection.IsAdmin());
+            Assert.IsTrue(Connection.IsAdmin());
+            Connection.DeleteLicense();
+        }
+        #endregion
+
+        #region Database
+        [TestMethod]
         [TestCategory("Database")]
         public void CreateUpdateDeleteDatabase()
         {
@@ -56,16 +70,6 @@ namespace APITest
             Console.WriteLine(Database.Name);
             Console.WriteLine(Database.Id);
             Connection.DeleteDatabase(Database.Id, true);
-            Connection.DeleteLicense();
-        }
-        [TestMethod]
-        [TestCategory("Basic")]
-        public void CheckIfAdmin()
-        {
-            Square9API Connection = new Square9API(Endpoint, Username, Password);
-            Connection.CreateLicense();
-            Console.WriteLine(Connection.IsAdmin());
-            Assert.IsTrue(Connection.IsAdmin());
             Connection.DeleteLicense();
         }
         [TestMethod]
@@ -89,6 +93,24 @@ namespace APITest
             Connection.RebuildDatabaseIndex(1);
             Connection.DeleteLicense();
         }
+        [TestMethod]
+        [TestCategory("Database")]
+        public void GetUpdateGlobalArchiveOptions()
+        {
+            Square9API Connection = new Square9API(Endpoint, Username, Password);
+            Connection.CreateLicense();
+            GlobalArchiveOptions options = Connection.GetGlobalArchiveOptions(1);
+            options.ShowAll = false;
+            GlobalArchiveOptions updatedOptions = Connection.UpdateGlobalArchiveOptions(1, options);
+            Console.WriteLine(updatedOptions.ShowAll);
+            updatedOptions.ShowAll = true;
+            Connection.UpdateGlobalArchiveOptions(1, updatedOptions);
+            Console.WriteLine(Connection.GetGlobalArchiveOptions(1).ShowAll);
+            Connection.DeleteLicense();
+        }
+        #endregion
+
+        #region Archive
         [TestMethod]
         [TestCategory("Archive")]
         public void GetAdminArchives()
@@ -127,21 +149,6 @@ namespace APITest
             Connection.DeleteLicense();
         }
         [TestMethod]
-        [TestCategory("Database")]
-        public void GetUpdateGlobalArchiveOptions()
-        {
-            Square9API Connection = new Square9API(Endpoint, Username, Password);
-            Connection.CreateLicense();
-            GlobalArchiveOptions options = Connection.GetGlobalArchiveOptions(1);
-            options.ShowAll = false;
-            GlobalArchiveOptions updatedOptions = Connection.UpdateGlobalArchiveOptions(1, options);
-            Console.WriteLine(updatedOptions.ShowAll);
-            updatedOptions.ShowAll = true;
-            Connection.UpdateGlobalArchiveOptions(1, updatedOptions);
-            Console.WriteLine(Connection.GetGlobalArchiveOptions(1).ShowAll);
-            Connection.DeleteLicense();
-        }
-        [TestMethod]
         [TestCategory("Archive")]
         public void RebuildContentIndex()
         {
@@ -150,6 +157,9 @@ namespace APITest
             Console.WriteLine(Connection.RebuildArchiveContentIndex(1, 3, 10000));
             Connection.DeleteLicense();
         }
+        #endregion
+
+        #region Search
         [TestMethod]
         [TestCategory("Search")]
         public void GetSearches()
@@ -221,6 +231,9 @@ namespace APITest
             Console.WriteLine(searches[0].Name);
             Connection.DeleteLicense();
         }
+        #endregion
+
+        #region Inbox
         [TestMethod]
         [TestCategory("Inbox")]
         public void GetInboxes()
@@ -298,6 +311,9 @@ namespace APITest
             Connection.DeleteInbox(inbox.Id);
             Connection.DeleteLicense();
         }
+        #endregion
+
+        #region Field
         [TestMethod]
         [TestCategory("Field")]
         public void GetFields()
@@ -399,6 +415,9 @@ namespace APITest
             Console.WriteLine(JsonConvert.SerializeObject(list.Values));
             Connection.DeleteLicense();
         }
+        #endregion
+
+        #region Document
         [TestMethod]
         [TestCategory("Document")]
         public void GetDocumentMetaData()
@@ -531,6 +550,9 @@ namespace APITest
             Connection.FireDocumentQueueAction(1, 53, document, documentQueue.Actions[1]);
             Connection.DeleteLicense();
         }
+        #endregion
+
+        #region Administration
         [TestMethod]
         [TestCategory("Administration")]
         public void GetSecuredAndUnsecuredUsersAndGroups()
@@ -539,7 +561,7 @@ namespace APITest
             Connection.CreateLicense();
             List<SecuredGroup> securedGroups = Connection.GetSecuredUsersAndGroups();
             Console.WriteLine(JsonConvert.SerializeObject(securedGroups));
-            List<SecuredGroup> unsecuredGroups = Connection.GetUnsecuredUsersAndGroups();
+            List<UnsecuredGroup> unsecuredGroups = Connection.GetUnsecuredUsersAndGroups();
             Console.WriteLine(JsonConvert.SerializeObject(unsecuredGroups));
             Connection.DeleteLicense();
         }
@@ -559,7 +581,7 @@ namespace APITest
         {
             Square9API Connection = new Square9API(Endpoint, Username, Password);
             Connection.CreateLicense();
-            Console.WriteLine(Connection.GetUserArchivePermissions(1, 1, "SSAdministrator"));
+            Console.WriteLine(Connection.GetUserArchivePermissions(2, 1, "test"));
             Connection.DeleteLicense();
         }
         [TestMethod]
@@ -568,9 +590,46 @@ namespace APITest
         {
             Square9API Connection = new Square9API(Endpoint, Username, Password);
             Connection.CreateLicense();
-            List<SearchSecurity> userSearchSecurity = Connection.GetUserSearchProperties(1, "SSAdministrator");
+            List<SearchProperties> userSearchSecurity = Connection.GetUserSearchProperties(1, "SSAdministrator");
             Console.WriteLine(JsonConvert.SerializeObject(userSearchSecurity));
             Connection.DeleteLicense();
         }
+        [TestMethod]
+        [TestCategory("Administration")]
+        public void SetArchiveSecurity()
+        {
+            Square9API Connection = new Square9API(Endpoint, Username, Password);
+            Connection.CreateLicense();
+
+            //Construct archiveSecurity object
+            ArchiveSecurity archiveSecurity = new ArchiveSecurity();
+
+            //Add Users
+            SecuredGroup securedGroup = Connection.GetSecuredUsersAndGroups().Find(x => x.Name == "test");
+            User user = new User();
+            user.ConvertSecuredGroup(securedGroup);
+            archiveSecurity.Users.Add(user);
+
+            //Add Targets
+            Target target = new Target();
+            target.Id = 1; //archive ID
+            target.Database = 2; //database ID
+            archiveSecurity.Targets.Add(target);
+
+            //Add Permissions
+            ArchivePermission permission = new ArchivePermission(Connection.GetUserArchivePermissions(2, 1, "test"));
+            permission.View = true;
+            permission.Add = true;
+            permission.Delete = true;
+            permission.Print = true;
+            permission.FullAPIAccess = true;
+            permission.CalculatePermissionLevel();
+            archiveSecurity.Permissions = permission;
+
+            Console.WriteLine(JsonConvert.SerializeObject(archiveSecurity));
+            Connection.SetArchiveSecurity(archiveSecurity);
+            Connection.DeleteLicense();
+        }
+        #endregion
     }
 }
