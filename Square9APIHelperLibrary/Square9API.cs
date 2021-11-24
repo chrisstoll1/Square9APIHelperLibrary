@@ -1173,6 +1173,36 @@ namespace Square9APIHelperLibrary
         #endregion
 
         #region Administration
+        /// <summary>
+        /// Returns a list of all users and groups that are secured to any database
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public List<SecuredGroup> GetSecuredUsersAndGroups()
+        {
+            var Request = new RestRequest($"api/userAdmin/secured");
+            var Response = ApiClient.Execute<List<SecuredGroup>>(Request);
+            if (Response.StatusCode != HttpStatusCode.OK)
+            {
+                throw new Exception($"Unable to get secured users and groups: {Response.Content}");
+            }
+            return Response.Data;
+        }
+        /// <summary>
+        /// Returns a list of all users and groups that are not secured to any database
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public List<SecuredGroup> GetUnsecuredUsersAndGroups()
+        {
+            var Request = new RestRequest($"api/userAdmin/unsecured");
+            var Response = ApiClient.Execute<List<SecuredGroup>>(Request);
+            if (Response.StatusCode != HttpStatusCode.OK)
+            {
+                throw new Exception($"Unable to get unsecured users and groups: {Response.Content}");
+            }
+            return Response.Data;
+        }
 
         #endregion
 

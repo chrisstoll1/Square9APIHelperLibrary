@@ -531,5 +531,14 @@ namespace APITest
             Connection.FireDocumentQueueAction(1, 53, document, documentQueue.Actions[1]);
             Connection.DeleteLicense();
         }
+        [TestMethod]
+        [TestCategory("")]
+        public void GetSecuredAndUnsecuredUsersAndGroups()
+        {
+            Square9API Connection = new Square9API(Endpoint, Username, Password);
+            Connection.CreateLicense();
+
+            Connection.DeleteLicense();
+        }
     }
 }
