@@ -1203,7 +1203,56 @@ namespace Square9APIHelperLibrary
             }
             return Response.Data;
         }
-
+        /// <summary>
+        /// Returns an object containing databases, their associated archives, and searches
+        /// </summary>
+        /// <returns><see cref="SecurityNode"/></returns>
+        /// <exception cref="Exception"></exception>
+        public List<SecurityNode> GetTreeStructure()
+        {
+            var Request = new RestRequest($"api/userAdmin/tree");
+            var Response = ApiClient.Execute<List<SecurityNode>>(Request);
+            if (Response.StatusCode != HttpStatusCode.OK)
+            {
+                throw new Exception($"Unable to get server tree view: {Response.Content}");
+            }
+            return Response.Data;
+        }
+        /// <summary>
+        /// Returns specified user's archive permissions for a given archive
+        /// </summary>
+        /// <param name="databaseId"><see cref="Database.Id"/></param>
+        /// <param name="archiveId"><see cref="Archive.Id"/></param>
+        /// <param name="username">Username to return permissions on</param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public int GetUserArchivePermissions(int databaseId, int archiveId, string username)
+        {
+            var Request = new RestRequest($"api/userAdmin/archives?db={databaseId}&archive={archiveId}&username={username}");
+            var Response = ApiClient.Execute<int>(Request);
+            if (Response.StatusCode != HttpStatusCode.OK)
+            {
+                throw new Exception($"Unable to get archive permissions: {Response.Content}");
+            }
+            return Response.Data;
+        }
+        /// <summary>
+        /// Returns specified user's search properties for a given database
+        /// </summary>
+        /// <param name="databaseId"><see cref="Database.Id"/></param>
+        /// <param name="username">Username to return search properties of</param>
+        /// <returns><see cref="SearchSecurity"/></returns>
+        /// <exception cref="Exception"></exception>
+        public List<SearchSecurity> GetUserSearchProperties(int databaseId, string username)
+        {
+            var Request = new RestRequest($"api/userAdmin/searches?db={databaseId}&username={username}");
+            var Response = ApiClient.Execute<List<SearchSecurity>>(Request);
+            if (Response.StatusCode != HttpStatusCode.OK)
+            {
+                throw new Exception($"Cannot get user search properties: {Response.Content}");
+            }
+            return Response.Data;
+        }
         #endregion
 
     }

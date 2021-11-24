@@ -543,5 +543,34 @@ namespace APITest
             Console.WriteLine(JsonConvert.SerializeObject(unsecuredGroups));
             Connection.DeleteLicense();
         }
+        [TestMethod]
+        [TestCategory("Administration")]
+        public void GetTreeStructure()
+        {
+            Square9API Connection = new Square9API(Endpoint, Username, Password);
+            Connection.CreateLicense();
+            List<SecurityNode> securityNodes = Connection.GetTreeStructure();
+            Console.WriteLine(JsonConvert.SerializeObject(securityNodes));
+            Connection.DeleteLicense();
+        }
+        [TestMethod]
+        [TestCategory("Administration")]
+        public void GetUserArchivePermissions()
+        {
+            Square9API Connection = new Square9API(Endpoint, Username, Password);
+            Connection.CreateLicense();
+            Console.WriteLine(Connection.GetUserArchivePermissions(1, 1, "SSAdministrator"));
+            Connection.DeleteLicense();
+        }
+        [TestMethod]
+        [TestCategory("Administration")]
+        public void GetUserSearchProperties()
+        {
+            Square9API Connection = new Square9API(Endpoint, Username, Password);
+            Connection.CreateLicense();
+            List<SearchSecurity> userSearchSecurity = Connection.GetUserSearchProperties(1, "SSAdministrator");
+            Console.WriteLine(JsonConvert.SerializeObject(userSearchSecurity));
+            Connection.DeleteLicense();
+        }
     }
 }

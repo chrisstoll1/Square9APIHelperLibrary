@@ -95,8 +95,10 @@
     <Compile Include="DataTypes\Search.cs" />
     <Compile Include="DataTypes\SearchDetail.cs" />
     <Compile Include="DataTypes\SearchParameter.cs" />
+    <Compile Include="DataTypes\SearchSecurity.cs" />
     <Compile Include="DataTypes\SecuredGroup.cs" />
     <Compile Include="DataTypes\Security.cs" />
+    <Compile Include="DataTypes\SecurityNode.cs" />
     <Compile Include="DataTypes\UploadedFiles.cs" />
     <Compile Include="DataTypes\Views.cs" />
     <Compile Include="DataTypes\ViewValue.cs" />
