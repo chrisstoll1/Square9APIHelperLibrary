@@ -1267,7 +1267,154 @@ namespace Square9APIHelperLibrary
             {
                 throw new Exception($"Unable to save archive security: {Response.Content}");
             }
-            Console.WriteLine(Response.Content);
+        }
+        /// <summary>
+        /// Sets the security for a given user/group on a given database
+        /// </summary>
+        /// <param name="databaseSecurity"><see cref="DatabaseSecurity"/></param>
+        /// <exception cref="Exception"></exception>
+        public void SetDatabaseSecurity(DatabaseSecurity databaseSecurity)
+        {
+            var Request = new RestRequest($"api/userAdmin/databases", Method.POST);
+            Request.AddJsonBody(databaseSecurity);
+            var Response = ApiClient.Execute(Request);
+            if (Response.StatusCode != HttpStatusCode.OK || !Response.Content.Contains("\"Success\""))
+            {
+                throw new Exception($"Unable to save database security: {Response.Content}");
+            }
+        }
+        /// <summary>
+        /// Sets the security for a given user/group on a given search
+        /// </summary>
+        /// <param name="searchSecurity"><see cref="SearchSecurity"/></param>
+        /// <exception cref="Exception"></exception>
+        public void SetSearchSecurity(SearchSecurity searchSecurity)
+        {
+            var Request = new RestRequest($"api/userAdmin/searches", Method.POST);
+            Request.AddJsonBody(searchSecurity);
+            var Response = ApiClient.Execute(Request);
+            if (Response.StatusCode != HttpStatusCode.OK || !Response.Content.Contains("\"Success\""))
+            {
+                throw new Exception($"Unable to save search security: {Response.Content}");
+            }
+        }
+        /// <summary>
+        /// Sets the search properties for a given user/group on a given search
+        /// </summary>
+        /// <param name="searchSecurity"><see cref="SearchSecurity"/></param>
+        /// <exception cref="Exception"></exception>
+        public void SetSearchProperties(SearchSecurity searchSecurity)
+        {
+            var Request = new RestRequest($"api/userAdmin/searchType", Method.POST);
+            Request.AddJsonBody(searchSecurity);
+            var Response = ApiClient.Execute(Request);
+            if (Response.StatusCode != HttpStatusCode.OK)
+            {
+                throw new Exception($"Unable to save search properties: {Response.Content}");
+            }
+        }
+        /// <summary>
+        /// Creates a new S9 user on the server
+        /// </summary>
+        /// <param name="newUser"><see cref="User"/></param>
+        /// <exception cref="Exception"></exception>
+        public void CreateUser(User newUser)
+        {
+            var Request = new RestRequest($"api/userAdmin/user?create=", Method.POST);
+            Request.AddJsonBody(newUser);
+            var Response = ApiClient.Execute(Request);
+            if (Response.StatusCode != HttpStatusCode.OK)
+            {
+                throw new Exception($"Unable to create new user: {Response.Content}");
+            }
+        }
+        /// <summary>
+        /// Deletes a S9 user from the server
+        /// </summary>
+        /// <param name="user"><see cref="User"/></param>
+        /// <exception cref="Exception"></exception>
+        public void DeleteUser(User user)
+        {
+            var Request = new RestRequest($"api/userAdmin/user?name={user.Name}", Method.DELETE);
+            var Response = ApiClient.Execute(Request);
+            if (Response.StatusCode != HttpStatusCode.OK)
+            {
+                throw new Exception($"Unable to delete user: {Response.Content}");
+            }
+        }
+        /// <summary>
+        /// Updates a S9 user on the server
+        /// </summary>
+        /// <param name="user"><see cref="User"/></param>
+        /// <exception cref="Exception"></exception>
+        public void UpdateUser(User user)
+        {
+            var Request = new RestRequest($"api/userAdmin/user?name={user.Name}", Method.PUT);
+            Request.AddJsonBody(user);
+            var Response = ApiClient.Execute(Request);
+            if (Response.StatusCode != HttpStatusCode.OK)
+            {
+                throw new Exception($"Unable to update user: {Response.Content}");
+            }
+        }
+        /// <summary>
+        /// Creates a new S9 group on the server
+        /// </summary>
+        /// <param name="newGroup"><see cref="Group"/></param>
+        /// <exception cref="Exception"></exception>
+        public void CreateGroup(Group newGroup)
+        {
+            var Request = new RestRequest($"api/userAdmin/group?createGroup=", Method.POST);
+            Request.AddJsonBody(newGroup);
+            var Response = ApiClient.Execute(Request);
+            if (Response.StatusCode != HttpStatusCode.OK)
+            {
+                throw new Exception($"Unable to create new group: {Response.Content}");
+            }
+        }
+        /// <summary>
+        /// Deletes a S9 group from the server
+        /// </summary>
+        /// <param name="group"><see cref="Group"/></param>
+        /// <exception cref="Exception"></exception>
+        public void DeleteGroup(Group group)
+        {
+            var Request = new RestRequest($"api/userAdmin/group?name={group.Name}", Method.DELETE);
+            var Response = ApiClient.Execute(Request);
+            if (Response.StatusCode != HttpStatusCode.OK)
+            {
+                throw new Exception($"Unable to delete group: {Response.Content}");
+            }
+        }
+        /// <summary>
+        /// Updates a S9 group on the server
+        /// </summary>
+        /// <param name="group"><see cref="Group"/></param>
+        /// <exception cref="Exception"></exception>
+        public void UpdateGroup(Group group)
+        {
+            var Request = new RestRequest($"api/userAdmin/group?groupName={group.Name}", Method.PUT);
+            Request.AddJsonBody(group);
+            var Response = ApiClient.Execute(Request);
+            if (Response.StatusCode != HttpStatusCode.OK)
+            {
+                throw new Exception($"Unable to update group: {Response.Content}");
+            }
+        }
+        /// <summary>
+        /// Requests a list of S9 groups and members on the server
+        /// </summary>
+        /// <returns><see cref="Group"/></returns>
+        /// <exception cref="Exception"></exception>
+        public List<Group> GetGroups()
+        {
+            var Request = new RestRequest($"api/userAdmin/s9groups");
+            var Response = ApiClient.Execute<List<Group>>(Request);
+            if (Response.StatusCode != HttpStatusCode.OK)
+            {
+                throw new Exception($"Unable to get groups: {Response.Content}");
+            }
+            return Response.Data;
         }
         #endregion
 

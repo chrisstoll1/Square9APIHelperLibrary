@@ -11,6 +11,6 @@ namespace Square9APIHelperLibrary.DataTypes
         public SearchSecurity() { }
         public List<User> Users { get; set; } = new List<User>();
         public List<Target> Targets { get; set; } = new List<Target>();
-        public List<SearchPermission> Permissions { get; set; } = new List<SearchPermission>();
+        public SearchPermission Permissions { get; set; } = new SearchPermission();
     }
 }

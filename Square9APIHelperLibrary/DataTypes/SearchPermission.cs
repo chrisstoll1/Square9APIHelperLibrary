@@ -10,5 +10,7 @@ namespace Square9APIHelperLibrary.DataTypes
     {
         public SearchPermission() { }
         public bool View { get; set; }
+        public int Type { get; set; }
+        public bool Remove { get; set; }
     }
 }

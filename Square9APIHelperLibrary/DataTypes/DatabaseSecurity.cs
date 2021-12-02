@@ -11,6 +11,6 @@ namespace Square9APIHelperLibrary.DataTypes
         public DatabaseSecurity() { }
         public List<User> Users { get; set; } = new List<User>();
         public List<Target> Targets { get; set; } = new List<Target>();
-        public List<DatabasePermission> Permissions { get; set; } = new List<DatabasePermission>();
+        public DatabasePermission Permissions { get; set; } = new DatabasePermission();
     }
 }

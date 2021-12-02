@@ -62,7 +62,7 @@ namespace APITest
         {
             Square9API Connection = new Square9API(Endpoint, Username, Password);
             Connection.CreateLicense();
-            AdminDatabase NewDatabase = new NewAdminDatabase("NewDatabase");
+            AdminDatabase NewDatabase = new NewAdminDatabase("NewTestDatabase");
             AdminDatabase Database = Connection.CreateDatabase(NewDatabase);
             Console.WriteLine(Database.Name);
             Database.Name = "NewDatabaseModified";
@@ -628,6 +628,174 @@ namespace APITest
 
             Console.WriteLine(JsonConvert.SerializeObject(archiveSecurity));
             Connection.SetArchiveSecurity(archiveSecurity);
+            Connection.DeleteLicense();
+        }
+        [TestMethod]
+        [TestCategory("Administration")]
+        public void SetDatabaseSecurity()
+        {
+            Square9API Connection = new Square9API(Endpoint, Username, Password);
+            Connection.CreateLicense();
+
+            //Construct Database Security Object
+            DatabaseSecurity databaseSecurity = new DatabaseSecurity();
+
+            //Add Users
+            SecuredGroup securedGroup = Connection.GetSecuredUsersAndGroups().Find(x => x.Name == "test");
+            User user = new User();
+            user.ConvertSecuredGroup(securedGroup);
+            databaseSecurity.Users.Add(user);
+
+            //Add Target
+            Target databaseTarget = new Target();
+            databaseTarget.Id = 1;
+            databaseSecurity.Targets.Add(databaseTarget);
+
+            //Add Permissions
+            DatabasePermission databasePermission = new DatabasePermission();
+            databasePermission.Type = 0;
+            databasePermission.License = 1;
+            databaseSecurity.Permissions = databasePermission;
+
+            Connection.SetDatabaseSecurity(databaseSecurity);
+
+            Connection.DeleteLicense();
+        }
+        [TestMethod]
+        [TestCategory("Administration")]
+        public void SetSearchSecurity()
+        {
+            Square9API Connection = new Square9API(Endpoint, Username, Password);
+            Connection.CreateLicense();
+
+            //Construct Search Security object
+            SearchSecurity searchSecurity = new SearchSecurity();
+
+            //Add Users
+            SecuredGroup securedGroup = Connection.GetSecuredUsersAndGroups().Find(x => x.Name == "test");
+            User user = new User();
+            user.ConvertSecuredGroup(securedGroup);
+            searchSecurity.Users.Add(user);
+
+            //Add Target
+            Target searchSecurityTarget = new Target();
+            searchSecurityTarget.Id = 1;
+            searchSecurityTarget.Database = 2;
+            searchSecurity.Targets.Add(searchSecurityTarget);
+
+            //Add Permissions 
+            SearchPermission searchPermission = new SearchPermission();
+            searchPermission.View = true;
+            searchSecurity.Permissions = searchPermission;
+
+            Connection.SetSearchSecurity(searchSecurity);
+
+            Connection.DeleteLicense();
+        }
+        [TestMethod]
+        [TestCategory("Administration")]
+        public void SetSearchProperties()
+        {
+            Square9API Connection = new Square9API(Endpoint, Username, Password);
+            Connection.CreateLicense();
+
+            //Construct Search Security object
+            SearchSecurity searchSecurity = new SearchSecurity();
+
+            //Add Users
+            SecuredGroup securedGroup = Connection.GetSecuredUsersAndGroups().Find(x => x.Name == "test");
+            User user = new User();
+            user.ConvertSecuredGroup(securedGroup);
+            searchSecurity.Users.Add(user);
+
+            //Add Target
+            Target searchSecurityTarget = new Target();
+            searchSecurityTarget.Id = 1;
+            searchSecurityTarget.Database = 2;
+            searchSecurity.Targets.Add(searchSecurityTarget);
+
+            //Add Permissions 
+            SearchPermission searchPermission = new SearchPermission();
+            searchPermission.Type = 8; //4=QueueSearch, 8=DefaultSearch, 16=DirectSearch
+            searchSecurity.Permissions = searchPermission;
+
+            Connection.SetSearchProperties(searchSecurity);
+
+            Connection.DeleteLicense();
+        }
+        [TestMethod]
+        [TestCategory("Administration")]
+        public void CreateUpdateDeleteUser()
+        {
+            Square9API Connection = new Square9API(Endpoint, Username, Password);
+            Connection.CreateLicense();
+
+            //Construct User Object
+            User newUser = new User();
+            newUser.Name = "NewTestUser";
+            newUser.Password = Password;
+
+            //Create new user
+            Connection.CreateUser(newUser);
+
+            //Get the new user
+            UnsecuredGroup unsecuredGroup = Connection.GetUnsecuredUsersAndGroups().Find(x => x.Name == "NewTestUser");
+            User user = new User();
+            user.ConvertUnsecuredGroup(unsecuredGroup);
+
+            Console.WriteLine(JsonConvert.SerializeObject(user));
+
+            //Update new user
+            user.Password = "NewPassword123!@#";
+            Connection.UpdateUser(user);
+
+            Console.WriteLine(JsonConvert.SerializeObject(user));
+
+            //Delete the user
+            Connection.DeleteUser(user);
+
+            Connection.DeleteLicense();
+        }
+        [TestMethod]
+        [TestCategory("Administration")]
+        public void CreateGetUpdateDeleteGroup()
+        {
+            Square9API Connection = new Square9API(Endpoint, Username, Password);
+            Connection.CreateLicense();
+
+            //Construct Group Object
+            Group newGroup = new Group();
+            newGroup.Name = "NewTestGroup";
+
+            //Create new group
+            Connection.CreateGroup(newGroup);
+
+            //Get the new group
+            Group group = Connection.GetGroups().Find(x => x.Name == "NewTestGroup");
+
+            //Get some users
+            List<UnsecuredGroup> unsecuredGroups = Connection.GetUnsecuredUsersAndGroups().FindAll(x => x.Type == 2); //Type 2 is for S9 users
+
+            Console.WriteLine(JsonConvert.SerializeObject(group));
+            Console.WriteLine(JsonConvert.SerializeObject(unsecuredGroups));
+
+            //Add users to new group
+            group.Users.Add(unsecuredGroups[0].Name);
+            group.Users.Add(unsecuredGroups[2].Name);
+            group.Users.Add(unsecuredGroups[4].Name);
+            group.Users.Add(unsecuredGroups[6].Name);
+
+            //Update group
+            Connection.UpdateGroup(group);
+
+            //Get the updated group
+            Group updatedGroup = Connection.GetGroups().Find(x => x.Name == "NewTestGroup");
+
+            Console.WriteLine(JsonConvert.SerializeObject(updatedGroup));
+
+            //Delete group
+            Connection.DeleteGroup(updatedGroup);
+
             Connection.DeleteLicense();
         }
         #endregion
