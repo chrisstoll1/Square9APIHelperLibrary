@@ -72,6 +72,21 @@ namespace Square9APIHelperLibrary
             }
             return Response.Data;
         }
+        /// <summary>
+        /// Returns the user currently logged in
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public string GetUsername()
+        {
+            var Request = new RestRequest("api/admin");
+            var Response = ApiClient.Execute<string>(Request);
+            if (Response.StatusCode != HttpStatusCode.OK)
+            {
+                throw new Exception($"An error occurred: {Response.Content}");
+            }
+            return Response.Data;
+        }
         #endregion
 
         #region Licenses
@@ -921,7 +936,7 @@ namespace Square9APIHelperLibrary
         /// <param name="document"><see cref="Doc"/></param>
         /// <returns>Returns the same <see cref="Result"/> that <see cref="GetSearchResults(int, Search, int, int, int, int, int)"/> would return</returns>
         /// <exception cref="Exception"></exception>
-        public Result GetDocumentMetaData(int databaseId, int archiveId, Doc document)
+        public Result GetArchiveDocumentMetaData(int databaseId, int archiveId, Doc document)
         {
             var Request = new RestRequest($"api/dbs/{databaseId}/archives/{archiveId}/documents/{document.Id}?SecureId={document.Hash}");
             var Response = ApiClient.Execute<Result>(Request);
@@ -932,6 +947,23 @@ namespace Square9APIHelperLibrary
             return Response.Data;
         }
         /// <summary>
+        /// Requests a files details from the server for a specified inbox/file
+        /// </summary>
+        /// <param name="inboxId">The ID of the inbox the file resides in</param>
+        /// <param name="fileName">The original filename of the file to return details on</param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public DocDetails GetInboxDocumentDetails(int inboxId, File file)
+        {
+            var Request = new RestRequest($"api/inboxes?FilePath={file.FileName}{file.FileType}&Id={inboxId}");
+            var Response = ApiClient.Execute<DocDetails>(Request);
+            if (Response.StatusCode != HttpStatusCode.OK)
+            {
+                throw new Exception($"Unable to get document Details: {Response.Content}");
+            }
+            return JsonConvert.DeserializeObject<DocDetails>(Response.Content);
+        }
+        /// <summary>
         /// Downloads a given documents file to either a temp path or specific local path
         /// </summary>
         /// <param name="databaseId">DatabaseID</param>
@@ -940,11 +972,38 @@ namespace Square9APIHelperLibrary
         /// <param name="savePath">Optional: Local path to save the documents file to</param>
         /// <returns>A <see cref="string"/> of the downloaded files filepath</returns>
         /// <exception cref="Exception"></exception>
-        public string GetDocumentFile(int databaseId, int archiveId, Doc document, string savePath = "")
+        public string GetArchiveDocumentFile(int databaseId, int archiveId, Doc document, string savePath = "")
         {
             var fileName = (savePath == "") ? $"{System.IO.Path.GetTempPath()}{Guid.NewGuid().ToString()}{document.FileType}" : $"{savePath}{document.Id}{document.FileType}";
             var writer = System.IO.File.OpenWrite(fileName);
             var Request = new RestRequest($"api/dbs/{databaseId}/archives/{archiveId}/documents/{document.Id}/file?SecureId={document.Hash}");
+            Request.ResponseWriter = responseStream =>
+            {
+                using (responseStream)
+                {
+                    responseStream.CopyTo(writer);
+                }
+            };
+            var Response = ApiClient.Execute(Request);
+            if (Response.StatusCode != HttpStatusCode.OK)
+            {
+                throw new Exception($"Unable to download file: {Response.Content}");
+            }
+            return fileName;
+        }
+        /// <summary>
+        /// Requests a documents file from a inbox on the server
+        /// </summary>
+        /// <param name="inboxId">The target inboxes ID</param>
+        /// <param name="file"><see cref="File"/></param>
+        /// <param name="savePath">Optional: Local path to save file</param>
+        /// <returns>A <see cref="string"/> containing the local files path</returns>
+        /// <exception cref="Exception"></exception>
+        public string GetInboxDocumentFile(int inboxId, File file, string savePath = "")
+        {
+            var fileName = (savePath == "") ? $"{System.IO.Path.GetTempPath()}{Guid.NewGuid().ToString()}{file.FileType}" : $"{savePath}{file.FileName}{file.FileType}";
+            var writer = System.IO.File.OpenWrite(fileName);
+            var Request = new RestRequest($"api/inboxes/{inboxId}?FileName={file.FileName}{file.FileType}");
             Request.ResponseWriter = responseStream =>
             {
                 using (responseStream)
@@ -970,7 +1029,7 @@ namespace Square9APIHelperLibrary
         /// <param name="width"><see cref="int"/> width in pixels the thumbnail should be downloaded in</param>
         /// <returns>a <see cref="string"/> containing the local file path of the downloaded thumbnail</returns>
         /// <exception cref="Exception"></exception>
-        public string GetDocumentThumbnail(int databaseId, int archiveId, Doc document, string savePath = "", int height = 0, int width = 0)
+        public string GetArchiveDocumentThumbnail(int databaseId, int archiveId, Doc document, string savePath = "", int height = 0, int width = 0)
         {
             var fileName = (savePath == "") ? $"{System.IO.Path.GetTempPath()}{Guid.NewGuid().ToString()}.jpg" : $"{savePath}{document.Id}.jpg";
             var writer = System.IO.File.OpenWrite(fileName);
@@ -1034,15 +1093,50 @@ namespace Square9APIHelperLibrary
         /// <param name="archiveId"><see cref="Archive.Id"/></param>
         /// <param name="newFile"><see cref="NewFile"/></param>
         /// <exception cref="Exception"></exception>
-        public void ImportArchiveDocument(int databaseId, int archiveId, NewFile newFile)
+        public void ImportArchiveDocument(int databaseId, int archiveId, NewFile newFile, bool useViewerCache = false)
         {
-            var Request = new RestRequest($"api/dbs/{databaseId}/archives/{archiveId}", Method.POST);
+            var Request = new RestRequest( (!useViewerCache) ? $"api/dbs/{databaseId}/archives/{archiveId}" : $"api/dbs/{databaseId}/archives/{archiveId}?useViewerCache=true", Method.POST);
             Request.AddJsonBody(newFile);
             var Response = ApiClient.Execute(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
                 throw new Exception($"Unable to index document: {Response.Content}");
             }
+        }
+        /// <summary>
+        /// Imports a new document into a inbox
+        /// </summary>
+        /// <param name="inboxId">ID of the inbox to import the file to</param>
+        /// <param name="file"><see cref="FileDetails"/> Returned by <see cref="UploadDocument(string)"/></param>
+        /// <exception cref="Exception"></exception>
+        public void ImportInboxDocument(int inboxId, FileDetails file)
+        {
+            var Request = new RestRequest($"api/inboxes/{inboxId}?FilePath={file.Name}&newFileName={file.OriginalName}", Method.POST);
+            var Response = ApiClient.Execute(Request);
+            if (Response.StatusCode != HttpStatusCode.OK)
+            {
+                throw new Exception($"Unable to import document: {Response.Content}");
+            }
+        }
+        /// <summary>
+        /// Indexes a document from a inbox to a archive
+        /// </summary>
+        /// <param name="databaseId">Database ID of the destination database</param>
+        /// <param name="archiveId">Archive ID of the desitination archive</param>
+        /// <param name="inboxId">Inbox ID of the source inbox</param>
+        /// <param name="file"><see cref="File"/></param>
+        /// <param name="fields">Optional: <see cref="FileField"/></param>
+        public void IndexInboxDocument(int databaseId, int archiveId, int inboxId, File file, List<FileField> fields = null)
+        {
+            DocDetails details = GetInboxDocumentDetails(inboxId, file);
+
+            NewFile newFile = new NewFile();
+            if (fields != null) { newFile.Fields = fields; }
+            FileDetails newFileDetails = new FileDetails();
+            newFileDetails.Name = details.FileName;
+            newFile.Files.Add(newFileDetails);
+
+            ImportArchiveDocument(databaseId, archiveId, newFile, true);
         }
         /// <summary>
         /// Downloads a zip file containing the specified documents
@@ -1087,9 +1181,24 @@ namespace Square9APIHelperLibrary
         /// <param name="archiveId"><see cref="Archive.Id"/></param>
         /// <param name="document"><see cref="Doc"/></param>
         /// <exception cref="Exception"></exception>
-        public void DeleteDocument(int databaseId, int archiveId, Doc document)
+        public void DeleteArchiveDocument(int databaseId, int archiveId, Doc document)
         {
             var Request = new RestRequest($"api/dbs/{databaseId}/archives/{archiveId}/documents/{document.Id}/delete?SecureId={document.Hash}");
+            var Response = ApiClient.Execute(Request);
+            if (Response.StatusCode != HttpStatusCode.OK)
+            {
+                throw new Exception($"Unable delete document: {Response.Content}");
+            }
+        }
+        /// <summary>
+        /// Deletes the specified document from a inbox
+        /// </summary>
+        /// <param name="inboxId">The ID of the inbox you would like to delete from</param>
+        /// <param name="file"><see cref="File"/> to be deleted</param>
+        /// <exception cref="Exception"></exception>
+        public void DeleteInboxDocument(int inboxId, File file)
+        {
+            var Request = new RestRequest($"api/inboxes/{inboxId}?FilePath={file.FileName}{file.FileType}", Method.DELETE);
             var Response = ApiClient.Execute(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
@@ -1106,11 +1215,30 @@ namespace Square9APIHelperLibrary
         /// <param name="move"><see cref="bool"/> Flag to perform move operation (Cut/Paste)</param>
         /// <returns><see cref="int"/> Doc ID of the moved/copied document</returns>
         /// <exception cref="Exception"></exception>
-        public int TransferDocument(int databaseId, int archiveId, int destArchiveId, Doc document, bool move = false)
+        public int TransferArchiveDocument(int databaseId, int archiveId, int destArchiveId, Doc document, bool move = false)
         {
             string type = (move) ? "move" : "copy";
             var Request = new RestRequest($"api/dbs/{databaseId}/archives/{archiveId}/documents/{document.Id}/{type}?DestinationArchive={destArchiveId}&SecureID={document.Hash}");
             var Response = ApiClient.Execute<int>(Request);
+            if (Response.StatusCode != HttpStatusCode.OK)
+            {
+                throw new Exception($"Unable to transfer document: {Response.Content}");
+            }
+            return Response.Data;
+        }
+        /// <summary>
+        /// Performs either a move or copy operation to a given document on the server
+        /// </summary>
+        /// <param name="inboxId">Inbox ID</param>
+        /// <param name="destInboxId">Destination inbox ID</param>
+        /// <param name="file"><see cref="File"/> to by transfered</param>
+        /// <param name="move">Optional: When set to true, operation will delete the source file in the source inbox after copy</param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public string TransferInboxDocument(int inboxId, int destInboxId, File file, bool move = false)
+        {
+            var Request = new RestRequest($"api/inboxes/{inboxId}?FilePath={file.FileName}{file.FileType}&deleteOriginal={move}&targetInboxId={destInboxId}");
+            var Response = ApiClient.Execute<string>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
                 throw new Exception($"Unable to transfer document: {Response.Content}");

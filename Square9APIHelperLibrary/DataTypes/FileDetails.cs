@@ -10,5 +10,8 @@ namespace Square9APIHelperLibrary.DataTypes
     {
         public FileDetails() { }
         public string Name { get; set; }
+        public string OriginalName { get; set; }
+        public bool IsEmail { get; set; }
+        public string OEmailData { get; set; }
     }
 }

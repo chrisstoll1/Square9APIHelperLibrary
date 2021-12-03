@@ -427,7 +427,7 @@ namespace APITest
             Search search = Connection.GetSearches(1, searchId: 20)[0];
             Doc document = Connection.GetSearchResults(1, search).Docs[0];
             Console.WriteLine(JsonConvert.SerializeObject(document));
-            Result result = Connection.GetDocumentMetaData(1, 1, document);
+            Result result = Connection.GetArchiveDocumentMetaData(1, 1, document);
             Console.WriteLine(JsonConvert.SerializeObject(result));
             Connection.DeleteLicense();
         }
@@ -439,7 +439,7 @@ namespace APITest
             Connection.CreateLicense();
             Search search = Connection.GetSearches(1, searchId: 20)[0];
             Doc document = Connection.GetSearchResults(1, search).Docs[0];
-            var fileName = Connection.GetDocumentFile(1, 1, document, "C:\\test\\");
+            var fileName = Connection.GetArchiveDocumentFile(1, 1, document, "C:\\test\\");
             Console.WriteLine(fileName);
             Connection.DeleteLicense();
         }
@@ -451,7 +451,7 @@ namespace APITest
             Connection.CreateLicense();
             Search search = Connection.GetSearches(1, searchId: 20)[0];
             Doc document = Connection.GetSearchResults(1, search).Docs[0];
-            var fileName = Connection.GetDocumentThumbnail(1, 1, document, "C:\\test\\", 1000, 1000);
+            var fileName = Connection.GetArchiveDocumentThumbnail(1, 1, document, "C:\\test\\", 1000, 1000);
             Console.WriteLine(fileName);
             Connection.DeleteLicense();
         }
@@ -489,7 +489,7 @@ namespace APITest
             Connection.ImportArchiveDocument(1, 1, newFile);
             Search search = Connection.GetSearches(1, searchId: 20)[0];
             Doc document = Connection.GetSearchResults(1, search).Docs[0];
-            Connection.DeleteDocument(1, 1, document);
+            Connection.DeleteArchiveDocument(1, 1, document);
             Connection.DeleteLicense();
         }
         [TestMethod]
@@ -517,7 +517,7 @@ namespace APITest
             Connection.CreateLicense();
             Search search = Connection.GetSearches(1, searchId: 20)[0];
             Doc document = Connection.GetSearchResults(1, search).Docs[0];
-            int docID = Connection.TransferDocument(1, 1, 2, document);
+            int docID = Connection.TransferArchiveDocument(1, 1, 2, document);
             Console.WriteLine(docID);
             Connection.DeleteLicense();
         }
@@ -548,6 +548,62 @@ namespace APITest
             Queue documentQueue = Connection.GetDocumentQueue(1, 53, document);
             Console.WriteLine(JsonConvert.SerializeObject(documentQueue));
             Connection.FireDocumentQueueAction(1, 53, document, documentQueue.Actions[1]);
+            Connection.DeleteLicense();
+        }
+        [TestMethod]
+        [TestCategory("Document")]
+        public void UploadImportIndexInboxDocument()
+        {
+            Square9API Connection = new Square9API(Endpoint, Username, Password);
+            Connection.CreateLicense();
+
+            UploadedFiles files = Connection.UploadDocument("C:\\test\\testuploadDoc.pdf");
+            Connection.ImportInboxDocument(1, files.Files[0]);
+
+            Inbox inbox = Connection.GetInbox(1);
+            Square9APIHelperLibrary.DataTypes.File file = inbox.Files[0];
+            Console.WriteLine(JsonConvert.SerializeObject(file));
+
+            List<FileField> fields = new List<FileField>();
+            fields.Add(new FileField("2", "Inbox Index Test"));
+
+            Connection.IndexInboxDocument(1, 1, 1, file, fields);
+
+            Search search = Connection.GetSearches(1, searchId: 20)[0];
+            Doc document = Connection.GetSearchResults(1, search).Docs[0];
+            Connection.DeleteArchiveDocument(1, 1, document);
+
+            Connection.DeleteInboxDocument(1, file);
+            Connection.DeleteLicense();
+        }
+        [TestMethod]
+        [TestCategory("Document")]
+        public void GetInboxDocumentFile()
+        {
+            Square9API Connection = new Square9API(Endpoint, Username, Password);
+            Connection.CreateLicense();
+
+            Inbox inbox = Connection.GetInbox(1);
+            Square9APIHelperLibrary.DataTypes.File file = inbox.Files[0];
+            Console.WriteLine(JsonConvert.SerializeObject(file));
+
+            Console.WriteLine(Connection.GetInboxDocumentFile(1, file, "C:\\test\\inbox\\"));
+
+            Connection.DeleteLicense();
+        }
+        [TestMethod]
+        [TestCategory("Document")]
+        public void TransferInboxDocument()
+        {
+            Square9API Connection = new Square9API(Endpoint, Username, Password);
+            Connection.CreateLicense();
+
+            Inbox inbox = Connection.GetInbox(1);
+            Square9APIHelperLibrary.DataTypes.File file = inbox.Files[0];
+            Console.WriteLine(JsonConvert.SerializeObject(file));
+
+            Console.WriteLine(Connection.TransferInboxDocument(1, 2, file));
+
             Connection.DeleteLicense();
         }
         #endregion

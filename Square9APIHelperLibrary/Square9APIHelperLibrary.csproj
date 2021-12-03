@@ -71,6 +71,7 @@
     <Compile Include="DataTypes\DatabaseSecurity.cs" />
     <Compile Include="DataTypes\DBAuth.cs" />
     <Compile Include="DataTypes\Doc.cs" />
+    <Compile Include="DataTypes\DocDetails.cs" />
     <Compile Include="DataTypes\DocumentIndexData.cs" />
     <Compile Include="DataTypes\DocumentIndexFields.cs" />
     <Compile Include="DataTypes\Field.cs" />
@@ -107,6 +108,8 @@
     <Compile Include="DataTypes\SecuredGroup.cs" />
     <Compile Include="DataTypes\Security.cs" />
     <Compile Include="DataTypes\SecurityNode.cs" />
+    <Compile Include="DataTypes\Session.cs" />
+    <Compile Include="DataTypes\SessionDoc.cs" />
     <Compile Include="DataTypes\Target.cs" />
     <Compile Include="DataTypes\UnsecuredGroup.cs" />
     <Compile Include="DataTypes\UploadedFiles.cs" />
