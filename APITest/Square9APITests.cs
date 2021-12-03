@@ -486,7 +486,7 @@ namespace APITest
             newFile.Fields.Add(new FileField("2", "Test Last Name 1234"));
             newFile.Fields.Add(new FileField("3", "11/16/2021"));
             Console.WriteLine(JsonConvert.SerializeObject(newFile));
-            Connection.ImportDocument(1, 1, newFile);
+            Connection.ImportArchiveDocument(1, 1, newFile);
             Search search = Connection.GetSearches(1, searchId: 20)[0];
             Doc document = Connection.GetSearchResults(1, search).Docs[0];
             Connection.DeleteDocument(1, 1, document);

@@ -1034,7 +1034,7 @@ namespace Square9APIHelperLibrary
         /// <param name="archiveId"><see cref="Archive.Id"/></param>
         /// <param name="newFile"><see cref="NewFile"/></param>
         /// <exception cref="Exception"></exception>
-        public void ImportDocument(int databaseId, int archiveId, NewFile newFile)
+        public void ImportArchiveDocument(int databaseId, int archiveId, NewFile newFile)
         {
             var Request = new RestRequest($"api/dbs/{databaseId}/archives/{archiveId}", Method.POST);
             Request.AddJsonBody(newFile);
