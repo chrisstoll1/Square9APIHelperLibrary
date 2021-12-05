@@ -17,9 +17,9 @@ namespace APITest
         private string Password = "Square9!";
         #endregion
 
-        #region Basic
+        #region System
         [TestMethod]
-        [TestCategory("Basic")]
+        [TestCategory("System")]
         public void BasicAPIConnection()
         {
             Square9API Connection = new Square9API(Endpoint, Username, Password);
@@ -29,7 +29,7 @@ namespace APITest
             Assert.AreEqual(1, TestDatabaseList.Databases[0].Id);
         }
         [TestMethod]
-        [TestCategory("Basic")]
+        [TestCategory("System")]
         public void ReadDatabasesAndArchives()
         {
             Square9API Connection = new Square9API(Endpoint, Username, Password);
@@ -44,13 +44,60 @@ namespace APITest
             Assert.IsTrue(SubArchives[0].Name != null);
         }
         [TestMethod]
-        [TestCategory("Basic")]
+        [TestCategory("System")]
         public void CheckIfAdmin()
         {
             Square9API Connection = new Square9API(Endpoint, Username, Password);
             Connection.CreateLicense();
             Console.WriteLine(Connection.IsAdmin());
             Assert.IsTrue(Connection.IsAdmin());
+            Connection.DeleteLicense();
+        }
+        [TestMethod]
+        [TestCategory("System")]
+        public void GetUpdateEmailOptions()
+        {
+            Square9API Connection = new Square9API(Endpoint, Username, Password);
+            Connection.CreateLicense();
+
+            EmailServer emailServer = Connection.GetEmailOptions(1);
+            Console.WriteLine(JsonConvert.SerializeObject(emailServer));
+
+            emailServer.Auth.User = Username;
+            Console.WriteLine(JsonConvert.SerializeObject(Connection.UpdateEmailOptions(1, emailServer)));
+
+            Connection.DeleteLicense();
+        }
+        [TestMethod]
+        [TestCategory("System")]
+        public void GetCreateDeleteStamp()
+        {
+            Square9API Connection = new Square9API(Endpoint, Username, Password);
+            Connection.CreateLicense();
+
+            List<Stamp> stamps = Connection.GetStamps();
+            Console.WriteLine(JsonConvert.SerializeObject(stamps));
+
+            Stamp stamp = new Stamp();
+            stamp.Text = "This is a test stamp 2";
+
+            Stamp newStamp = Connection.CreateStamp(stamp);
+            Console.WriteLine(JsonConvert.SerializeObject(newStamp));
+
+            Connection.DeleteStamp(newStamp);
+
+            Connection.DeleteLicense();
+        }
+        [TestMethod]
+        [TestCategory("System")]
+        public void GetRegistration()
+        {
+            Square9API Connection = new Square9API(Endpoint, Username, Password);
+            Connection.CreateLicense();
+
+            Registration registration = Connection.GetRegistration();
+            Console.WriteLine(JsonConvert.SerializeObject(registration));
+
             Connection.DeleteLicense();
         }
         #endregion

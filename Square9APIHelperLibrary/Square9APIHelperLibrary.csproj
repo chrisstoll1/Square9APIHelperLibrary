@@ -63,6 +63,7 @@
     <Compile Include="DataTypes\ArchiveList.cs" />
     <Compile Include="DataTypes\ArchivePermission.cs" />
     <Compile Include="DataTypes\ArchiveSecurity.cs" />
+    <Compile Include="DataTypes\Auth.cs" />
     <Compile Include="DataTypes\BasePath.cs" />
     <Compile Include="DataTypes\ContentSearch.cs" />
     <Compile Include="DataTypes\Database.cs" />
@@ -74,6 +75,7 @@
     <Compile Include="DataTypes\DocDetails.cs" />
     <Compile Include="DataTypes\DocumentIndexData.cs" />
     <Compile Include="DataTypes\DocumentIndexFields.cs" />
+    <Compile Include="DataTypes\EmailServer.cs" />
     <Compile Include="DataTypes\Field.cs" />
     <Compile Include="DataTypes\FieldItem.cs" />
     <Compile Include="DataTypes\File.cs" />
@@ -96,6 +98,8 @@
     <Compile Include="DataTypes\NewFile.cs" />
     <Compile Include="DataTypes\Notification.cs" />
     <Compile Include="DataTypes\Queue.cs" />
+    <Compile Include="DataTypes\Register.cs" />
+    <Compile Include="DataTypes\Registration.cs" />
     <Compile Include="DataTypes\Result.cs" />
     <Compile Include="DataTypes\Revision.cs" />
     <Compile Include="DataTypes\Search.cs" />
@@ -110,6 +114,7 @@
     <Compile Include="DataTypes\SecurityNode.cs" />
     <Compile Include="DataTypes\Session.cs" />
     <Compile Include="DataTypes\SessionDoc.cs" />
+    <Compile Include="DataTypes\Stamp.cs" />
     <Compile Include="DataTypes\Target.cs" />
     <Compile Include="DataTypes\UnsecuredGroup.cs" />
     <Compile Include="DataTypes\UploadedFiles.cs" />
