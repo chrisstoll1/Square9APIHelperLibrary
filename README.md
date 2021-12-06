@@ -5,6 +5,9 @@ This .NET Class Library is intended to provide easy access to the [Square9API](h
  - Newtonsoft.Json (>= 13.0.1)
  - RestSharp (>= 106.13.0)
 
+## Documentation
+*Coming Soon*
+
 ## Installation
 To get started, download the Square9APIHelperLibrary.dll from [releases](https://github.com/chrisstoll1/Square9APIHelperLibrary/releases), or install the package via [Nuget](https://www.nuget.org/packages/Square9APIHelperLibrary/)
 
