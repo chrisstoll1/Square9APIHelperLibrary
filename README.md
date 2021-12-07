@@ -13,20 +13,3 @@ To get started, download the Square9APIHelperLibrary.dll from [releases](https:/
 
     dotnet add package Square9APIHelperLibrary --version 0.0.1
 
-Once in your project, use the following code below to get started:
-
-    using Square9APIHelperLibrary; //Required
-    using Square9APIHelperLibrary.DataTypes; //Required to use built in data types
-    
-    string Endpoint = "http://{Your host here}/Square9API";
-    string Username = "{Username}";
-    string Password = "{Password}";
-    
-    Square9API Connection = new Square9API(Endpoint, Username, Password); //Create new connection
-    
-    DatabaseList databases = Connection.GetDatabases(); //Retrieve a list of databases
-    
-    foreach (Database database in databases.Databases) //Loop through databases
-    {
-        Console.WriteLine(database.Id); //Print the ID of each database
-    }
