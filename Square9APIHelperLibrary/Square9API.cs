@@ -45,11 +45,6 @@ namespace Square9APIHelperLibrary
         }
 
         /// <summary>
-        /// On class finalization, delete license if it hasn't been removed already
-        /// </summary>
-        ~Square9API() => DeleteLicense();
-
-        /// <summary>
         /// Checks if the current authenticated user is an Administrator
         /// </summary>
         /// <returns><see cref="bool"/></returns>
@@ -279,14 +274,17 @@ namespace Square9APIHelperLibrary
         /// <param name="token">Must be a active token</param>
         public void DeleteLicense(License license = null)
         {
-            string token = (license != null) ? license.Token: License.Token;
-            var Request = new RestRequest($"api/licenses/{token}");
-            var Response = ApiClient.Execute(Request);
-            if (Response.StatusCode != HttpStatusCode.OK)
+            if (license != null || License != null)
             {
-                throw new Exception($"Unable to release license token: {Response.Content}");
+                string token = (license != null) ? license.Token : License.Token;
+                var Request = new RestRequest($"api/licenses/{token}");
+                var Response = ApiClient.Execute(Request);
+                if (Response.StatusCode != HttpStatusCode.OK)
+                {
+                    throw new Exception($"Unable to release license token: {Response.Content}");
+                }
+                License = null; //Delete cached license
             }
-            License = null; //Delete cached license
         }
         #endregion
 

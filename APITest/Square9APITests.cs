@@ -26,6 +26,7 @@ namespace APITest
             Connection.CreateLicense();
             DatabaseList TestDatabaseList = Connection.GetDatabases(1);
             Connection.DeleteLicense();
+            Connection.DeleteLicense();
             Assert.AreEqual(1, TestDatabaseList.Databases[0].Id);
         }
         [TestMethod]
