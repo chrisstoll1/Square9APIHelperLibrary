@@ -78,6 +78,7 @@
     <Compile Include="DataTypes\EmailServer.cs" />
     <Compile Include="DataTypes\Field.cs" />
     <Compile Include="DataTypes\FieldItem.cs" />
+    <Compile Include="DataTypes\FieldProp.cs" />
     <Compile Include="DataTypes\File.cs" />
     <Compile Include="DataTypes\FileDetails.cs" />
     <Compile Include="DataTypes\FileExport.cs" />
@@ -87,6 +88,8 @@
     <Compile Include="DataTypes\Group.cs" />
     <Compile Include="DataTypes\Inbox.cs" />
     <Compile Include="DataTypes\InboxList.cs" />
+    <Compile Include="DataTypes\InboxPermission.cs" />
+    <Compile Include="DataTypes\InboxSecurity.cs" />
     <Compile Include="DataTypes\License.cs" />
     <Compile Include="DataTypes\NewAdminArchive.cs" />
     <Compile Include="DataTypes\NewAdminDatabase.cs" />

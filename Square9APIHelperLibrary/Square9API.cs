@@ -1490,9 +1490,9 @@ namespace Square9APIHelperLibrary
         /// <param name="databaseId"><see cref="Database.Id"/></param>
         /// <param name="archiveId"><see cref="Archive.Id"/></param>
         /// <param name="username">Username to return permissions on</param>
-        /// <returns></returns>
+        /// <returns><see cref="ArchivePermission"/></returns>
         /// <exception cref="Exception"></exception>
-        public int GetUserArchivePermissions(int databaseId, int archiveId, string username)
+        public ArchivePermission GetUserArchivePermissions(int databaseId, int archiveId, string username)
         {
             var Request = new RestRequest($"api/userAdmin/archives?db={databaseId}&archive={archiveId}&username={username}");
             var Response = ApiClient.Execute<int>(Request);
@@ -1500,7 +1500,24 @@ namespace Square9APIHelperLibrary
             {
                 throw new Exception($"Unable to get archive permissions: {Response.Content}");
             }
-            return Response.Data;
+            return new ArchivePermission(Response.Data);
+        }
+        /// <summary>
+        /// Returns specified user's inbox permissions for a given archive
+        /// </summary>
+        /// <param name="inbox"><see cref="Inbox.Id"/></param>
+        /// <param name="username">Username to return permissions on</param>
+        /// <returns><see cref="InboxPermission"/></returns>
+        /// <exception cref="Exception"></exception>
+        public InboxPermission GetUserInboxPermissions(int inbox, string username)
+        {
+            var Request = new RestRequest($"api/userAdmin/inboxes?inbox={inbox}&username={username}");
+            var Response = ApiClient.Execute<int>(Request);
+            if (Response.StatusCode != HttpStatusCode.OK)
+            {
+                throw new Exception($"Unable to get archive permissions: {Response.Content}");
+            }
+            return new InboxPermission(Response.Data);
         }
         /// <summary>
         /// Returns specified user's search properties for a given database
@@ -1532,6 +1549,21 @@ namespace Square9APIHelperLibrary
             if (Response.StatusCode != HttpStatusCode.OK || !Response.Content.Contains("\"Saved\":1"))
             {
                 throw new Exception($"Unable to save archive security: {Response.Content}");
+            }
+        }
+        /// <summary>
+        /// Sets the security for a given user/group on a given inbox
+        /// </summary>
+        /// <param name="inboxSecurity"><see cref="InboxSecurity"/></param>
+        /// <exception cref="Exception"></exception>
+        public void SetInboxSecurity(InboxSecurity inboxSecurity)
+        {
+            var Request = new RestRequest($"api/userAdmin/inboxes", Method.POST);
+            Request.AddJsonBody(inboxSecurity);
+            var Response = ApiClient.Execute(Request);
+            if (Response.StatusCode != HttpStatusCode.OK)
+            {
+                throw new Exception($"Unable to save inbox security: {Response.Content}");
             }
         }
         /// <summary>
