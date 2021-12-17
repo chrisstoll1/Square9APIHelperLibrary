@@ -43,6 +43,7 @@ namespace Square9APIHelperLibrary
                 Authenticator = new HttpBasicAuthenticator(username, password)
             };
         }
+
         /// <summary>
         /// Checks if the current authenticated user is an Administrator
         /// </summary>
@@ -271,13 +272,18 @@ namespace Square9APIHelperLibrary
         /// Requests for a license to be deleted from the server
         /// </summary>
         /// <param name="token">Must be a active token</param>
-        public void DeleteLicense()
+        public void DeleteLicense(License license = null)
         {
-            var Request = new RestRequest("api/licenses/" + License.Token);
-            var Response = ApiClient.Execute(Request);
-            if (Response.StatusCode != HttpStatusCode.OK)
+            if (license != null || License != null)
             {
-                throw new Exception($"Unable to release license token: {Response.Content}");
+                string token = (license != null) ? license.Token : License.Token;
+                var Request = new RestRequest($"api/licenses/{token}");
+                var Response = ApiClient.Execute(Request);
+                if (Response.StatusCode != HttpStatusCode.OK)
+                {
+                    throw new Exception($"Unable to release license token: {Response.Content}");
+                }
+                License = null; //Delete cached license
             }
         }
         #endregion
