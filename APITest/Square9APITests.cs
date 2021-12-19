@@ -178,7 +178,10 @@ namespace APITest
             Square9API Connection = new Square9API(Endpoint, Username, Password);
             Connection.CreateLicense();
             List<Field> Fields = Connection.GetArchiveFields(1,1);
-            Console.WriteLine(Fields[0].Name);
+            Field field = Fields[0];
+            Console.WriteLine(Fields[2].Prop);
+            FieldProp prop = new FieldProp(Fields[2].Prop);
+            Console.WriteLine(JsonConvert.SerializeObject(prop));
             Connection.DeleteLicense();
         }
         [TestMethod]
@@ -700,7 +703,16 @@ namespace APITest
         {
             Square9API Connection = new Square9API(Endpoint, Username, Password);
             Connection.CreateLicense();
-            Console.WriteLine(Connection.GetUserArchivePermissions(2, 1, "test"));
+            Console.WriteLine(Connection.GetUserArchivePermissions(2, 1, "test").Level);
+            Connection.DeleteLicense();
+        }
+        [TestMethod]
+        [TestCategory("Administration")]
+        public void GetUserInboxPermissions()
+        {
+            Square9API Connection = new Square9API(Endpoint, Username, Password);
+            Connection.CreateLicense();
+            Console.WriteLine(Connection.GetUserInboxPermissions(1, "test").Level);
             Connection.DeleteLicense();
         }
         [TestMethod]
@@ -736,7 +748,7 @@ namespace APITest
             archiveSecurity.Targets.Add(target);
 
             //Add Permissions
-            ArchivePermission permission = new ArchivePermission(Connection.GetUserArchivePermissions(2, 1, "test"));
+            ArchivePermission permission = new ArchivePermission(Connection.GetUserArchivePermissions(2, 1, "test").Level);
             permission.View = true;
             permission.Add = true;
             permission.Delete = true;
@@ -747,6 +759,41 @@ namespace APITest
 
             Console.WriteLine(JsonConvert.SerializeObject(archiveSecurity));
             Connection.SetArchiveSecurity(archiveSecurity);
+            Connection.DeleteLicense();
+        }
+        [TestMethod]
+        [TestCategory("Administration")]
+        public void SetInboxSecurity()
+        {
+            Square9API Connection = new Square9API(Endpoint, Username, Password);
+            Connection.CreateLicense();
+
+            //Construct inboxSecurity object
+            InboxSecurity inboxSecurity = new InboxSecurity();
+
+            //Add Users
+            SecuredGroup securedGroup = Connection.GetSecuredUsersAndGroups().Find(x => x.Name == "test");
+            User user = new User();
+            user.ConvertSecuredGroup(securedGroup);
+            inboxSecurity.Users.Add(user);
+
+            //Add Targets
+            Target target = new Target();
+            target.Id = 1; //inbox ID
+            inboxSecurity.Targets.Add(target);
+
+            //Add Permissions
+            InboxPermission permission = new InboxPermission();
+            permission.View = true;
+            permission.Add = true;
+            permission.Delete = true;
+            permission.Print = true;
+            //permission.SelectAll();
+            permission.CalculatePermissionLevel();
+            inboxSecurity.Permissions = permission;
+
+            Console.WriteLine(JsonConvert.SerializeObject(inboxSecurity));
+            Connection.SetInboxSecurity(inboxSecurity);
             Connection.DeleteLicense();
         }
         [TestMethod]
