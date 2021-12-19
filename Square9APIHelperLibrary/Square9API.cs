@@ -271,7 +271,7 @@ namespace Square9APIHelperLibrary
         /// <summary>
         /// Requests for a license to be deleted from the server
         /// </summary>
-        /// <param name="token">Must be a active token</param>
+        /// <param name="license">Must be a active license</param>
         public void DeleteLicense(License license = null)
         {
             if (license != null || License != null)
@@ -284,6 +284,50 @@ namespace Square9APIHelperLibrary
                     throw new Exception($"Unable to release license token: {Response.Content}");
                 }
                 License = null; //Delete cached license
+            }
+        }
+        /// <summary>
+        /// Requests a list of all licenses from the server
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public List<License> GetLicenses()
+        {
+            var Request = new RestRequest($"api/LicenseManager");
+            var Response = ApiClient.Execute<List<License>>(Request);
+            if (Response.StatusCode != HttpStatusCode.OK)
+            {
+                throw new Exception($"Unable to get licenses: {Response.Content}");
+            }
+            return Response.Data;
+        }
+        /// <summary>
+        /// Releases a specific license from the server, can enforce logout with optional parameter
+        /// </summary>
+        /// <param name="license"><see cref="License"/></param>
+        /// <param name="forceLogout">When true will delete license token from the server, forcing user to log back in</param>
+        /// <exception cref="Exception"></exception>
+        public void ReleaseLicense(License license, bool forceLogout = false)
+        {
+            var Request = new RestRequest($"api/LicenseManager?userToken={license.Token}&forceLogout={forceLogout}", Method.DELETE);
+            var Response = ApiClient.Execute(Request);
+            if (Response.StatusCode != HttpStatusCode.OK)
+            {
+                throw new Exception($"Unable to release license: {Response.Content}");
+            }
+        }
+        /// <summary>
+        /// Releases all licenses from the server, can enforce logout with optional parameter
+        /// </summary>
+        /// <param name="forceLogout">When true will delete license token from the server, forcing user to log back in</param>
+        /// <exception cref="Exception"></exception>
+        public void ReleaseAllLicenses(bool forceLogout = false)
+        {
+            var Request = new RestRequest($"api/LicenseManager?All=true&forceLogout={forceLogout}", Method.DELETE);
+            var Response = ApiClient.Execute(Request);
+            if (Response.StatusCode != HttpStatusCode.OK)
+            {
+                throw new Exception($"Unable to release licenses: {Response.Content}");
             }
         }
         #endregion
@@ -305,7 +349,7 @@ namespace Square9APIHelperLibrary
             return Response.Data;
         }
         /// <summary>
-        /// Requests a list of databases from the server using the admin api endpoint. Returns additional information for each database over the normal <see cref="GetDatabaseList(int)"/>
+        /// Requests a list of databases from the server using the admin api endpoint. Returns additional information for each database over the normal <see cref="GetDatabases(int)"/>
         /// </summary>
         /// <param name="databaseId">Optional: The ID of the database you would like to return in the list</param>
         /// <returns>List of <see cref="AdminDatabase"/></returns>
@@ -750,7 +794,7 @@ namespace Square9APIHelperLibrary
             return Response.Data;
         }
         /// <summary>
-        /// Requersts the GlobalInbox options for the server
+        /// Requests the GlobalInbox options for the server
         /// </summary>
         /// <returns><see cref="GlobalInboxOptions"/></returns>
         /// <exception cref="Exception"></exception>

@@ -8,6 +8,9 @@ namespace Square9APIHelperLibrary.DataTypes
 {
     public class NewAdminInbox : AdminInbox
     {
-        public NewAdminInbox() { }
+        public NewAdminInbox(string name) 
+        { 
+            Name = name;
+        }
     }
 }

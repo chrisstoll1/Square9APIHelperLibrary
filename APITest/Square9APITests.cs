@@ -23,7 +23,7 @@ namespace APITest
         public void BasicAPIConnection()
         {
             Square9API Connection = new Square9API(Endpoint, Username, Password);
-            Connection.CreateLicense();
+            Console.WriteLine(JsonConvert.SerializeObject(Connection.CreateLicense()));
             DatabaseList TestDatabaseList = Connection.GetDatabases(1);
             Connection.DeleteLicense();
             Connection.DeleteLicense();
@@ -101,6 +101,22 @@ namespace APITest
 
             Connection.DeleteLicense();
         }
+        [TestMethod]
+        [TestCategory("System")]
+        public void GetReleaseLicenses()
+        {
+            Square9API Connection = new Square9API(Endpoint, Username, Password);
+            Connection.CreateLicense();
+
+            List<License> licenses = Connection.GetLicenses();
+            Console.WriteLine(JsonConvert.SerializeObject(licenses));
+
+            Connection.ReleaseLicense(licenses[0]);
+
+            Connection.ReleaseAllLicenses(true);
+
+            Connection.DeleteLicense();
+        }
         #endregion
 
         #region Database
@@ -127,7 +143,7 @@ namespace APITest
             Square9API Connection = new Square9API(Endpoint, Username, Password);
             Connection.CreateLicense();
             List<AdminDatabase> Databases = Connection.GetAdminDatabases();
-            Console.WriteLine(Databases[0].Id);
+            Console.WriteLine(JsonConvert.SerializeObject(Databases[0]));
             Databases = Connection.GetAdminDatabases(Databases[0].Id);
             Console.WriteLine(Databases[0].Name);
             Connection.DeleteLicense();
@@ -139,21 +155,6 @@ namespace APITest
             Square9API Connection = new Square9API(Endpoint, Username, Password);
             Connection.CreateLicense();
             Connection.RebuildDatabaseIndex(1);
-            Connection.DeleteLicense();
-        }
-        [TestMethod]
-        [TestCategory("Database")]
-        public void GetUpdateGlobalArchiveOptions()
-        {
-            Square9API Connection = new Square9API(Endpoint, Username, Password);
-            Connection.CreateLicense();
-            GlobalArchiveOptions options = Connection.GetGlobalArchiveOptions(1);
-            options.ShowAll = false;
-            GlobalArchiveOptions updatedOptions = Connection.UpdateGlobalArchiveOptions(1, options);
-            Console.WriteLine(updatedOptions.ShowAll);
-            updatedOptions.ShowAll = true;
-            Connection.UpdateGlobalArchiveOptions(1, updatedOptions);
-            Console.WriteLine(Connection.GetGlobalArchiveOptions(1).ShowAll);
             Connection.DeleteLicense();
         }
         #endregion
@@ -203,6 +204,21 @@ namespace APITest
             Square9API Connection = new Square9API(Endpoint, Username, Password);
             Connection.CreateLicense();
             Console.WriteLine(Connection.RebuildArchiveContentIndex(1, 3, 10000));
+            Connection.DeleteLicense();
+        }
+        [TestMethod]
+        [TestCategory("Archive")]
+        public void GetUpdateGlobalArchiveOptions()
+        {
+            Square9API Connection = new Square9API(Endpoint, Username, Password);
+            Connection.CreateLicense();
+            GlobalArchiveOptions options = Connection.GetGlobalArchiveOptions(1);
+            options.ShowAll = false;
+            GlobalArchiveOptions updatedOptions = Connection.UpdateGlobalArchiveOptions(1, options);
+            Console.WriteLine(updatedOptions.ShowAll);
+            updatedOptions.ShowAll = true;
+            Connection.UpdateGlobalArchiveOptions(1, updatedOptions);
+            Console.WriteLine(Connection.GetGlobalArchiveOptions(1).ShowAll);
             Connection.DeleteLicense();
         }
         #endregion
@@ -351,8 +367,7 @@ namespace APITest
         {
             Square9API Connection = new Square9API(Endpoint, Username, Password);
             Connection.CreateLicense();
-            NewAdminInbox newInbox = new NewAdminInbox();
-            newInbox.Name = "BIGTEST";
+            NewAdminInbox newInbox = new NewAdminInbox("BIGTEST");
             Console.WriteLine(JsonConvert.SerializeObject(newInbox));
             AdminInbox inbox = Connection.CreateInbox(newInbox);
             Console.WriteLine(JsonConvert.SerializeObject(inbox));

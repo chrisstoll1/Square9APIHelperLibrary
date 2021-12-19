@@ -11,6 +11,7 @@ namespace Square9APIHelperLibrary.DataTypes
         public License() { }
 
         public string AuthServer { get; set; }
+        public bool Active { get; set; }
         public DateTime DateAccessed { get; set; }
         public DateTime DateCreated { get; set; }
         public string Domain { get; set; }
