@@ -486,6 +486,16 @@ namespace APITest
         #region Document
         [TestMethod]
         [TestCategory("Document")]
+        public void GetDocument()
+        {
+            Square9API Connection = new Square9API(Endpoint, Username, Password);
+            Connection.CreateLicense();
+            Result DocResult = Connection.GetArchiveDocument(1, 14, 1);
+            Console.WriteLine(JsonConvert.SerializeObject(DocResult));
+            Connection.DeleteLicense();
+        }
+        [TestMethod]
+        [TestCategory("Document")]
         public void GetDocumentMetaData()
         {
             Square9API Connection = new Square9API(Endpoint, Username, Password);

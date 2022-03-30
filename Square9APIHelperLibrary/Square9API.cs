@@ -1117,6 +1117,31 @@ namespace Square9APIHelperLibrary
 
         #region Document
         /// <summary>
+        /// Requests an individual document from the server based on ID
+        /// </summary>
+        /// <param name="databaseId">DatabaseID</param>
+        /// <param name="archiveId">ArchiveID</param>
+        /// <param name="documentId">Document ID</param>
+        /// <exception cref="Exception"></exception>
+        public Result GetArchiveDocument(int databaseId, int archiveId, int documentId)
+        {
+            var Request = new RestRequest($"api/dbs/{databaseId}/archives/{archiveId}?DocumentID={documentId}&Token={License.Token}");
+            var SecureIDResponse = ApiClient.Execute(Request);
+            if (SecureIDResponse.StatusCode != HttpStatusCode.OK)
+            {
+                throw new Exception($"Unable to get document Secure ID: {SecureIDResponse.Content}");
+            }
+            string SecureID = SecureIDResponse.Content;
+            Console.WriteLine(SecureID);
+            var DocRequest = new RestRequest($"api/dbs/{databaseId}/archives/{archiveId}/documents/{documentId}?SecureId={SecureID}");
+            var Response = ApiClient.Execute<Result>(DocRequest);
+            if (SecureIDResponse.StatusCode != HttpStatusCode.OK)
+            {
+                throw new Exception($"Unable to get document: {Response.Content}");
+            }
+            return Response.Data;
+        }
+        /// <summary>
         /// Requests all meta data for a given document
         /// </summary>
         /// <param name="databaseId">DatabaseID</param>
