@@ -14,7 +14,7 @@ namespace APITest
         #region Variables
         private string Endpoint = "http://10.0.0.220/Square9API";
         private string Username = "SSAdministrator";
-        private string Password = "Square9!";
+        private string Password = "-------";
         #endregion
 
         #region System
