@@ -140,6 +140,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>"C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe" -file C:\ps1\VSDocumentationBuild.ps1 $(ProjectDir) $(ProjectName)</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
 </Project>
