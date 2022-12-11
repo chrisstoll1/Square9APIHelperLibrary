@@ -12,7 +12,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Generate documentation files
+      uses: nikeee/docfx-action@v1.0.0
+      with:
+        args: Square9APIHelperLibrary/Documentation/docfx.json
+
     - name: Deploy to GitHub Pages
+      if: success()
       uses: crazy-max/ghaction-github-pages@v2.2.0
       with:
         target_branch: gh-pages
