@@ -1,0 +1,1120 @@
+{
+  "homepages": [],
+  "source_base_path": "C:/Users/Administrator/source/repos/Square9APIHelperLibrary/Square9APIHelperLibrary/Documentation",
+  "xrefmap": "xrefmap.yml",
+  "files": [
+    {
+      "type": "Resource",
+      "output": {
+        "resource": {
+          "relative_path": "index.json"
+        }
+      },
+      "is_incremental": false
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Square9APIHelperLibrary.DataTypes.Action.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Square9APIHelperLibrary.DataTypes.Action.html",
+          "hash": "m2LFBkna3S/Tj1MYtYkIYGxiEVJahmZP7SeHGcrNGyg="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Square9APIHelperLibrary.DataTypes.AdminArchive.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Square9APIHelperLibrary.DataTypes.AdminArchive.html",
+          "hash": "iccjS8fivd3ruaM5gY+wSJgwawtpjFH/Oa4Kmz6BSEo="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Square9APIHelperLibrary.DataTypes.AdminDatabase.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Square9APIHelperLibrary.DataTypes.AdminDatabase.html",
+          "hash": "Mscqnh/I4saXP03Bl/5dqS+qBrKrMpDFhKDJaAFXWmE="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Square9APIHelperLibrary.DataTypes.AdminField.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Square9APIHelperLibrary.DataTypes.AdminField.html",
+          "hash": "b28OhBh/86Nn1VZljlVD1Gslpq/ZIg20d54TEieGd1g="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Square9APIHelperLibrary.DataTypes.AdminFieldList.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Square9APIHelperLibrary.DataTypes.AdminFieldList.html",
+          "hash": "ceKywmEvLUIsOuPrdQk1StiE/eTHGvHy8qHJacsp9mA="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Square9APIHelperLibrary.DataTypes.AdminInbox.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Square9APIHelperLibrary.DataTypes.AdminInbox.html",
+          "hash": "VbgU9vtHKDtBiEIfs/LedS7TX3O3bmMMrq8FC2q0b1I="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Square9APIHelperLibrary.DataTypes.AdminList.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Square9APIHelperLibrary.DataTypes.AdminList.html",
+          "hash": "um2c7zTJZhyOA8YtatdNHbmF4QfwzHLKdNwawHnfKl0="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Square9APIHelperLibrary.DataTypes.AdminMapping.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Square9APIHelperLibrary.DataTypes.AdminMapping.html",
+          "hash": "YR+OGHGiNeOSYWjJIqi06eaPvJMfbj1vmeZ/FQC+gOo="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Square9APIHelperLibrary.DataTypes.AdminSearch.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Square9APIHelperLibrary.DataTypes.AdminSearch.html",
+          "hash": "6C/UE9u+efKMIJqK51faDw6vQWB4/fdF1VSdRMVbShY="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Square9APIHelperLibrary.DataTypes.AdminTableField.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Square9APIHelperLibrary.DataTypes.AdminTableField.html",
+          "hash": "poxa8jpFwn3QVsvs1kYNvWodB876SmMp/Ym7UysTVPA="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Square9APIHelperLibrary.DataTypes.Archive.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Square9APIHelperLibrary.DataTypes.Archive.html",
+          "hash": "WcT3EIQQvZSRCbHQbNxU3xRXa3gRqjwtaS0/+xxqQ64="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Square9APIHelperLibrary.DataTypes.ArchiveCount.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Square9APIHelperLibrary.DataTypes.ArchiveCount.html",
+          "hash": "WGVeu8LrtoRDPb/Sf5JA7iFx9Vo2MTtomiddkpbRMeU="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Square9APIHelperLibrary.DataTypes.ArchiveList.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Square9APIHelperLibrary.DataTypes.ArchiveList.html",
+          "hash": "GP3eeoTJEq+GcsQiEdAP7OSYi5fIOwhxFHLAncHL3CI="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Square9APIHelperLibrary.DataTypes.ArchivePermission.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Square9APIHelperLibrary.DataTypes.ArchivePermission.html",
+          "hash": "3eemm1/l+N/i652eXSrnhVs7pOzv+3U34TXGJV1HAnE="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Square9APIHelperLibrary.DataTypes.ArchiveSecurity.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Square9APIHelperLibrary.DataTypes.ArchiveSecurity.html",
+          "hash": "qzjbzWMcKh+oprWqZ4TZA8NlEgk7kcEwgrR3ZPLuB/0="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Square9APIHelperLibrary.DataTypes.Auth.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Square9APIHelperLibrary.DataTypes.Auth.html",
+          "hash": "unjIrGpNddG4b/WFQ+tSaYkp5RN6P9BQOTVjUSVMiyE="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Square9APIHelperLibrary.DataTypes.BasePath.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Square9APIHelperLibrary.DataTypes.BasePath.html",
+          "hash": "Byte7ansiCbHKyL/iSjFNekYElp7pepaq73Xtztb4L0="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Square9APIHelperLibrary.DataTypes.ContentSearch.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Square9APIHelperLibrary.DataTypes.ContentSearch.html",
+          "hash": "oxF/kgCXapKkwxporRZmajj6hRStrS5y3rJquJH5Mwc="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Square9APIHelperLibrary.DataTypes.DBAuth.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Square9APIHelperLibrary.DataTypes.DBAuth.html",
+          "hash": "IR68bGmDelKRGtUWX9mEWabgU75OsKw5rzdb0OPqe64="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Square9APIHelperLibrary.DataTypes.Database.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Square9APIHelperLibrary.DataTypes.Database.html",
+          "hash": "/GH51b9vH+klPR+DkmpqOIW4g+madjhJiBveXMIAlgc="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Square9APIHelperLibrary.DataTypes.DatabaseList.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Square9APIHelperLibrary.DataTypes.DatabaseList.html",
+          "hash": "elSJKS1yU0VMZZWhkJZ5S04Xbp39j/v8z7OPBlSDm2g="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Square9APIHelperLibrary.DataTypes.DatabasePermission.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Square9APIHelperLibrary.DataTypes.DatabasePermission.html",
+          "hash": "HXyDk7Uq8KDANolQrB0TrbddK7lkea2tPL+c94g8K14="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Square9APIHelperLibrary.DataTypes.DatabaseSecurity.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Square9APIHelperLibrary.DataTypes.DatabaseSecurity.html",
+          "hash": "S8b2Uzr6ZUHWZPQy7TC+abllJ6Xw1Y40qE+2eUbvySE="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Square9APIHelperLibrary.DataTypes.Doc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Square9APIHelperLibrary.DataTypes.Doc.html",
+          "hash": "duzWG2Ukej+JIVcMtRIrpoH7yLJqO/M3hNgoTzRn/zw="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Square9APIHelperLibrary.DataTypes.DocDetails.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Square9APIHelperLibrary.DataTypes.DocDetails.html",
+          "hash": "DL+fiHrViYAp6l2W4pFtbixSSHvFholAgT16DwxUN44="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Square9APIHelperLibrary.DataTypes.DocumentIndexData.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Square9APIHelperLibrary.DataTypes.DocumentIndexData.html",
+          "hash": "t+JzHHwdIdOXKrS4g9FIdsBuSA/TGN4kxChEt4XgrHc="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Square9APIHelperLibrary.DataTypes.DocumentIndexFields.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Square9APIHelperLibrary.DataTypes.DocumentIndexFields.html",
+          "hash": "SreHLMKZTiCrzRUI/fP8CO5vo5l3WglFgklR7MKTmj4="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Square9APIHelperLibrary.DataTypes.EmailServer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Square9APIHelperLibrary.DataTypes.EmailServer.html",
+          "hash": "jXb+hrfHPN+VHbGM/yHl4l3oPvdOMYwjK/Db9lW4fQs="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Square9APIHelperLibrary.DataTypes.Field.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Square9APIHelperLibrary.DataTypes.Field.html",
+          "hash": "PavjPlcmGS6JTJgnYJcbNrqZlLsUDvxyCI4U5ApQ/6Y="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Square9APIHelperLibrary.DataTypes.FieldItem.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Square9APIHelperLibrary.DataTypes.FieldItem.html",
+          "hash": "F06UZSDwi6rswUN2vJowMEp0GXXo01EBU4pmlLbg4nE="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Square9APIHelperLibrary.DataTypes.FieldProp.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Square9APIHelperLibrary.DataTypes.FieldProp.html",
+          "hash": "Zmj37IlwLq6suLuzq2HgY2ubk8IOLwjdSheMsdTnQ4M="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Square9APIHelperLibrary.DataTypes.File.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Square9APIHelperLibrary.DataTypes.File.html",
+          "hash": "zH2Bm664sErLYj5tc0bu9UxnTQUT27X5K3ZWwYO/kRo="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Square9APIHelperLibrary.DataTypes.FileDetails.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Square9APIHelperLibrary.DataTypes.FileDetails.html",
+          "hash": "VMDSy/SLcr2rT4MLW/i3WquYCiz/Poz1pNHZnOHOEWk="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Square9APIHelperLibrary.DataTypes.FileExport.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Square9APIHelperLibrary.DataTypes.FileExport.html",
+          "hash": "GE1n9pT96pHpqtEvFM3IiiBQedE38NbqrYPY8Mtx3Io="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Square9APIHelperLibrary.DataTypes.FileField.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Square9APIHelperLibrary.DataTypes.FileField.html",
+          "hash": "fAE8+sK72zVuatJIjcbqYaxDhLF5HM9Jx7qJZLNaE2c="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Square9APIHelperLibrary.DataTypes.GlobalArchiveOptions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Square9APIHelperLibrary.DataTypes.GlobalArchiveOptions.html",
+          "hash": "invmnu7uf8koe/y/X0cSCyngBVhWHbLRoiLEAnoR8bo="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Square9APIHelperLibrary.DataTypes.GlobalInboxOptions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Square9APIHelperLibrary.DataTypes.GlobalInboxOptions.html",
+          "hash": "rkmZsU4SbzKvn5bzQRDjd7GHOW63LbVEmaKbSlAWIbA="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Square9APIHelperLibrary.DataTypes.Group.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Square9APIHelperLibrary.DataTypes.Group.html",
+          "hash": "T6Gdb9AB/Dg0BKSE8beeLax0LfRzC5t0/v6qlC+aTw4="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Square9APIHelperLibrary.DataTypes.Inbox.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Square9APIHelperLibrary.DataTypes.Inbox.html",
+          "hash": "yv1A5VauO8GF5UMfgARQc98h5Bqf86o7BRuxwA7Dilo="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Square9APIHelperLibrary.DataTypes.InboxList.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Square9APIHelperLibrary.DataTypes.InboxList.html",
+          "hash": "19ljQc3HlYMeblQNeQbQenSUo5i74I/vG8oIwyiHei4="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Square9APIHelperLibrary.DataTypes.InboxPermission.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Square9APIHelperLibrary.DataTypes.InboxPermission.html",
+          "hash": "L5eUqIygJeAt6hCIXKPXegN4B31Setj7XPXcoubO1H8="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Square9APIHelperLibrary.DataTypes.InboxSecurity.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Square9APIHelperLibrary.DataTypes.InboxSecurity.html",
+          "hash": "TPrYGKzSPfRsifnyhjdMZbghtTzLqVDVdTzZZidm1us="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Square9APIHelperLibrary.DataTypes.License.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Square9APIHelperLibrary.DataTypes.License.html",
+          "hash": "CdId7VOwHRvIM4aaD76ycM+7qRxJcZVMTgAY6CbO5co="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Square9APIHelperLibrary.DataTypes.NewAdminArchive.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Square9APIHelperLibrary.DataTypes.NewAdminArchive.html",
+          "hash": "GVe8VW+Rvr+wvTp7pUrG0/ZJ9xZm6o7zFbG+dJyaI+Y="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Square9APIHelperLibrary.DataTypes.NewAdminDatabase.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Square9APIHelperLibrary.DataTypes.NewAdminDatabase.html",
+          "hash": "03f1U8+3k5V7ttihqS8moJsgQkjoJaVukRclpdZtymo="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Square9APIHelperLibrary.DataTypes.NewAdminField.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Square9APIHelperLibrary.DataTypes.NewAdminField.html",
+          "hash": "KWbEyQtPzDtvxqx8jgm86Ik0wsJxx7XaJQ1knXOfnco="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Square9APIHelperLibrary.DataTypes.NewAdminInbox.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Square9APIHelperLibrary.DataTypes.NewAdminInbox.html",
+          "hash": "4GC6htEbAmgttgOkh62dSrapbHOovLzCK2WkduHyVQY="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Square9APIHelperLibrary.DataTypes.NewAdminList.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Square9APIHelperLibrary.DataTypes.NewAdminList.html",
+          "hash": "u5y/lXAS/hFpIZ5MnHWshLzHDuWYZ0ROs0JfF9FK48s="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Square9APIHelperLibrary.DataTypes.NewAdminSearch.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Square9APIHelperLibrary.DataTypes.NewAdminSearch.html",
+          "hash": "LUb39NMRZAknUfamVQvyJluapBCEwRZpWYoDcNTVsJc="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Square9APIHelperLibrary.DataTypes.NewAdminTableField.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Square9APIHelperLibrary.DataTypes.NewAdminTableField.html",
+          "hash": "NFddYYyRoWbUEI7hUtq0VoiGXxFceGZ6u682nD5fwyE="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Square9APIHelperLibrary.DataTypes.NewFile.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Square9APIHelperLibrary.DataTypes.NewFile.html",
+          "hash": "Ww/VeMrNiwQBa8Rh23ms+hsg+nAEwGpsj1V0MCggTv4="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Square9APIHelperLibrary.DataTypes.Notification.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Square9APIHelperLibrary.DataTypes.Notification.html",
+          "hash": "Bm0t1OyyeUwmEg44V2o/QdbORpmVrp+eY3Awf6N7QbU="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Square9APIHelperLibrary.DataTypes.Queue.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Square9APIHelperLibrary.DataTypes.Queue.html",
+          "hash": "/u7VtQvaNYcH1GMw4CQpq6/Lb2/LME5ZxQa+Yy4j4cI="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Square9APIHelperLibrary.DataTypes.Registration.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Square9APIHelperLibrary.DataTypes.Registration.html",
+          "hash": "G0gfLBZZSu/qWOL4nwIPHotNljPBF+qn1ph3I+djkBI="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Square9APIHelperLibrary.DataTypes.Result.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Square9APIHelperLibrary.DataTypes.Result.html",
+          "hash": "rgQ9kXxV9Ws3xbO6cRPjcofPxvXXBfwgxffGIZmf5l0="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Square9APIHelperLibrary.DataTypes.Revision.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Square9APIHelperLibrary.DataTypes.Revision.html",
+          "hash": "kI71cMbCTc+rKAcH1dkO4jag/9BDu1Hy9lSW4Vul0NM="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Square9APIHelperLibrary.DataTypes.Search.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Square9APIHelperLibrary.DataTypes.Search.html",
+          "hash": "MBJTQyp5ZmN5azdQFbRPw0W0chp31VcPYgeW7ebARwg="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Square9APIHelperLibrary.DataTypes.SearchDetail.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Square9APIHelperLibrary.DataTypes.SearchDetail.html",
+          "hash": "YeGa+fIf8qYHICdLoOrvtURZe79hKeVZsvWgUBq46/8="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Square9APIHelperLibrary.DataTypes.SearchParameter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Square9APIHelperLibrary.DataTypes.SearchParameter.html",
+          "hash": "t8ItjcxXriC30MxpJpOt/VtFfX0Tfltx1CEtcjiQm6w="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Square9APIHelperLibrary.DataTypes.SearchPermission.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Square9APIHelperLibrary.DataTypes.SearchPermission.html",
+          "hash": "RkzQ8Juxv+fLWKWOe5Nb1qMmz4bjD5eIPa/59m3nFXA="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Square9APIHelperLibrary.DataTypes.SearchProperties.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Square9APIHelperLibrary.DataTypes.SearchProperties.html",
+          "hash": "ArtPCHTb0m1mJmck3CKBx8OvsfLj/FAZGivcLsS/t/U="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Square9APIHelperLibrary.DataTypes.SearchSecurity.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Square9APIHelperLibrary.DataTypes.SearchSecurity.html",
+          "hash": "uZNNhxLHx9rnBg5sqs+4Ao9AUPYveXaTQ1xaAdCUAYI="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Square9APIHelperLibrary.DataTypes.SecuredDatabase.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Square9APIHelperLibrary.DataTypes.SecuredDatabase.html",
+          "hash": "6ajFUOYQcOT9lCNnfEQ6YsXAuy3KNYsxbU0x0wN/yYg="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Square9APIHelperLibrary.DataTypes.SecuredGroup.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Square9APIHelperLibrary.DataTypes.SecuredGroup.html",
+          "hash": "jL5aWl7RLwyxt0YpDdMs1OE7/Z/gMuqORaPN0Qvt7FY="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Square9APIHelperLibrary.DataTypes.Security.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Square9APIHelperLibrary.DataTypes.Security.html",
+          "hash": "qdTfisgRcQRsoeJBhqHyZ8/vXcNyEtLl/NcrPpoJ9Kk="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Square9APIHelperLibrary.DataTypes.SecurityNode.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Square9APIHelperLibrary.DataTypes.SecurityNode.html",
+          "hash": "8YlNrB0pKGDljP2/tr6mOeT/r6n40RvKFRPhXetzqOQ="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Square9APIHelperLibrary.DataTypes.Stamp.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Square9APIHelperLibrary.DataTypes.Stamp.html",
+          "hash": "JImiKK6j6lyRYaRQY3kzSmU7O7ujXLjT7Nv7/21JSes="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Square9APIHelperLibrary.DataTypes.Target.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Square9APIHelperLibrary.DataTypes.Target.html",
+          "hash": "NAG+yGKMNuT8z6NVXd5nCY5alA2Oz9Y8wghvqnKw2Uc="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Square9APIHelperLibrary.DataTypes.UnsecuredGroup.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Square9APIHelperLibrary.DataTypes.UnsecuredGroup.html",
+          "hash": "LxCebn53hSWlQMHLKRlwFBDY8rHHHyxOt9kix1IYMCU="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Square9APIHelperLibrary.DataTypes.UploadedFiles.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Square9APIHelperLibrary.DataTypes.UploadedFiles.html",
+          "hash": "iUXB81TRflBkCyv1fmRIfmgEho0XcAvIFw8wB5jNN80="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Square9APIHelperLibrary.DataTypes.User.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Square9APIHelperLibrary.DataTypes.User.html",
+          "hash": "D7eN5OnT/HZWL8A9O28hzbIoh3+DhLiiGKGNaajydaE="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Square9APIHelperLibrary.DataTypes.ViewValue.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Square9APIHelperLibrary.DataTypes.ViewValue.html",
+          "hash": "2OsikOLv3dzo+wG3QTH47Q7nkj6XAb1Gi8ZYtmaiDc8="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Square9APIHelperLibrary.DataTypes.Views.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Square9APIHelperLibrary.DataTypes.Views.html",
+          "hash": "UykhkPsSAzGJHPOR7qlLdzb7GQwMTO84TYrd2gjgc3k="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Square9APIHelperLibrary.DataTypes.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Square9APIHelperLibrary.DataTypes.html",
+          "hash": "HYyVtWoRQo0lNhhqiD0414VZR6pVWQ3p8CPS4P/gCnY="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Square9APIHelperLibrary.Square9API.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Square9APIHelperLibrary.Square9API.html",
+          "hash": "jjlwfGjLo4HfbMmBCl4O1PlQNf2bGIo+fIvQuMiagd8="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Square9APIHelperLibrary.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Square9APIHelperLibrary.html",
+          "hash": "AayPqbTe5TKl/EQqomb6PTVjnkYweXaEzrM+lXAxldc="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "api/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "api/index.html",
+          "hash": "hERzdGURI5iFe2yyndF8xeoUst9dGkxqz1Azb6i3Qgo="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "api/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/toc.html",
+          "hash": "wXGeduxJo7R+3DiIP97QffbubgTKMn0gq6apkL/Ccx8="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/intro.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/intro.html",
+          "hash": "reNY44zwkW1HLbtunuGksfgVyZbBz8X+pQNoD10zLLM="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "articles/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "articles/toc.html",
+          "hash": "2+R3BVw2DruDdq1j3EyfULXlIy9FeSWVYhWuTS0Yo8c="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/Square9icon.ico",
+      "output": {
+        "resource": {
+          "relative_path": "images/Square9icon.ico"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/Square9icon_16x16.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/Square9icon_16x16.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/Square9icon_256x256.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/Square9icon_256x256.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/Square9icon_70x70.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/Square9icon_70x70.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/favicon.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/favicon.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/logo.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/logo.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "index.md",
+      "output": {
+        ".html": {
+          "relative_path": "index.html",
+          "hash": "43f3R0TA8kZPg/hTGdhWxHB3iDLZh65G/mBmArVASSs="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "toc.html",
+          "hash": "gVYBbpod6EKjcoBMmazMe4ciagOLNBUOlDgltIEGV2k="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    }
+  ],
+  "incremental_info": [
+    {
+      "status": {
+        "can_incremental": true,
+        "incrementalPhase": "build",
+        "total_file_count": 0,
+        "skipped_file_count": 0
+      },
+      "processors": {
+        "ConceptualDocumentProcessor": {
+          "can_incremental": true,
+          "incrementalPhase": "build",
+          "total_file_count": 3,
+          "skipped_file_count": 3
+        },
+        "ManagedReferenceDocumentProcessor": {
+          "can_incremental": true,
+          "incrementalPhase": "build",
+          "total_file_count": 76,
+          "skipped_file_count": 76
+        },
+        "ResourceDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor ResourceDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build",
+          "total_file_count": 0,
+          "skipped_file_count": 0
+        },
+        "TocDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor TocDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build",
+          "total_file_count": 0,
+          "skipped_file_count": 0
+        }
+      }
+    },
+    {
+      "status": {
+        "can_incremental": false,
+        "details": "Cannot support incremental post processing, the reason is: should not trace intermediate info.",
+        "incrementalPhase": "postProcessing",
+        "total_file_count": 0,
+        "skipped_file_count": 0
+      },
+      "processors": {}
+    }
+  ],
+  "version_info": {},
+  "groups": [
+    {
+      "xrefmap": "xrefmap.yml"
+    }
+  ]
+}

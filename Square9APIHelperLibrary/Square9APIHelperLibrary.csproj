@@ -136,7 +136,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="images\Square9icon.ico" />
-    <Content Include="images\Square9icon.png" Pack="true" PackagePath="\"/>
+    <Content Include="images\Square9icon.png" Pack="true" PackagePath="\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>"C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe" -file C:\ps1\VSDocumentationBuild.ps1 $(ProjectDir) $(ProjectName)</PostBuildEvent>
+  </PropertyGroup>
 </Project>
