@@ -1,4 +1,4 @@
-name: Deploy to Github Pages
+name: Rebuild Documentation
 
 on:
   release:
