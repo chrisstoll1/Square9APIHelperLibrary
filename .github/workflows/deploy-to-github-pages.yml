@@ -1,0 +1,21 @@
+name: Deploy to Github Pages
+
+on:
+  release:
+    types: [created]
+
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    name: Generate and Deploy Documentation ✍🏼
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Deploy to GitHub Pages
+      uses: crazy-max/ghaction-github-pages@v2.2.0
+      with:
+        target_branch: gh-pages
+        build_dir: Square9APIHelperLibrary/Documentation/_site
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
