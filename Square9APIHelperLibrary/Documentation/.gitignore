@@ -7,10 +7,4 @@
 /**/bin/
 /**/obj/
 api
-articles
-docfx.json
-index.md
-toc.yml
-plugins
-templates
-images
+_site
