@@ -9,11 +9,11 @@ The Square9API Helper library and Powershell make a great combination because th
 
 ## Getting Started
 
-  
+1. Download the [.dll](https://github.com/chrisstoll1/Square9APIHelperLibrary/releases) from releases along with the [prerequisites](https://github.com/chrisstoll1/Square9APIHelperLibrary#prerequisites). Place these in the same directory as your powershell script
 
-1. Open up PowerShell ISE and create a new script
+2. Open up PowerShell ISE and create a new script
 
-2. Add the following using statements to the top of your new script
+3. Add the following using statements to the top of your new script
 
 ```
 using assembly ".\Square9APIHelperLibrary.dll"
@@ -21,13 +21,13 @@ using namespace Square9APIHelperLibrary
 using namespace Square9APIHelperLibrary.DataTypes
 ```
 
-3. Create a new [Square9API](../api/Square9APIHelperLibrary.Square9API.html) object, it will take three [parameters](../api/Square9APIHelperLibrary.Square9API.html#Square9APIHelperLibrary_Square9API__ctor_System_String_System_String_System_String_) for the **Endpoint**, **Username**, and **Password**
+4. Create a new [Square9API](../api/Square9APIHelperLibrary.Square9API.html) object, it will take three [parameters](../api/Square9APIHelperLibrary.Square9API.html#Square9APIHelperLibrary_Square9API__ctor_System_String_System_String_System_String_) for the **Endpoint**, **Username**, and **Password**
 
 ```
 $connection = New-Object Square9APIHelperLibrary.Square9API($Endpoint, $User, $Pass)
 ```
 
-4. Before you can start interfacing with the API, you must first get a license from the server by calling the [CreateLicense](../api/Square9APIHelperLibrary.Square9API.html#Square9APIHelperLibrary_Square9API_CreateLicense) method
+5. Before you can start interfacing with the API, you must first get a license from the server by calling the [CreateLicense](../api/Square9APIHelperLibrary.Square9API.html#Square9APIHelperLibrary_Square9API_CreateLicense) method
 
 ```
 $connection.CreateLicense()
