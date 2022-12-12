@@ -25,11 +25,11 @@ To start using this library add the [.dll](https://github.com/chrisstoll1/Square
 4. In this example, we will loop through and print the ID of each database on the server
 
    ```
-   DatabaseList databases = Connection.GetDatabases();
+   DatabaseList databases = Connection.Databases.GetDatabases();
    
    foreach (Database database in databases.Databases)
    {
-   Console.WriteLine(database.Id);
+   Console.WriteLine(database.Name);
    }
    ```
 5. Once you are done with your connection, it is best practice to delete the license on the server to free it up for anyone who may need it

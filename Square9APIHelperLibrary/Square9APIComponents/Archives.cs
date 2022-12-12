@@ -28,8 +28,8 @@ namespace Square9APIHelperLibrary.Square9APIComponents
         /// </summary>
         /// <example>
         /// <code>
-        /// ArchiveList archives = Connection.GetArchives(database.Id);
-        /// ArchiveList subArchives = Connection.GetArchives(database.Id, archives.Archives[0].Id);
+        /// ArchiveList archives = Connection.Archives.GetArchives(database.Id);
+        /// ArchiveList subArchives = Connection.Archives.GetArchives(database.Id, archives.Archives[0].Id);
         /// </code>
         /// </example>
         /// <param name="databaseId">The ID of the database you would like to return a list of archives from</param>

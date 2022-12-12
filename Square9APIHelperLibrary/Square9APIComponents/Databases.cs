@@ -27,7 +27,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
         /// </summary>
         /// <example>
         /// <code>
-        /// DatabaseList databases = Connection.GetDatabases();
+        /// DatabaseList databases = Connection.Databases.GetDatabases();
         /// </code>
         /// </example>
         /// <param name="databaseId">Optional: The ID of the database you would like to return in the list</param>
@@ -47,7 +47,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
         /// </summary>
         /// <example>
         /// <code>
-        /// List<AdminDatabase> Databases = Connection.GetAdminDatabases();
+        /// List<AdminDatabase> Databases = Connection.Databases.GetAdminDatabases();
         /// </code>
         /// </example>
         /// <param name="database">Optional: The database you would like to return in the list</param>
@@ -68,7 +68,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
         /// <example>
         /// <code>
         /// AdminDatabase NewDatabase = new NewAdminDatabase("NewTestDatabase");
-        /// AdminDatabase Database = Connection.CreateDatabase(NewDatabase);
+        /// AdminDatabase Database = Connection.Databases.CreateDatabase(NewDatabase);
         /// </code>
         /// </example>
         /// <param name="database">The new database to be created on the server <see cref="NewAdminDatabase"/></param>
@@ -91,7 +91,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
         /// <example>
         /// <code>
         /// Database.Name = "DatabaseModified";
-        /// Database = Connection.UpdateDatabase(Database);
+        /// Database = Connection.Databases.UpdateDatabase(Database);
         /// </code>
         /// </example>
         /// <param name="database">The existing database to be updates on the server <see cref="AdminDatabase"/></param>
@@ -113,7 +113,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
         /// </summary>
         /// <example>
         /// <code>
-        /// Connection.DeleteDatabase(Database.Id, true);
+        /// Connection.Databases.DeleteDatabase(Database.Id, true);
         /// </code>
         /// </example>
         /// <param name="database">The ID of the database to be deleted <see cref="Database"/></param>
@@ -132,7 +132,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
         /// </summary>
         /// <example>
         /// <code>
-        /// Connection.RebuildDatabaseIndex(Database.Id);
+        /// Connection.Databases.RebuildDatabaseIndex(Database.Id);
         /// </code>
         /// </example>
         /// <param name="database">The database to be rebuilt <see cref="Database"/></param>
