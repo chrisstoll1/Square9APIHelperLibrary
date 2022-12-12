@@ -113,7 +113,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
         /// </summary>
         /// <example>
         /// <code>
-        /// Connection.Databases.DeleteDatabase(Database.Id, true);
+        /// Connection.Databases.DeleteDatabase(Database, true);
         /// </code>
         /// </example>
         /// <param name="database">The ID of the database to be deleted <see cref="Database"/></param>
