@@ -428,8 +428,14 @@ namespace Square9APIHelperLibrary
 
         #region Archive
         /// <summary>
-        /// Requests a list of root archives in a database or sub archives in a archive from the server
+        /// Requests a list of root archives in a database or sub-archives in a parent archive
         /// </summary>
+        /// <example>
+        /// <code>
+        /// ArchiveList archives = Connection.GetArchives(database.Id);
+        /// ArchiveList subArchives = Connection.GetArchives(database.Id, archives.Archives[0].Id);
+        /// </code>
+        /// </example>
         /// <param name="databaseId">The ID of the database you would like to return a list of archives from</param>
         /// <param name="archiveId">Optional: The ID of the archive you would like to return a list of archives from</param>
         /// <returns><see cref="ArchiveList"/></returns>
