@@ -35,7 +35,7 @@ $connection.CreateLicense()
 
 You are now ready to start using the Square9API Helper Library in Powershell!
 
-### Example: Move documents between archive
+### Example: Move documents between archives
 To move documents between archives we need to run through the following steps
 
  - Get a Search Object from the API on our source archive
