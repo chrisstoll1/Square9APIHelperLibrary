@@ -129,6 +129,13 @@
     <Compile Include="DataTypes\ViewValue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Square9API.cs" />
+    <Compile Include="Square9APIComponents\Administration.cs" />
+    <Compile Include="Square9APIComponents\Archives.cs" />
+    <Compile Include="Square9APIComponents\Databases.cs" />
+    <Compile Include="Square9APIComponents\Documents.cs" />
+    <Compile Include="Square9APIComponents\Fields.cs" />
+    <Compile Include="Square9APIComponents\Inboxes.cs" />
+    <Compile Include="Square9APIComponents\Searches.cs" />
     <Compile Include="Square9CaptureAPI.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -138,6 +145,7 @@
     <Content Include="images\Square9icon.ico" />
     <Content Include="images\Square9icon.png" Pack="true" PackagePath="\" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

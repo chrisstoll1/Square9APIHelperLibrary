@@ -10,7 +10,13 @@ namespace Square9APIHelperLibrary.DataTypes
     {
         public Database() { }
 
+        /// <summary>
+        /// The ID of a given Database
+        /// </summary>
         public int Id { get; set; }
+        /// <summary>
+        /// The String name of a given Database
+        /// </summary>
         public string Name { get; set; }
     }
 }

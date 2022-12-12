@@ -12,9 +12,9 @@ namespace APITest
     public class Square9APITests
     {
         #region Variables
-        private string Endpoint = "http://10.0.0.220/Square9API";
+        private string Endpoint = "http://192.168.4.47/Square9API";
         private string Username = "SSAdministrator";
-        private string Password = "-------";
+        private string Password = "Square9!";
         #endregion
 
         #region System
@@ -24,7 +24,7 @@ namespace APITest
         {
             Square9API Connection = new Square9API(Endpoint, Username, Password);
             Console.WriteLine(JsonConvert.SerializeObject(Connection.CreateLicense()));
-            DatabaseList TestDatabaseList = Connection.GetDatabases(1);
+            DatabaseList TestDatabaseList = Connection.Databases.GetDatabases(1);
             Connection.DeleteLicense();
             Connection.DeleteLicense();
             Assert.AreEqual(1, TestDatabaseList.Databases[0].Id);
@@ -35,11 +35,11 @@ namespace APITest
         {
             Square9API Connection = new Square9API(Endpoint, Username, Password);
             Connection.CreateLicense();
-            List<Database> Databases = Connection.GetDatabases().Databases;
+            List<Database> Databases = Connection.Databases.GetDatabases().Databases;
             Console.WriteLine($"{Databases[0].Id} : {Databases[0].Name}");
-            List<Archive> Archives = Connection.GetArchives(Databases[0].Id).Archives;
+            List<Archive> Archives = Connection.Archives.GetArchives(Databases[0].Id).Archives;
             Console.WriteLine($"    {Archives[0].Id} : {Archives[0].Name}");
-            List<Archive> SubArchives = Connection.GetArchives(Databases[0].Id, Archives[0].Id).Archives;
+            List<Archive> SubArchives = Connection.Archives.GetArchives(Databases[0].Id, Archives[0].Id).Archives;
             Console.WriteLine($"        {SubArchives[0].Id} : {SubArchives[0].Name}");
             Connection.DeleteLicense();
             Assert.IsTrue(SubArchives[0].Name != null);
@@ -127,13 +127,13 @@ namespace APITest
             Square9API Connection = new Square9API(Endpoint, Username, Password);
             Connection.CreateLicense();
             AdminDatabase NewDatabase = new NewAdminDatabase("NewTestDatabase");
-            AdminDatabase Database = Connection.CreateDatabase(NewDatabase);
+            AdminDatabase Database = Connection.Databases.CreateDatabase(NewDatabase);
             Console.WriteLine(Database.Name);
             Database.Name = "NewDatabaseModified";
-            Database = Connection.UpdateDatabase(Database);
+            Database = Connection.Databases.UpdateDatabase(Database);
             Console.WriteLine(Database.Name);
             Console.WriteLine(Database.Id);
-            Connection.DeleteDatabase(Database.Id, true);
+            Connection.Databases.DeleteDatabase(Database, true);
             Connection.DeleteLicense();
         }
         [TestMethod]
@@ -142,9 +142,9 @@ namespace APITest
         {
             Square9API Connection = new Square9API(Endpoint, Username, Password);
             Connection.CreateLicense();
-            List<AdminDatabase> Databases = Connection.GetAdminDatabases();
+            List<AdminDatabase> Databases = Connection.Databases.GetAdminDatabases();
             Console.WriteLine(JsonConvert.SerializeObject(Databases[0]));
-            Databases = Connection.GetAdminDatabases(Databases[0].Id);
+            Databases = Connection.Databases.GetAdminDatabases(Databases[0]);
             Console.WriteLine(Databases[0].Name);
             Connection.DeleteLicense();
         }
@@ -154,7 +154,8 @@ namespace APITest
         {
             Square9API Connection = new Square9API(Endpoint, Username, Password);
             Connection.CreateLicense();
-            Connection.RebuildDatabaseIndex(1);
+            List<AdminDatabase> Databases = Connection.Databases.GetAdminDatabases();
+            Connection.Databases.RebuildDatabaseIndex(Databases[0]);
             Connection.DeleteLicense();
         }
         #endregion
@@ -166,9 +167,9 @@ namespace APITest
         {
             Square9API Connection = new Square9API(Endpoint, Username, Password);
             Connection.CreateLicense();
-            List<AdminArchive> Archives = Connection.GetAdminArchives(1);
+            List<AdminArchive> Archives = Connection.Archives.GetAdminArchives(1);
             Console.WriteLine(Archives[0].Name);
-            Console.WriteLine($"    {Connection.GetAdminArchives(1, 2)[0].Name}");
+            Console.WriteLine($"    {Connection.Archives.GetAdminArchives(1, 2)[0].Name}");
             Connection.DeleteLicense();
         }
         [TestMethod]
@@ -177,7 +178,7 @@ namespace APITest
         {
             Square9API Connection = new Square9API(Endpoint, Username, Password);
             Connection.CreateLicense();
-            List<Field> Fields = Connection.GetArchiveFields(1,1);
+            List<Field> Fields = Connection.Archives.GetArchiveFields(1,1);
             Field field = Fields[0];
             Console.WriteLine(Fields[2].Prop);
             FieldProp prop = new FieldProp(Fields[2].Prop);
@@ -193,11 +194,11 @@ namespace APITest
             NewAdminArchive archive = new NewAdminArchive("T2");
             archive.Fields = new List<int>() { 3 };
             archive.Parent = 3;
-            AdminArchive newArchive = Connection.CreateArchive(1, archive);
+            AdminArchive newArchive = Connection.Archives.CreateArchive(1, archive);
             newArchive.Name = "T1";
-            AdminArchive updatedArchive = Connection.UpdateArchive(1, newArchive);
+            AdminArchive updatedArchive = Connection.Archives.UpdateArchive(1, newArchive);
             Console.WriteLine(updatedArchive.Name);
-            Connection.DeleteArchive(1, updatedArchive.Id);
+            Connection.Archives.DeleteArchive(1, updatedArchive.Id);
             Connection.DeleteLicense();
         }
         [TestMethod]
@@ -206,7 +207,7 @@ namespace APITest
         {
             Square9API Connection = new Square9API(Endpoint, Username, Password);
             Connection.CreateLicense();
-            Console.WriteLine(Connection.RebuildArchiveContentIndex(1, 3, 10000));
+            Console.WriteLine(Connection.Archives.RebuildArchiveContentIndex(1, 3, 10000));
             Connection.DeleteLicense();
         }
         [TestMethod]
@@ -215,13 +216,13 @@ namespace APITest
         {
             Square9API Connection = new Square9API(Endpoint, Username, Password);
             Connection.CreateLicense();
-            GlobalArchiveOptions options = Connection.GetGlobalArchiveOptions(1);
+            GlobalArchiveOptions options = Connection.Archives.GetGlobalArchiveOptions(1);
             options.ShowAll = false;
-            GlobalArchiveOptions updatedOptions = Connection.UpdateGlobalArchiveOptions(1, options);
+            GlobalArchiveOptions updatedOptions = Connection.Archives.UpdateGlobalArchiveOptions(1, options);
             Console.WriteLine(updatedOptions.ShowAll);
             updatedOptions.ShowAll = true;
-            Connection.UpdateGlobalArchiveOptions(1, updatedOptions);
-            Console.WriteLine(Connection.GetGlobalArchiveOptions(1).ShowAll);
+            Connection.Archives.UpdateGlobalArchiveOptions(1, updatedOptions);
+            Console.WriteLine(Connection.Archives.GetGlobalArchiveOptions(1).ShowAll);
             Connection.DeleteLicense();
         }
         #endregion
@@ -233,9 +234,9 @@ namespace APITest
         {
             Square9API Connection = new Square9API(Endpoint, Username, Password);
             Connection.CreateLicense();
-            List<Search> searches = Connection.GetSearches(1);
-            List<Search> archiveSearches = Connection.GetSearches(1, archiveId: 1);
-            List<Search> search = Connection.GetSearches(1, searchId: 6);
+            List<Search> searches = Connection.Searches.GetSearches(1);
+            List<Search> archiveSearches = Connection.Searches.GetSearches(1, archiveId: 1);
+            List<Search> search = Connection.Searches.GetSearches(1, searchId: 6);
             Console.WriteLine(JsonConvert.SerializeObject(archiveSearches));
             Console.WriteLine(searches[0].Name);
             Console.WriteLine(archiveSearches[0].Name);
@@ -248,10 +249,10 @@ namespace APITest
         {
             Square9API Connection = new Square9API(Endpoint, Username, Password);
             Connection.CreateLicense();
-            Search search = Connection.GetSearches(1, searchId: 20)[0];
+            Search search = Connection.Searches.GetSearches(1, searchId: 20)[0];
             search.Detail[0].Val = "test";
             search.Detail[1].Val = "10/29/2020";
-            Result results = Connection.GetSearchResults(1, search);
+            Result results = Connection.Searches.GetSearchResults(1, search);
             Console.WriteLine(JsonConvert.SerializeObject(results));
             Connection.DeleteLicense();
         }
@@ -261,12 +262,12 @@ namespace APITest
         {
             Square9API Connection = new Square9API(Endpoint, Username, Password);
             Connection.CreateLicense();
-            List<Search> search = Connection.GetSearches(1, searchId: 20);
+            List<Search> search = Connection.Searches.GetSearches(1, searchId: 20);
             Console.WriteLine(JsonConvert.SerializeObject(search));
             search[0].Detail[0].Val = "test";
             search[0].Detail[1].Val = "10/29/2020";
             Console.WriteLine(JsonConvert.SerializeObject(search));
-            ArchiveCount results = Connection.GetSearchCount(1, search[0]);
+            ArchiveCount results = Connection.Searches.GetSearchCount(1, search[0]);
             Console.WriteLine(JsonConvert.SerializeObject(results));
             Connection.DeleteLicense();
         }
@@ -280,12 +281,12 @@ namespace APITest
             newSearch.AddParameter(3, "contains", "Date:");
             newSearch.Parent = 3;
             newSearch.Archives.Add(3);
-            AdminSearch search = Connection.CreateSearch(1, newSearch);
+            AdminSearch search = Connection.Searches.CreateSearch(1, newSearch);
             Console.WriteLine(JsonConvert.SerializeObject(search));
             search.Name = "Newest Test Search";
-            AdminSearch updatedSearch = Connection.UpdateSearch(1, search);
+            AdminSearch updatedSearch = Connection.Searches.UpdateSearch(1, search);
             Console.WriteLine(updatedSearch.Name);
-            Connection.DeleteSearch(1, search.Id);
+            Connection.Searches.DeleteSearch(1, search.Id);
             Connection.DeleteLicense();
         }
         [TestMethod]
@@ -294,7 +295,7 @@ namespace APITest
         {
             Square9API Connection = new Square9API(Endpoint, Username, Password);
             Connection.CreateLicense();
-            List<AdminSearch> searches = Connection.GetAdminSearches(1, 6);
+            List<AdminSearch> searches = Connection.Searches.GetAdminSearches(1, 6);
             Console.WriteLine(searches[0].Name);
             Connection.DeleteLicense();
         }
@@ -307,7 +308,7 @@ namespace APITest
         {
             Square9API Connection = new Square9API(Endpoint, Username, Password);
             Connection.CreateLicense();
-            InboxList inboxes = Connection.GetInboxes();
+            InboxList inboxes = Connection.Inboxes.GetInboxes();
             Console.WriteLine(JsonConvert.SerializeObject(inboxes));
             Connection.DeleteLicense();
         }
@@ -317,7 +318,7 @@ namespace APITest
         {
             Square9API Connection = new Square9API(Endpoint, Username, Password);
             Connection.CreateLicense();
-            Inbox inbox = Connection.GetInbox(1);
+            Inbox inbox = Connection.Inboxes.GetInbox(1);
             Console.WriteLine(JsonConvert.SerializeObject(inbox));
             Connection.DeleteLicense();
         }
@@ -327,7 +328,7 @@ namespace APITest
         {
             Square9API Connection = new Square9API(Endpoint, Username, Password);
             Connection.CreateLicense();
-            List<AdminInbox> inboxes = Connection.GetAdminInboxes();
+            List<AdminInbox> inboxes = Connection.Inboxes.GetAdminInboxes();
             Console.WriteLine(JsonConvert.SerializeObject(inboxes));
             Connection.DeleteLicense();
         }
@@ -337,7 +338,7 @@ namespace APITest
         {
             Square9API Connection = new Square9API(Endpoint, Username, Password);
             Connection.CreateLicense();
-            List<Security> security = Connection.GetAdminInboxSecurity(1);
+            List<Security> security = Connection.Inboxes.GetAdminInboxSecurity(1);
             Console.WriteLine(JsonConvert.SerializeObject(security));
             Connection.DeleteLicense();
         }
@@ -347,7 +348,7 @@ namespace APITest
         {
             Square9API Connection = new Square9API(Endpoint, Username, Password);
             Connection.CreateLicense();
-            GlobalInboxOptions options = Connection.GetGlobalInboxOptions();
+            GlobalInboxOptions options = Connection.Inboxes.GetGlobalInboxOptions();
             Console.WriteLine(JsonConvert.SerializeObject(options));
             Connection.DeleteLicense();
         }
@@ -357,9 +358,9 @@ namespace APITest
         {
             Square9API Connection = new Square9API(Endpoint, Username, Password);
             Connection.CreateLicense();
-            GlobalInboxOptions options = Connection.GetGlobalInboxOptions();
+            GlobalInboxOptions options = Connection.Inboxes.GetGlobalInboxOptions();
             options.ShowAll = false;
-            GlobalInboxOptions updatedOptions = Connection.UpdateGlobalInboxOptions(options);
+            GlobalInboxOptions updatedOptions = Connection.Inboxes.UpdateGlobalInboxOptions(options);
             Console.WriteLine(JsonConvert.SerializeObject(options));
             Console.WriteLine(JsonConvert.SerializeObject(updatedOptions));
             Connection.DeleteLicense();
@@ -372,9 +373,9 @@ namespace APITest
             Connection.CreateLicense();
             NewAdminInbox newInbox = new NewAdminInbox("BIGTEST");
             Console.WriteLine(JsonConvert.SerializeObject(newInbox));
-            AdminInbox inbox = Connection.CreateInbox(newInbox);
+            AdminInbox inbox = Connection.Inboxes.CreateInbox(newInbox);
             Console.WriteLine(JsonConvert.SerializeObject(inbox));
-            Connection.DeleteInbox(inbox.Id);
+            Connection.Inboxes.DeleteInbox(inbox.Id);
             Connection.DeleteLicense();
         }
         #endregion
@@ -386,7 +387,7 @@ namespace APITest
         {
             Square9API Connection = new Square9API(Endpoint, Username, Password);
             Connection.CreateLicense();
-            List<AdminField> fields = Connection.GetFields(1);
+            List<AdminField> fields = Connection.Fields.GetFields(1);
             Console.WriteLine(JsonConvert.SerializeObject(fields));
             Connection.DeleteLicense();
         }
@@ -401,14 +402,14 @@ namespace APITest
             field.Type = "character";
             field.Length = 50;
             Console.WriteLine(JsonConvert.SerializeObject(field));
-            AdminField newField = Connection.CreateField(1, field);
+            AdminField newField = Connection.Fields.CreateField(1, field);
             Console.WriteLine(JsonConvert.SerializeObject(newField));
-            AdminField retrievedField = Connection.GetFields(1, newField.Id)[0];
+            AdminField retrievedField = Connection.Fields.GetFields(1, newField.Id)[0];
             Console.WriteLine(JsonConvert.SerializeObject(retrievedField));
             retrievedField.Name = "Tester Field Updated";
-            AdminField updatedField = Connection.UpdateField(1, retrievedField);
+            AdminField updatedField = Connection.Fields.UpdateField(1, retrievedField);
             Console.WriteLine(JsonConvert.SerializeObject(updatedField));
-            Connection.DeleteField(1, updatedField.Id);
+            Connection.Fields.DeleteField(1, updatedField.Id);
             Connection.DeleteLicense();
         }
         [TestMethod]
@@ -417,7 +418,7 @@ namespace APITest
         {
             Square9API Connection = new Square9API(Endpoint, Username, Password);
             Connection.CreateLicense();
-            List<AdminTableField> fields = Connection.GetTableFields(1);
+            List<AdminTableField> fields = Connection.Fields.GetTableFields(1);
             Console.WriteLine(JsonConvert.SerializeObject(fields));
             Connection.DeleteLicense();
         }
@@ -431,14 +432,14 @@ namespace APITest
             tableField.Name = "Tester Table Field";
             tableField.Fields.Add(2);
             Console.WriteLine(JsonConvert.SerializeObject(tableField));
-            AdminTableField newTableField = Connection.CreateTableField(1, tableField);
+            AdminTableField newTableField = Connection.Fields.CreateTableField(1, tableField);
             Console.WriteLine(JsonConvert.SerializeObject(newTableField));
-            AdminTableField retreivedTableField = Connection.GetTableField(1, newTableField.Id);
+            AdminTableField retreivedTableField = Connection.Fields.GetTableField(1, newTableField.Id);
             Console.WriteLine(JsonConvert.SerializeObject(retreivedTableField));
             retreivedTableField.Name = "Tester Table Field Updated";
-            AdminTableField updatedTableField = Connection.UpdateTableField(1, retreivedTableField);
+            AdminTableField updatedTableField = Connection.Fields.UpdateTableField(1, retreivedTableField);
             Console.WriteLine(JsonConvert.SerializeObject(updatedTableField));
-            Connection.DeleteTableField(1, updatedTableField.Id);
+            Connection.Fields.DeleteTableField(1, updatedTableField.Id);
             Connection.DeleteLicense();
         }
         [TestMethod]
@@ -447,7 +448,7 @@ namespace APITest
         {
             Square9API Connection = new Square9API(Endpoint, Username, Password);
             Connection.CreateLicense();
-            List<AdminList> fields = Connection.GetLists(1);
+            List<AdminList> fields = Connection.Fields.GetLists(1);
             Console.WriteLine(JsonConvert.SerializeObject(fields));
             Connection.DeleteLicense();
         }
@@ -461,14 +462,14 @@ namespace APITest
             list.Name = "Tester List";
             list.Values.Add("test value 1");
             Console.WriteLine(JsonConvert.SerializeObject(list));
-            AdminList newList = Connection.CreateList(1, list);
+            AdminList newList = Connection.Fields.CreateList(1, list);
             Console.WriteLine(JsonConvert.SerializeObject(newList));
-            AdminList retrievedList = Connection.GetList(1, newList.Id);
+            AdminList retrievedList = Connection.Fields.GetList(1, newList.Id);
             retrievedList.Name = "Tester List Updated";
             Console.WriteLine(JsonConvert.SerializeObject(retrievedList));
-            AdminList updatedList = Connection.UpdateList(1, retrievedList);
+            AdminList updatedList = Connection.Fields.UpdateList(1, retrievedList);
             Console.WriteLine(JsonConvert.SerializeObject(updatedList));
-            Connection.DeleteList(1, updatedList.Id);
+            Connection.Fields.DeleteList(1, updatedList.Id);
             Connection.DeleteLicense();
         }
         [TestMethod]
@@ -477,7 +478,7 @@ namespace APITest
         {
             Square9API Connection = new Square9API(Endpoint, Username, Password);
             Connection.CreateLicense();
-            AdminList list = Connection.LoadAssemblyList(1, Connection.GetList(1, 19));
+            AdminList list = Connection.Fields.LoadAssemblyList(1, Connection.Fields.GetList(1, 19));
             Console.WriteLine(JsonConvert.SerializeObject(list.Values));
             Connection.DeleteLicense();
         }
@@ -490,7 +491,7 @@ namespace APITest
         {
             Square9API Connection = new Square9API(Endpoint, Username, Password);
             Connection.CreateLicense();
-            Result DocResult = Connection.GetArchiveDocument(1, 14, 1);
+            Result DocResult = Connection.Documents.GetArchiveDocument(1, 14, 1);
             Console.WriteLine(JsonConvert.SerializeObject(DocResult));
             Connection.DeleteLicense();
         }
@@ -500,10 +501,10 @@ namespace APITest
         {
             Square9API Connection = new Square9API(Endpoint, Username, Password);
             Connection.CreateLicense();
-            Search search = Connection.GetSearches(1, searchId: 20)[0];
-            Doc document = Connection.GetSearchResults(1, search).Docs[0];
+            Search search = Connection.Searches.GetSearches(1, searchId: 20)[0];
+            Doc document = Connection.Searches.GetSearchResults(1, search).Docs[0];
             Console.WriteLine(JsonConvert.SerializeObject(document));
-            Result result = Connection.GetArchiveDocumentMetaData(1, 1, document);
+            Result result = Connection.Documents.GetArchiveDocumentMetaData(1, 1, document);
             Console.WriteLine(JsonConvert.SerializeObject(result));
             Connection.DeleteLicense();
         }
@@ -513,9 +514,9 @@ namespace APITest
         {
             Square9API Connection = new Square9API(Endpoint, Username, Password);
             Connection.CreateLicense();
-            Search search = Connection.GetSearches(1, searchId: 20)[0];
-            Doc document = Connection.GetSearchResults(1, search).Docs[0];
-            var fileName = Connection.GetArchiveDocumentFile(1, 1, document, "C:\\test\\");
+            Search search = Connection.Searches.GetSearches(1, searchId: 20)[0];
+            Doc document = Connection.Searches.GetSearchResults(1, search).Docs[0];
+            var fileName = Connection.Documents.GetArchiveDocumentFile(1, 1, document, "C:\\test\\");
             Console.WriteLine(fileName);
             Connection.DeleteLicense();
         }
@@ -525,9 +526,9 @@ namespace APITest
         {
             Square9API Connection = new Square9API(Endpoint, Username, Password);
             Connection.CreateLicense();
-            Search search = Connection.GetSearches(1, searchId: 20)[0];
-            Doc document = Connection.GetSearchResults(1, search).Docs[0];
-            var fileName = Connection.GetArchiveDocumentThumbnail(1, 1, document, "C:\\test\\", 1000, 1000);
+            Search search = Connection.Searches.GetSearches(1, searchId: 20)[0];
+            Doc document = Connection.Searches.GetSearchResults(1, search).Docs[0];
+            var fileName = Connection.Documents.GetArchiveDocumentThumbnail(1, 1, document, "C:\\test\\", 1000, 1000);
             Console.WriteLine(fileName);
             Connection.DeleteLicense();
         }
@@ -537,15 +538,15 @@ namespace APITest
         {
             Square9API Connection = new Square9API(Endpoint, Username, Password);
             Connection.CreateLicense();
-            Search search = Connection.GetSearches(1, searchId: 20)[0];
-            Doc document = Connection.GetSearchResults(1, search).Docs[0];
+            Search search = Connection.Searches.GetSearches(1, searchId: 20)[0];
+            Doc document = Connection.Searches.GetSearchResults(1, search).Docs[0];
             Console.WriteLine(JsonConvert.SerializeObject(document));
             Random random = new Random();
             int num = random.Next(1000);
             document.Fields[0].Val = $"{num}";
             Console.WriteLine(JsonConvert.SerializeObject(document));
-            Connection.UpdateDocumentIndexData(1, 1, document);
-            Doc updatedDoc = Connection.GetSearchResults(1, search).Docs[0];
+            Connection.Documents.UpdateDocumentIndexData(1, 1, document);
+            Doc updatedDoc = Connection.Searches.GetSearchResults(1, search).Docs[0];
             Console.WriteLine(JsonConvert.SerializeObject(updatedDoc));
             Connection.DeleteLicense();
         }
@@ -555,17 +556,17 @@ namespace APITest
         {
             Square9API Connection = new Square9API(Endpoint, Username, Password);
             Connection.CreateLicense();
-            UploadedFiles files = Connection.UploadDocument("C:\\test\\testuploadDoc.pdf");
+            UploadedFiles files = Connection.Documents.UploadDocument("C:\\test\\testuploadDoc.pdf");
             Console.WriteLine(JsonConvert.SerializeObject(files));
             NewFile newFile = new NewFile();
             newFile.Files = files.Files;
             newFile.Fields.Add(new FileField("2", "Test Last Name 1234"));
             newFile.Fields.Add(new FileField("3", "11/16/2021"));
             Console.WriteLine(JsonConvert.SerializeObject(newFile));
-            Connection.ImportArchiveDocument(1, 1, newFile);
-            Search search = Connection.GetSearches(1, searchId: 20)[0];
-            Doc document = Connection.GetSearchResults(1, search).Docs[0];
-            Connection.DeleteArchiveDocument(1, 1, document);
+            Connection.Documents.ImportArchiveDocument(1, 1, newFile);
+            Search search = Connection.Searches.GetSearches(1, searchId: 20)[0];
+            Doc document = Connection.Searches.GetSearchResults(1, search).Docs[0];
+            Connection.Documents.DeleteArchiveDocument(1, 1, document);
             Connection.DeleteLicense();
         }
         [TestMethod]
@@ -574,13 +575,13 @@ namespace APITest
         {
             Square9API Connection = new Square9API(Endpoint, Username, Password);
             Connection.CreateLicense();
-            Search search = Connection.GetSearches(1, searchId: 20)[0];
+            Search search = Connection.Searches.GetSearches(1, searchId: 20)[0];
             List<FileExport> files = new List<FileExport>();
-            Console.WriteLine(JsonConvert.SerializeObject(Connection.GetSearchResults(1, search)));
-            files.Add(new FileExport(1, Connection.GetSearchResults(1, search).Docs[0]));
-            files.Add(new FileExport(1, Connection.GetSearchResults(1, search).Docs[1]));
+            Console.WriteLine(JsonConvert.SerializeObject(Connection.Searches.GetSearchResults(1, search)));
+            files.Add(new FileExport(1, Connection.Searches.GetSearchResults(1, search).Docs[0]));
+            files.Add(new FileExport(1, Connection.Searches.GetSearchResults(1, search).Docs[1]));
             Console.WriteLine(JsonConvert.SerializeObject(files));
-            string exportedFiles = Connection.ExportDocument(1, 2, files, "C:\\test\\");
+            string exportedFiles = Connection.Documents.ExportDocument(1, 2, files, "C:\\test\\");
             Console.WriteLine(exportedFiles);
             Connection.DeleteLicense();
             //throw new Exception("This method has currently not been tested fully (have observed empty zip files being returned)");
@@ -591,9 +592,9 @@ namespace APITest
         {
             Square9API Connection = new Square9API(Endpoint, Username, Password);
             Connection.CreateLicense();
-            Search search = Connection.GetSearches(1, searchId: 20)[0];
-            Doc document = Connection.GetSearchResults(1, search).Docs[0];
-            int docID = Connection.TransferArchiveDocument(1, 1, 2, document);
+            Search search = Connection.Searches.GetSearches(1, searchId: 20)[0];
+            Doc document = Connection.Searches.GetSearchResults(1, search).Docs[0];
+            int docID = Connection.Documents.TransferArchiveDocument(1, 1, 2, document);
             Console.WriteLine(docID);
             Connection.DeleteLicense();
         }
@@ -603,9 +604,9 @@ namespace APITest
         {
             Square9API Connection = new Square9API(Endpoint, Username, Password);
             Connection.CreateLicense();
-            Search search = Connection.GetSearches(1, searchId: 1082)[0];
-            Doc document = Connection.GetSearchResults(1, search).Docs[0];
-            Revision revision = Connection.GetDocumentRevisions(1, 52, document)[0];
+            Search search = Connection.Searches.GetSearches(1, searchId: 1082)[0];
+            Doc document = Connection.Searches.GetSearchResults(1, search).Docs[0];
+            Revision revision = Connection.Documents.GetDocumentRevisions(1, 52, document)[0];
             Console.WriteLine(JsonConvert.SerializeObject(revision));
             Doc revisionDoc = revision.ReturnDoc();
             Console.WriteLine(JsonConvert.SerializeObject(revisionDoc));
@@ -618,12 +619,12 @@ namespace APITest
         {
             Square9API Connection = new Square9API(Endpoint, Username, Password);
             Connection.CreateLicense();
-            Search search = Connection.GetSearches(1, searchId: 1083)[0];
-            Doc document = Connection.GetSearchResults(1, search).Docs[0];
+            Search search = Connection.Searches.GetSearches(1, searchId: 1083)[0];
+            Doc document = Connection.Searches.GetSearchResults(1, search).Docs[0];
             Console.WriteLine(JsonConvert.SerializeObject(document));
-            Queue documentQueue = Connection.GetDocumentQueue(1, 53, document);
+            Queue documentQueue = Connection.Documents.GetDocumentQueue(1, 53, document);
             Console.WriteLine(JsonConvert.SerializeObject(documentQueue));
-            Connection.FireDocumentQueueAction(1, 53, document, documentQueue.Actions[1]);
+            Connection.Documents.FireDocumentQueueAction(1, 53, document, documentQueue.Actions[1]);
             Connection.DeleteLicense();
         }
         [TestMethod]
@@ -633,23 +634,23 @@ namespace APITest
             Square9API Connection = new Square9API(Endpoint, Username, Password);
             Connection.CreateLicense();
 
-            UploadedFiles files = Connection.UploadDocument("C:\\test\\testuploadDoc.pdf");
-            Connection.ImportInboxDocument(1, files.Files[0]);
+            UploadedFiles files = Connection.Documents.UploadDocument("C:\\test\\testuploadDoc.pdf");
+            Connection.Documents.ImportInboxDocument(1, files.Files[0]);
 
-            Inbox inbox = Connection.GetInbox(1);
+            Inbox inbox = Connection.Inboxes.GetInbox(1);
             Square9APIHelperLibrary.DataTypes.File file = inbox.Files[0];
             Console.WriteLine(JsonConvert.SerializeObject(file));
 
             List<FileField> fields = new List<FileField>();
             fields.Add(new FileField("2", "Inbox Index Test"));
 
-            Connection.IndexInboxDocument(1, 1, 1, file, fields);
+            Connection.Documents.IndexInboxDocument(1, 1, 1, file, fields);
 
-            Search search = Connection.GetSearches(1, searchId: 20)[0];
-            Doc document = Connection.GetSearchResults(1, search).Docs[0];
-            Connection.DeleteArchiveDocument(1, 1, document);
+            Search search = Connection.Searches.GetSearches(1, searchId: 20)[0];
+            Doc document = Connection.Searches.GetSearchResults(1, search).Docs[0];
+            Connection.Documents.DeleteArchiveDocument(1, 1, document);
 
-            Connection.DeleteInboxDocument(1, file);
+            Connection.Documents.DeleteInboxDocument(1, file);
             Connection.DeleteLicense();
         }
         [TestMethod]
@@ -659,11 +660,11 @@ namespace APITest
             Square9API Connection = new Square9API(Endpoint, Username, Password);
             Connection.CreateLicense();
 
-            Inbox inbox = Connection.GetInbox(1);
+            Inbox inbox = Connection.Inboxes.GetInbox(1);
             Square9APIHelperLibrary.DataTypes.File file = inbox.Files[0];
             Console.WriteLine(JsonConvert.SerializeObject(file));
 
-            Console.WriteLine(Connection.GetInboxDocumentFile(1, file, "C:\\test\\inbox\\"));
+            Console.WriteLine(Connection.Documents.GetInboxDocumentFile(1, file, "C:\\test\\inbox\\"));
 
             Connection.DeleteLicense();
         }
@@ -674,11 +675,11 @@ namespace APITest
             Square9API Connection = new Square9API(Endpoint, Username, Password);
             Connection.CreateLicense();
 
-            Inbox inbox = Connection.GetInbox(1);
+            Inbox inbox = Connection.Inboxes.GetInbox(1);
             Square9APIHelperLibrary.DataTypes.File file = inbox.Files[0];
             Console.WriteLine(JsonConvert.SerializeObject(file));
 
-            Console.WriteLine(Connection.TransferInboxDocument(1, 2, file));
+            Console.WriteLine(Connection.Documents.TransferInboxDocument(1, 2, file));
 
             Connection.DeleteLicense();
         }
@@ -691,9 +692,9 @@ namespace APITest
         {
             Square9API Connection = new Square9API(Endpoint, Username, Password);
             Connection.CreateLicense();
-            List<SecuredGroup> securedGroups = Connection.GetSecuredUsersAndGroups();
+            List<SecuredGroup> securedGroups = Connection.Administration.GetSecuredUsersAndGroups();
             Console.WriteLine(JsonConvert.SerializeObject(securedGroups));
-            List<UnsecuredGroup> unsecuredGroups = Connection.GetUnsecuredUsersAndGroups();
+            List<UnsecuredGroup> unsecuredGroups = Connection.Administration.GetUnsecuredUsersAndGroups();
             Console.WriteLine(JsonConvert.SerializeObject(unsecuredGroups));
             Connection.DeleteLicense();
         }
@@ -703,7 +704,7 @@ namespace APITest
         {
             Square9API Connection = new Square9API(Endpoint, Username, Password);
             Connection.CreateLicense();
-            List<SecurityNode> securityNodes = Connection.GetTreeStructure();
+            List<SecurityNode> securityNodes = Connection.Administration.GetTreeStructure();
             Console.WriteLine(JsonConvert.SerializeObject(securityNodes));
             Connection.DeleteLicense();
         }
@@ -713,7 +714,7 @@ namespace APITest
         {
             Square9API Connection = new Square9API(Endpoint, Username, Password);
             Connection.CreateLicense();
-            Console.WriteLine(Connection.GetUserArchivePermissions(2, 1, "test").Level);
+            Console.WriteLine(Connection.Administration.GetUserArchivePermissions(2, 1, "test").Level);
             Connection.DeleteLicense();
         }
         [TestMethod]
@@ -722,7 +723,7 @@ namespace APITest
         {
             Square9API Connection = new Square9API(Endpoint, Username, Password);
             Connection.CreateLicense();
-            Console.WriteLine(Connection.GetUserInboxPermissions(1, "test").Level);
+            Console.WriteLine(Connection.Administration.GetUserInboxPermissions(1, "test").Level);
             Connection.DeleteLicense();
         }
         [TestMethod]
@@ -731,7 +732,7 @@ namespace APITest
         {
             Square9API Connection = new Square9API(Endpoint, Username, Password);
             Connection.CreateLicense();
-            List<SearchProperties> userSearchSecurity = Connection.GetUserSearchProperties(1, "SSAdministrator");
+            List<SearchProperties> userSearchSecurity = Connection.Administration.GetUserSearchProperties(1, "SSAdministrator");
             Console.WriteLine(JsonConvert.SerializeObject(userSearchSecurity));
             Connection.DeleteLicense();
         }
@@ -746,7 +747,7 @@ namespace APITest
             ArchiveSecurity archiveSecurity = new ArchiveSecurity();
 
             //Add Users
-            SecuredGroup securedGroup = Connection.GetSecuredUsersAndGroups().Find(x => x.Name == "test");
+            SecuredGroup securedGroup = Connection.Administration.GetSecuredUsersAndGroups().Find(x => x.Name == "test");
             User user = new User();
             user.ConvertSecuredGroup(securedGroup);
             archiveSecurity.Users.Add(user);
@@ -758,7 +759,7 @@ namespace APITest
             archiveSecurity.Targets.Add(target);
 
             //Add Permissions
-            ArchivePermission permission = new ArchivePermission(Connection.GetUserArchivePermissions(2, 1, "test").Level);
+            ArchivePermission permission = new ArchivePermission(Connection.Administration.GetUserArchivePermissions(2, 1, "test").Level);
             permission.View = true;
             permission.Add = true;
             permission.Delete = true;
@@ -768,7 +769,7 @@ namespace APITest
             archiveSecurity.Permissions = permission;
 
             Console.WriteLine(JsonConvert.SerializeObject(archiveSecurity));
-            Connection.SetArchiveSecurity(archiveSecurity);
+            Connection.Administration.SetArchiveSecurity(archiveSecurity);
             Connection.DeleteLicense();
         }
         [TestMethod]
@@ -782,7 +783,7 @@ namespace APITest
             InboxSecurity inboxSecurity = new InboxSecurity();
 
             //Add Users
-            SecuredGroup securedGroup = Connection.GetSecuredUsersAndGroups().Find(x => x.Name == "test");
+            SecuredGroup securedGroup = Connection.Administration.GetSecuredUsersAndGroups().Find(x => x.Name == "test");
             User user = new User();
             user.ConvertSecuredGroup(securedGroup);
             inboxSecurity.Users.Add(user);
@@ -803,7 +804,7 @@ namespace APITest
             inboxSecurity.Permissions = permission;
 
             Console.WriteLine(JsonConvert.SerializeObject(inboxSecurity));
-            Connection.SetInboxSecurity(inboxSecurity);
+            Connection.Administration.SetInboxSecurity(inboxSecurity);
             Connection.DeleteLicense();
         }
         [TestMethod]
@@ -817,7 +818,7 @@ namespace APITest
             DatabaseSecurity databaseSecurity = new DatabaseSecurity();
 
             //Add Users
-            SecuredGroup securedGroup = Connection.GetSecuredUsersAndGroups().Find(x => x.Name == "test");
+            SecuredGroup securedGroup = Connection.Administration.GetSecuredUsersAndGroups().Find(x => x.Name == "test");
             User user = new User();
             user.ConvertSecuredGroup(securedGroup);
             databaseSecurity.Users.Add(user);
@@ -833,7 +834,7 @@ namespace APITest
             databasePermission.License = 1;
             databaseSecurity.Permissions = databasePermission;
 
-            Connection.SetDatabaseSecurity(databaseSecurity);
+            Connection.Administration.SetDatabaseSecurity(databaseSecurity);
 
             Connection.DeleteLicense();
         }
@@ -848,7 +849,7 @@ namespace APITest
             SearchSecurity searchSecurity = new SearchSecurity();
 
             //Add Users
-            SecuredGroup securedGroup = Connection.GetSecuredUsersAndGroups().Find(x => x.Name == "test");
+            SecuredGroup securedGroup = Connection.Administration.GetSecuredUsersAndGroups().Find(x => x.Name == "test");
             User user = new User();
             user.ConvertSecuredGroup(securedGroup);
             searchSecurity.Users.Add(user);
@@ -864,7 +865,7 @@ namespace APITest
             searchPermission.View = true;
             searchSecurity.Permissions = searchPermission;
 
-            Connection.SetSearchSecurity(searchSecurity);
+            Connection.Administration.SetSearchSecurity(searchSecurity);
 
             Connection.DeleteLicense();
         }
@@ -879,7 +880,7 @@ namespace APITest
             SearchSecurity searchSecurity = new SearchSecurity();
 
             //Add Users
-            SecuredGroup securedGroup = Connection.GetSecuredUsersAndGroups().Find(x => x.Name == "test");
+            SecuredGroup securedGroup = Connection.Administration.GetSecuredUsersAndGroups().Find(x => x.Name == "test");
             User user = new User();
             user.ConvertSecuredGroup(securedGroup);
             searchSecurity.Users.Add(user);
@@ -895,7 +896,7 @@ namespace APITest
             searchPermission.Type = 8; //4=QueueSearch, 8=DefaultSearch, 16=DirectSearch
             searchSecurity.Permissions = searchPermission;
 
-            Connection.SetSearchProperties(searchSecurity);
+            Connection.Administration.SetSearchProperties(searchSecurity);
 
             Connection.DeleteLicense();
         }
@@ -912,10 +913,10 @@ namespace APITest
             newUser.Password = Password;
 
             //Create new user
-            Connection.CreateUser(newUser);
+            Connection.Administration.CreateUser(newUser);
 
             //Get the new user
-            UnsecuredGroup unsecuredGroup = Connection.GetUnsecuredUsersAndGroups().Find(x => x.Name == "NewTestUser");
+            UnsecuredGroup unsecuredGroup = Connection.Administration.GetUnsecuredUsersAndGroups().Find(x => x.Name == "NewTestUser");
             User user = new User();
             user.ConvertUnsecuredGroup(unsecuredGroup);
 
@@ -923,12 +924,12 @@ namespace APITest
 
             //Update new user
             user.Password = "NewPassword123!@#";
-            Connection.UpdateUser(user);
+            Connection.Administration.UpdateUser(user);
 
             Console.WriteLine(JsonConvert.SerializeObject(user));
 
             //Delete the user
-            Connection.DeleteUser(user);
+            Connection.Administration.DeleteUser(user);
 
             Connection.DeleteLicense();
         }
@@ -944,13 +945,13 @@ namespace APITest
             newGroup.Name = "NewTestGroup";
 
             //Create new group
-            Connection.CreateGroup(newGroup);
+            Connection.Administration.CreateGroup(newGroup);
 
             //Get the new group
-            Group group = Connection.GetGroups().Find(x => x.Name == "NewTestGroup");
+            Group group = Connection.Administration.GetGroups().Find(x => x.Name == "NewTestGroup");
 
             //Get some users
-            List<UnsecuredGroup> unsecuredGroups = Connection.GetUnsecuredUsersAndGroups().FindAll(x => x.Type == 2); //Type 2 is for S9 users
+            List<UnsecuredGroup> unsecuredGroups = Connection.Administration.GetUnsecuredUsersAndGroups().FindAll(x => x.Type == 2); //Type 2 is for S9 users
 
             Console.WriteLine(JsonConvert.SerializeObject(group));
             Console.WriteLine(JsonConvert.SerializeObject(unsecuredGroups));
@@ -962,15 +963,15 @@ namespace APITest
             group.Users.Add(unsecuredGroups[6].Name);
 
             //Update group
-            Connection.UpdateGroup(group);
+            Connection.Administration.UpdateGroup(group);
 
             //Get the updated group
-            Group updatedGroup = Connection.GetGroups().Find(x => x.Name == "NewTestGroup");
+            Group updatedGroup = Connection.Administration.GetGroups().Find(x => x.Name == "NewTestGroup");
 
             Console.WriteLine(JsonConvert.SerializeObject(updatedGroup));
 
             //Delete group
-            Connection.DeleteGroup(updatedGroup);
+            Connection.Administration.DeleteGroup(updatedGroup);
 
             Connection.DeleteLicense();
         }

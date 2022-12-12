@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Square9APIHelperLibrary.DataTypes
 {
+    /// <summary>
+    /// Database authentication settings
+    /// </summary>
     public class DBAuth
     {
         public DBAuth() { }
