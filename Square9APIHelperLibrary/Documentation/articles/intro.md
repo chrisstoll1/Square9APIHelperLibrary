@@ -17,7 +17,7 @@ To start using this library add the [.dll](https://github.com/chrisstoll1/Square
    ```
    Square9API Connection = new Square9API(Endpoint, Username, Password);
    ```
-3. Before you can start interfacing with the API, you must first get a license from the server by calling the [CreateLicense](../api/Square9APIHelperLibrary.Square9API.html#Square9APIHelperLibrary_Square9API__ctor_System_String_System_String_System_String_) method
+3. Before you can start interfacing with the API, you must first get a license from the server by calling the [CreateLicense](../api/Square9APIHelperLibrary.Square9API.html#Square9APIHelperLibrary_Square9API_CreateLicense) method
 
    ```
    Connection.CreateLicense();

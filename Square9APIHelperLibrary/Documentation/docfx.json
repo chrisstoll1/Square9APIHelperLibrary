@@ -20,17 +20,13 @@
 		"_appName": "Square9APIHelperLibrary",
 		"_appFaviconPath": "images/Square9icon_16x16.png",
 		"_appLogoPath": "images/Square9icon_70x70.png",
-		"_appFooter": "Square9 Helper Library",
+		"_appFooter": "<a href='https://github.com/chrisstoll1/Square9APIHelperLibrary'>Square 9 Helper Library</a>",
 		"_copyrightFooter": "© chrisstoll1. All rights reserved.",
 		"_enableSearch": false,
 		"_disableSideFilter": false,
 		"_enableNewTab": true,
 		"_disableContribution": false,
-		"_disableBreadcrumb": false,
-		"_gitContribute": {
-        "repo": "https://github.com/chrisstoll1/Square9APIHelperLibrary"
-		},
-		"_gitUrlPattern": "github"
+		"_disableBreadcrumb": false
 	},
     "content": [
       {
