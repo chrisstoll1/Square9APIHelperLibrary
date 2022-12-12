@@ -16,36 +16,24 @@ The Square9API Helper library and Powershell make a great combination because th
 2. Add the following using statements to the top of your new script
 
 ```
-
 using assembly ".\Square9APIHelperLibrary.dll"
-
 using namespace Square9APIHelperLibrary
-
 using namespace Square9APIHelperLibrary.DataTypes
-
 ```
 
 3. Create a new [Square9API](../api/Square9APIHelperLibrary.Square9API.html) object, it will take three [parameters](../api/Square9APIHelperLibrary.Square9API.html#Square9APIHelperLibrary_Square9API__ctor_System_String_System_String_System_String_) for the **Endpoint**, **Username**, and **Password**
 
 ```
-
 $connection = New-Object Square9APIHelperLibrary.Square9API($Endpoint, $User, $Pass)
-
 ```
 
 4. Before you can start interfacing with the API, you must first get a license from the server by calling the [CreateLicense](../api/Square9APIHelperLibrary.Square9API.html#Square9APIHelperLibrary_Square9API_CreateLicense) method
 
 ```
-
 $connection.CreateLicense()
-
 ```
 
-  
-
 You are now ready to start using the Square9API Helper Library in Powershell!
-
-  
 
 ### Example: Move documents between archive
 To move documents between archives we need to run through the following steps
@@ -55,7 +43,7 @@ To move documents between archives we need to run through the following steps
  ```
  [Search]$search = $connection.Searches.GetSearches($database.Id, $sourceArchive.Id)[0]
  ```
- - Get a list of documents by running said search
+ - Get a list of documents by running $search
  > This code calls [Searches.GetSearchResults](../api/Square9APIHelperLibrary.Square9APIComponents.Searches.html#Square9APIHelperLibrary_Square9APIComponents_Searches_GetSearchResults_System_Int32_Square9APIHelperLibrary_DataTypes_Search_System_Int32_System_Int32_System_Int32_System_Int32_System_Int32_) which retrieves the first 1000 documents from the first page of search results and stores it in our $searchResult variable (based on additonal parameters). 
  ```
  [Result]$searchResult = $connection.Searches.GetSearchResults($database.Id, $search, 1, 1000)
