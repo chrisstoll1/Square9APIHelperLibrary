@@ -759,13 +759,21 @@ namespace APITest
             archiveSecurity.Targets.Add(target);
 
             //Add Permissions
-            ArchivePermission permission = new ArchivePermission(Connection.Administration.GetUserArchivePermissions(2, 1, "test").Level);
+            ArchivePermission existingPermissions = Connection.Administration.GetUserArchivePermissions(2, 1, "test");
+            Console.WriteLine(JsonConvert.SerializeObject(existingPermissions));
+
+            existingPermissions.SelectAll();
+            Console.WriteLine(JsonConvert.SerializeObject(existingPermissions));
+
+            existingPermissions.ClearAll();
+            Console.WriteLine(JsonConvert.SerializeObject(existingPermissions));
+
+            ArchivePermission permission = new ArchivePermission(existingPermissions.Level);
             permission.View = true;
             permission.Add = true;
             permission.Delete = true;
             permission.Print = true;
             permission.FullAPIAccess = true;
-            permission.CalculatePermissionLevel();
             archiveSecurity.Permissions = permission;
 
             Console.WriteLine(JsonConvert.SerializeObject(archiveSecurity));
