@@ -111,35 +111,59 @@ namespace Square9APIHelperLibrary.DataTypes
             set
             {
                 string permissionLevel = Convert.ToString(value, 2);
-                while (permissionLevel.Length < 20)
-                {
-                    permissionLevel = $"0{permissionLevel}";
-                }
-                FullAPIAccess = (permissionLevel[0] == '1') ? true : false;
-                DeleteBatches = (permissionLevel[1] == '1') ? true : false;
-                MoveDoc = (permissionLevel[2] == '1') ? true : false;
-                ModifyPages = (permissionLevel[3] == '1') ? true : false;
-                PublishRevisions = (permissionLevel[4] == '1') ? true : false;
-                ViewDocRevision = (permissionLevel[5] == '1') ? true : false;
-                LaunchDocCopy = (permissionLevel[6] == '1') ? true : false;
-                LaunchDoc = (permissionLevel[7] == '1') ? true : false;
-                ModifyAnnotations = (permissionLevel[8] == '1') ? true : false;
-                ModifyData = (permissionLevel[9] == '1') ? true : false;
-                ViewDocHistory = (permissionLevel[10] == '1') ? true : false;
-                ViewInAcrobat = (permissionLevel[11] == '1') ? true : false;
-                ExportDocs = (permissionLevel[12] == '1') ? true : false;
-                ExportData = (permissionLevel[13] == '1') ? true : false;
-                Email = (permissionLevel[14] == '1') ? true : false;
-                Print = (permissionLevel[15] == '1') ? true : false;
-                Delete = (permissionLevel[16] == '1') ? true : false;
-                ModifyDocument = (permissionLevel[17] == '1') ? true : false;
-                Add = (permissionLevel[18] == '1') ? true : false;
-                View = (permissionLevel[19] == '1') ? true : false;
+
+                //Pad the binary string with leading zeros until it is 20 characters long
+                permissionLevel = permissionLevel.PadLeft(20, '0');
+                
+                FullAPIAccess = (permissionLevel[0] == '1');
+                DeleteBatches = (permissionLevel[1] == '1');
+                MoveDoc = (permissionLevel[2] == '1');
+                ModifyPages = (permissionLevel[3] == '1');
+                PublishRevisions = (permissionLevel[4] == '1');
+                ViewDocRevision = (permissionLevel[5] == '1');
+                LaunchDocCopy = (permissionLevel[6] == '1');
+                LaunchDoc = (permissionLevel[7] == '1');
+                ModifyAnnotations = (permissionLevel[8] == '1');
+                ModifyData = (permissionLevel[9] == '1');
+                ViewDocHistory = (permissionLevel[10] == '1');
+                ViewInAcrobat = (permissionLevel[11] == '1');
+                ExportDocs = (permissionLevel[12] == '1');
+                ExportData = (permissionLevel[13] == '1');
+                Email = (permissionLevel[14] == '1');
+                Print = (permissionLevel[15] == '1');
+                Delete = (permissionLevel[16] == '1');
+                ModifyDocument = (permissionLevel[17] == '1');
+                Add = (permissionLevel[18] == '1');
+                View = (permissionLevel[19] == '1');
             }
         }
-        public ArchivePermission(int level = 0)
+        /// <summary>
+        /// Takes either a Binary Encoded <see cref="int"/>, <see cref="string"/>, or an existing <see cref="ArchivePermission"/>. 
+        /// Binary encoded strings must be 20 characters (to account for all permissions)
+        /// </summary>
+        /// <param name="level">Can be of type <see cref="string"/>, <see cref="int"/>, or <see cref="ArchivePermission"/></param>
+        public ArchivePermission(object level = null)
         {
-            Level = level;
+            if (level is string)
+            {
+                if (!System.Text.RegularExpressions.Regex.IsMatch((string)level, "^[01]{20}$"))
+                {
+                    throw new ArgumentException("Binary string must be 20 characters long and can only contain the characters 0 and 1");
+                }
+                Level = Convert.ToInt32((string)level, 2);
+            }
+            else if (level is int)
+            {
+                Level = (int)level;
+            }
+            else if (level is ArchivePermission)
+            {
+                Level = ((ArchivePermission)level).Level;
+            }
+            else
+            {
+                ClearAll();
+            }
         }
         /// <summary>
         /// Sets all permissions to True

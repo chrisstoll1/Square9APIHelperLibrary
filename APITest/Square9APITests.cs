@@ -759,16 +759,23 @@ namespace APITest
             archiveSecurity.Targets.Add(target);
 
             //Add Permissions
+            Console.WriteLine("Existing Database Permissions:");
             ArchivePermission existingPermissions = Connection.Administration.GetUserArchivePermissions(2, 1, "test");
             Console.WriteLine(JsonConvert.SerializeObject(existingPermissions));
 
+            Console.WriteLine("SelectAll, print output");
             existingPermissions.SelectAll();
             Console.WriteLine(JsonConvert.SerializeObject(existingPermissions));
 
+            Console.WriteLine("ClearAll. print output");
             existingPermissions.ClearAll();
             Console.WriteLine(JsonConvert.SerializeObject(existingPermissions));
 
-            ArchivePermission permission = new ArchivePermission(existingPermissions.Level);
+            Console.WriteLine("string input test");
+            ArchivePermission archivePermission = new ArchivePermission("11101010101010101010");
+            Console.WriteLine(JsonConvert.SerializeObject(archivePermission));
+
+            ArchivePermission permission = new ArchivePermission(existingPermissions);
             permission.View = true;
             permission.Add = true;
             permission.Delete = true;
@@ -776,6 +783,7 @@ namespace APITest
             permission.FullAPIAccess = true;
             archiveSecurity.Permissions = permission;
 
+            Console.WriteLine("Full ArchiveSecurity Object");
             Console.WriteLine(JsonConvert.SerializeObject(archiveSecurity));
             Connection.Administration.SetArchiveSecurity(archiveSecurity);
             Connection.DeleteLicense();
