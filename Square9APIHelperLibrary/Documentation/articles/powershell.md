@@ -11,7 +11,7 @@ The Square9API Helper library and Powershell make a great combination because th
 
 1. Download the [.dll](https://github.com/chrisstoll1/Square9APIHelperLibrary/releases) from releases along with the [prerequisites](https://github.com/chrisstoll1/Square9APIHelperLibrary#prerequisites). Place these in the same directory as your powershell script
 
-2. Open up PowerShell ISE and create a new script
+2. Open up PowerShell ISE and create a new script (Note: Powershell 5.0 or higher is required to import the Square9APIHelperLibrary.dll with a using statement)
 
 3. Add the following using statements to the top of your new script
 
