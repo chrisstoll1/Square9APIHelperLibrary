@@ -12,7 +12,7 @@ namespace APITest
     public class Square9APITests
     {
         #region Variables
-        private string Endpoint = "http://192.168.4.47/Square9API";
+        private string Endpoint = "http://192.168.4.204/Square9API";
         private string Username = "SSAdministrator";
         private string Password = "Square9!";
         #endregion
@@ -50,8 +50,8 @@ namespace APITest
         {
             Square9API Connection = new Square9API(Endpoint, Username, Password);
             Connection.CreateLicense();
-            Console.WriteLine(Connection.IsAdmin());
-            Assert.IsTrue(Connection.IsAdmin());
+            Console.WriteLine(Connection.Administration.IsAdmin());
+            Assert.IsTrue(Connection.Administration.IsAdmin());
             Connection.DeleteLicense();
         }
         [TestMethod]
@@ -61,11 +61,11 @@ namespace APITest
             Square9API Connection = new Square9API(Endpoint, Username, Password);
             Connection.CreateLicense();
 
-            EmailServer emailServer = Connection.GetEmailOptions(1);
+            EmailServer emailServer = Connection.Administration.GetEmailOptions(1);
             Console.WriteLine(JsonConvert.SerializeObject(emailServer));
 
             emailServer.Auth.User = Username;
-            Console.WriteLine(JsonConvert.SerializeObject(Connection.UpdateEmailOptions(1, emailServer)));
+            Console.WriteLine(JsonConvert.SerializeObject(Connection.Administration.UpdateEmailOptions(emailServer, 1)));
 
             Connection.DeleteLicense();
         }
@@ -76,16 +76,16 @@ namespace APITest
             Square9API Connection = new Square9API(Endpoint, Username, Password);
             Connection.CreateLicense();
 
-            List<Stamp> stamps = Connection.GetStamps();
+            List<Stamp> stamps = Connection.Administration.GetStamps();
             Console.WriteLine(JsonConvert.SerializeObject(stamps));
 
             Stamp stamp = new Stamp();
             stamp.Text = "This is a test stamp 2";
 
-            Stamp newStamp = Connection.CreateStamp(stamp);
+            Stamp newStamp = Connection.Administration.CreateStamp(stamp);
             Console.WriteLine(JsonConvert.SerializeObject(newStamp));
 
-            Connection.DeleteStamp(newStamp);
+            Connection.Administration.DeleteStamp(newStamp);
 
             Connection.DeleteLicense();
         }
@@ -96,7 +96,7 @@ namespace APITest
             Square9API Connection = new Square9API(Endpoint, Username, Password);
             Connection.CreateLicense();
 
-            Registration registration = Connection.GetRegistration();
+            Registration registration = Connection.Administration.GetRegistration();
             Console.WriteLine(JsonConvert.SerializeObject(registration));
 
             Connection.DeleteLicense();
@@ -988,6 +988,33 @@ namespace APITest
 
             //Delete group
             Connection.Administration.DeleteGroup(updatedGroup);
+
+            Connection.DeleteLicense();
+        }
+
+        [TestMethod]
+        [TestCategory("Administration")]
+
+        public void CreateGetUpdateDeleteAdvancedLink()
+        {
+            Square9API Connection = new Square9API(Endpoint, Username, Password);
+            Connection.CreateLicense();
+
+            NewAdvancedLink newAdvancedLink = new NewAdvancedLink("Test Advanced Link", 25, "google.com");
+
+            Console.WriteLine(JsonConvert.SerializeObject(newAdvancedLink));
+
+            Connection.Fields.CreateAdvancedLink(1, newAdvancedLink);
+
+            AdvancedLink advancedLink = Connection.Fields.GetAdvancedLinks(1)[0];
+
+            advancedLink.Name = "Testing Advanced Link Name 2";
+
+            AdvancedLink updatedAdvancedLink = Connection.Fields.UpdateAdvancedLink(1, advancedLink);
+
+            Assert.AreEqual(updatedAdvancedLink.Name, advancedLink.Name);
+
+            Connection.Fields.DeleteAdvancedLink(1, updatedAdvancedLink);
 
             Connection.DeleteLicense();
         }

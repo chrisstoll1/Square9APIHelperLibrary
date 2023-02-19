@@ -20,5 +20,6 @@ namespace Square9APIHelperLibrary.DataTypes
         public string RegEx { get; set; }
         public int Size { get; set; }
         public int Type { get; set; }
+        public ExtendedConfig ExtendedConfig { get; set; } = new ExtendedConfig();
     }
 }

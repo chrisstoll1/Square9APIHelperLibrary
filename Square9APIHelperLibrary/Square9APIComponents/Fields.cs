@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net;
+using Newtonsoft.Json;
 using RestSharp;
 using Square9APIHelperLibrary.DataTypes;
 
@@ -275,6 +276,77 @@ namespace Square9APIHelperLibrary.Square9APIComponents
                 throw new Exception($"Unable to get assembly list: {Response.Content}");
             }
             return Response.Data;
+        }
+        /// <summary>
+        /// Gets a list of all the advanced links for a database
+        /// </summary>
+        /// <param name="databaseId">Database Id</param>
+        /// <returns>A list of <see cref="AdvancedLink"/></returns>
+        /// <exception cref="Exception"></exception>
+        public List<AdvancedLink> GetAdvancedLinks(int databaseId)
+        {
+            var Request = new RestRequest($"api/AdvancedLinks/databases/{databaseId}");
+            Request.AddHeader("Auth-Token", License.Token);
+            var Response = ApiClient.Execute<List<AdvancedLink>>(Request);
+            if (Response.StatusCode != HttpStatusCode.OK)
+            {
+                throw new Exception($"Unable to get advanced links: {Response.Content}");
+            }
+            return Response.Data;
+        }
+        /// <summary>
+        /// Deletes a passed in Advanced Link
+        /// </summary>
+        /// <param name="databaseId"></param>
+        /// <param name="advancedLink"><see cref="AdvancedLink"/></param>
+        /// <exception cref="Exception"></exception>
+        public void DeleteAdvancedLink(int databaseId, AdvancedLink advancedLink)
+        {
+            var Request = new RestRequest($"api/AdvancedLinks/databases/{databaseId}?id={advancedLink.Id}", Method.DELETE);
+            Request.AddHeader("Auth-Token", License.Token);
+            var Response = ApiClient.Execute(Request);
+            if (Response.StatusCode != HttpStatusCode.OK)
+            {
+                throw new Exception($"Unable to delete advanced link: {Response.Content}");
+            }
+        }
+        /// <summary>
+        /// Creates a new Advanced Link in a given database
+        /// </summary>
+        /// <param name="databaseId"></param>
+        /// <param name="newAdvancedLink"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public AdvancedLink CreateAdvancedLink(int databaseId, NewAdvancedLink newAdvancedLink)
+        {
+            var Request = new RestRequest($"api/AdvancedLinks/databases/{databaseId}", Method.POST);
+            Request.AddHeader("Auth-Token", License.Token);
+            Request.AddJsonBody(newAdvancedLink);
+            var Response = ApiClient.Execute<AdvancedLink>(Request);
+            if (Response.StatusCode != HttpStatusCode.OK)
+            {
+                throw new Exception($"Unable to create Advanced Link: {Response.Content} \n {JsonConvert.SerializeObject(newAdvancedLink)}");
+            }
+            return Response.Data as AdvancedLink;
+        }
+        /// <summary>
+        /// Updates an advanced link in a given database
+        /// </summary>
+        /// <param name="databaseId"></param>
+        /// <param name="advancedLink"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public AdvancedLink UpdateAdvancedLink(int databaseId, AdvancedLink advancedLink)
+        {
+            var Request = new RestRequest($"api/AdvancedLinks/databases/{databaseId}", Method.PUT);
+            Request.AddHeader("Auth-Token", License.Token);
+            Request.AddJsonBody(advancedLink);
+            var Response = ApiClient.Execute<AdvancedLink>(Request);
+            if (Response.StatusCode != HttpStatusCode.OK )
+            {
+                throw new Exception($"Unable to update Advanced Link: {Response.Content}");
+            }
+            return Response.Data as AdvancedLink;
         }
         #endregion
     }

@@ -61,6 +61,7 @@
     <Compile Include="DataTypes\AdminMapping.cs" />
     <Compile Include="DataTypes\AdminSearch.cs" />
     <Compile Include="DataTypes\AdminTableField.cs" />
+    <Compile Include="DataTypes\AdvancedLink.cs" />
     <Compile Include="DataTypes\Archive.cs" />
     <Compile Include="DataTypes\ArchiveCount.cs" />
     <Compile Include="DataTypes\ArchiveList.cs" />
@@ -79,6 +80,7 @@
     <Compile Include="DataTypes\DocumentIndexData.cs" />
     <Compile Include="DataTypes\DocumentIndexFields.cs" />
     <Compile Include="DataTypes\EmailServer.cs" />
+    <Compile Include="DataTypes\ExtendedConfig.cs" />
     <Compile Include="DataTypes\Field.cs" />
     <Compile Include="DataTypes\FieldItem.cs" />
     <Compile Include="DataTypes\FieldProp.cs" />
@@ -94,6 +96,7 @@
     <Compile Include="DataTypes\InboxPermission.cs" />
     <Compile Include="DataTypes\InboxSecurity.cs" />
     <Compile Include="DataTypes\License.cs" />
+    <Compile Include="DataTypes\LiveField.cs" />
     <Compile Include="DataTypes\NewAdminArchive.cs" />
     <Compile Include="DataTypes\NewAdminDatabase.cs" />
     <Compile Include="DataTypes\NewAdminField.cs" />
@@ -101,11 +104,13 @@
     <Compile Include="DataTypes\NewAdminList.cs" />
     <Compile Include="DataTypes\NewAdminSearch.cs" />
     <Compile Include="DataTypes\NewAdminTableField.cs" />
+    <Compile Include="DataTypes\NewAdvancedLink.cs" />
     <Compile Include="DataTypes\NewFile.cs" />
     <Compile Include="DataTypes\Notification.cs" />
     <Compile Include="DataTypes\Queue.cs" />
     <Compile Include="DataTypes\Register.cs" />
     <Compile Include="DataTypes\Registration.cs" />
+    <Compile Include="DataTypes\RegSample.cs" />
     <Compile Include="DataTypes\Result.cs" />
     <Compile Include="DataTypes\Revision.cs" />
     <Compile Include="DataTypes\Search.cs" />
