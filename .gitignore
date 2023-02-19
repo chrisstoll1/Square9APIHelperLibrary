@@ -361,5 +361,5 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
-/Square9APIHelperLibrary/Square9APIHelperLibrary.nuspec
+# /Square9APIHelperLibrary/Square9APIHelperLibrary.nuspec
 Square9APIHelperLibrary/nuget.exe

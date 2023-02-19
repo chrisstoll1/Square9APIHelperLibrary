@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>Square9APIHelperLibrary</id>
+    <version>0.0.5</version>
+    <title>Square9 API Helper Library</title>
+    <authors>Chris Stoll</authors>
+    <license type="expression">MIT</license>
+    <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
+    <icon>images/Square9icon.png</icon>
+    <projectUrl>https://github.com/chrisstoll1/Square9APIHelperLibrary</projectUrl>
+    <description>This .NET Class Library is intended to provide easy access to the Square9API and its endpoints. Built with RestSharp and Newtonsoft.Json, it includes all necessary methods and classes to exchange information with the Square9API.</description>
+    <releaseNotes>Added 6.3 Feature Compatibility</releaseNotes>
+    <readme>docs/README.md</readme>
+    <copyright>Copyright ©  2023</copyright>
+    <tags>Square-9 Square9 HelperLibrary RestSharp Newtonsoft.Json</tags>
+    <repository type="git" url="https://github.com/chrisstoll1/Square9APIHelperLibrary.git" branch="master" commit="5c27c5bd7c915d9e5846e6c250d5338cf269b9f9" />
+    <dependencies>
+      <dependency id="Newtonsoft.Json" version="13.0.1" />
+      <dependency id="RestSharp" version="106.13.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="images/Square9icon.png" target="images/Square9icon.png" />
+    <file src="../README.md" target="docs/README.md" />
+  </files>
+</package>
