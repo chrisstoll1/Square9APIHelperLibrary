@@ -2,8 +2,8 @@
 This .NET Class Library is intended to provide easy access to the [Square9API](https://www.square-9.com/rest-api-resources/) and its endpoints. Built with [RestSharp](https://github.com/restsharp/RestSharp) and [Newtonsoft.Json](https://github.com/JamesNK/Newtonsoft.Json), it includes all necessary methods and classes to exchange information with the Square9API. 
 
 ## Prerequisites
- - Newtonsoft.Json (>= 13.0.1)
- - RestSharp (>= 106.13.0)
+ - Newtonsoft.Json (>= 13.0.2)
+ - RestSharp (>= 108.0.3)
 
 ## Documentation
 Documentation for this library can be found [here](https://chrisstoll1.github.io/Square9APIHelperLibrary/index.html)
