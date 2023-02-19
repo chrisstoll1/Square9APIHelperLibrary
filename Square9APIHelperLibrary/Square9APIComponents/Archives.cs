@@ -85,7 +85,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
         /// <returns><see cref="AdminArchive"/></returns>
         public AdminArchive CreateArchive(int databaseId, NewAdminArchive archive)
         {
-            var Request = new RestRequest($"api/admin/databases/{databaseId}/archives", Method.POST);
+            var Request = new RestRequest($"api/admin/databases/{databaseId}/archives", Method.Post);
             Request.AddJsonBody(archive);
             var Response = ApiClient.Execute<AdminArchive>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
@@ -101,7 +101,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
         /// <param name="archiveId">Archive ID of the archive to be deleted</param>
         public void DeleteArchive(int databaseId, int archiveId)
         {
-            var Request = new RestRequest($"api/admin/databases/{databaseId}/archives/{archiveId}", Method.DELETE);
+            var Request = new RestRequest($"api/admin/databases/{databaseId}/archives/{archiveId}", Method.Delete);
             var Response = ApiClient.Execute(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
@@ -116,7 +116,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
         /// <returns></returns>
         public AdminArchive UpdateArchive(int databaseId, AdminArchive archive)
         {
-            var Request = new RestRequest($"api/admin/databases/{databaseId}/archives/{archive.Id}", Method.PUT);
+            var Request = new RestRequest($"api/admin/databases/{databaseId}/archives/{archive.Id}", Method.Put);
             Request.AddJsonBody(archive);
             var Response = ApiClient.Execute<AdminArchive>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
@@ -148,7 +148,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
         /// <returns><see cref="GlobalArchiveOptions"/></returns>
         public GlobalArchiveOptions UpdateGlobalArchiveOptions(int databaseId, GlobalArchiveOptions globalArchiveOptions)
         {
-            var Request = new RestRequest($"api/admin/databases/{databaseId}/options/archives", Method.PUT);
+            var Request = new RestRequest($"api/admin/databases/{databaseId}/options/archives", Method.Put);
             Request.AddJsonBody(globalArchiveOptions);
             var Response = ApiClient.Execute<GlobalArchiveOptions>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)

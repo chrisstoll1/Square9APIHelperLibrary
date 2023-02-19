@@ -5,6 +5,8 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace APITest
 {
@@ -1017,6 +1019,34 @@ namespace APITest
             Connection.Fields.DeleteAdvancedLink(1, updatedAdvancedLink);
 
             Connection.DeleteLicense();
+        }
+        #endregion
+    }
+
+    [TestClass]
+    public class Square9APIAsyncTests
+    {
+        #region Variables
+        private string Endpoint = "http://192.168.4.204/Square9API";
+        private string Username = "SSAdministrator";
+        private string Password = "Square9!";
+        #endregion
+
+        #region System
+        [TestMethod]
+        [TestCategory("SystemAsync")]
+        public async Task BasicAPIConnectionAsync()
+        {
+            Square9API Connection = new Square9API(Endpoint, Username, Password);
+            using (Connection)
+            {
+                var cancellationToken = new CancellationToken();
+                await Connection.CreateLicenseAsync(cancellationToken);
+                Console.WriteLine(Connection.License.Token);
+                Console.WriteLine(JsonConvert.SerializeObject(await Connection.GetLicensesAsync(cancellationToken)));
+            }
+            
+            Assert.IsNull(Connection.License);
         }
         #endregion
     }

@@ -6,13 +6,14 @@ using Square9APIHelperLibrary.Square9APIComponents;
 using System;
 using System.Collections.Generic;
 using System.Net;
+using System.Net.Http;
 
 namespace Square9APIHelperLibrary
 {
     /// <summary>
     /// Used as the main entry point for the Square9API
     /// </summary>
-    public class Square9API
+    public partial class Square9API : IDisposable
     {
         #region Variables
         /// <summary>
@@ -37,39 +38,6 @@ namespace Square9APIHelperLibrary
         public Fields Fields;
         public Documents Documents;
         public Administration Administration;
-        #endregion
-
-        #region System
-        /// <summary>
-        /// Creates a new connection to the Square9API
-        /// </summary>
-        /// <param name="endpoint">Must be the full API endpoint (http://localhost/Square9API/)</param>
-        /// <param name="username">Username of the account to authenticate with</param>
-        /// <param name="password">Password of the account to authenticate with</param>
-        /// <returns>Nothing</returns>
-        public Square9API(string endpoint, string username, string password)
-        {
-            ApiClient = new RestClient(endpoint)
-            {
-                Authenticator = new HttpBasicAuthenticator(username, password)
-            };
-            RebuildComponents();
-        }
-        /// <summary>
-        /// Loads default SQL Instance from the server
-        /// <see cref="Default"/>
-        /// </summary>
-        /// <returns><see cref="string"/></returns>
-        private string GetDefault()
-        {
-            var Request = new RestRequest("api/admin/instances/default");
-            var Response = ApiClient.Execute<string>(Request);
-            if (Response.StatusCode != HttpStatusCode.OK)
-            {
-                throw new Exception($"An error occurred: {Response.Content}");
-            }
-            return Response.Data;
-        }
         #endregion
 
         #region Licenses
@@ -154,7 +122,7 @@ namespace Square9APIHelperLibrary
         /// <exception cref="Exception"></exception>
         public void ReleaseLicense(License license, bool forceLogout = false)
         {
-            var Request = new RestRequest($"api/LicenseManager?userToken={license.Token}&forceLogout={forceLogout}", Method.DELETE);
+            var Request = new RestRequest($"api/LicenseManager?userToken={license.Token}&forceLogout={forceLogout}", Method.Delete);
             var Response = ApiClient.Execute(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
@@ -168,7 +136,7 @@ namespace Square9APIHelperLibrary
         /// <exception cref="Exception"></exception>
         public void ReleaseAllLicenses(bool forceLogout = false)
         {
-            var Request = new RestRequest($"api/LicenseManager?All=true&forceLogout={forceLogout}", Method.DELETE);
+            var Request = new RestRequest($"api/LicenseManager?All=true&forceLogout={forceLogout}", Method.Delete);
             var Response = ApiClient.Execute(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
@@ -176,6 +144,51 @@ namespace Square9APIHelperLibrary
             }
         }
         #endregion
+
+        #region System
+        /// <summary>
+        /// Creates a new connection to the Square9API
+        /// </summary>
+        /// <param name="endpoint">Must be the full API endpoint (http://localhost/Square9API/)</param>
+        /// <param name="username">Username of the account to authenticate with</param>
+        /// <param name="password">Password of the account to authenticate with</param>
+        /// <returns>Nothing</returns>
+        public Square9API(string endpoint, string username, string password)
+        {
+            ApiClient = new RestClient(endpoint)
+            {
+                Authenticator = new HttpBasicAuthenticator(username, password)
+            };
+            RebuildComponents();
+        }
+
+        /// <summary>
+        /// This constructor is intended to be passed in the HttpClient
+        /// returned by the Square9.CustomNode.CustomNode.GetSquare9ApiClient method
+        /// Credit to: <see href="https://github.com/psi-skillian">psi-skillian</see> 
+        /// </summary>
+        /// <param name="httpClient"></param>
+        public Square9API(HttpClient httpClient)
+        {
+            ApiClient = new RestClient(httpClient);
+            RebuildComponents();
+        }
+
+        /// <summary>
+        /// Loads default SQL Instance from the server
+        /// <see cref="Default"/>
+        /// </summary>
+        /// <returns><see cref="string"/></returns>
+        private string GetDefault()
+        {
+            var Request = new RestRequest("api/admin/instances/default");
+            var Response = ApiClient.Execute<string>(Request);
+            if (Response.StatusCode != HttpStatusCode.OK)
+            {
+                throw new Exception($"An error occurred: {Response.Content}");
+            }
+            return Response.Data;
+        }
 
         private void RebuildComponents()
         {
@@ -188,5 +201,25 @@ namespace Square9APIHelperLibrary
             Administration = new Administration(ApiClient, Default, License);
         }
 
+        private bool disposedValue = false; // To detect redundant calls
+        public void Dispose()
+        {
+            if (!disposedValue)
+            {
+                if (License != null)
+                {
+                    DeleteLicense();
+                }
+
+                if (ApiClient != null)
+                {
+                    ApiClient.Dispose();
+                    ApiClient = null;
+                }
+
+                disposedValue = true;
+            }
+        }
+        #endregion
     }
 }

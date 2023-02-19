@@ -49,7 +49,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
         /// <exception cref="Exception"></exception>
         public AdminField CreateField(int databaseId, NewAdminField field)
         {
-            var Request = new RestRequest($"api/admin/databases/{databaseId}/fields", Method.POST);
+            var Request = new RestRequest($"api/admin/databases/{databaseId}/fields", Method.Post);
             Request.AddJsonBody(field);
             var Response = ApiClient.Execute<AdminField>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
@@ -67,7 +67,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
         /// <exception cref="Exception"></exception>
         public AdminField UpdateField(int databaseId, AdminField field)
         {
-            var Request = new RestRequest($"api/admin/databases/{databaseId}/fields/{field.Id}", Method.PUT);
+            var Request = new RestRequest($"api/admin/databases/{databaseId}/fields/{field.Id}", Method.Put);
             Request.AddJsonBody(field);
             var Response = ApiClient.Execute<AdminField>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
@@ -84,7 +84,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
         /// <exception cref="Exception"></exception>
         public void DeleteField(int databaseId, int fieldId)
         {
-            var Request = new RestRequest($"api/admin/databases/{databaseId}/fields/{fieldId}", Method.DELETE);
+            var Request = new RestRequest($"api/admin/databases/{databaseId}/fields/{fieldId}", Method.Delete);
             var Response = ApiClient.Execute(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
@@ -133,7 +133,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
         /// <exception cref="Exception"></exception>
         public AdminTableField CreateTableField(int databaseId, NewAdminTableField field)
         {
-            var Request = new RestRequest($"api/admin/databases/{databaseId}/tablefields", Method.POST);
+            var Request = new RestRequest($"api/admin/databases/{databaseId}/tablefields", Method.Post);
             Request.AddJsonBody(field);
             var Response = ApiClient.Execute<AdminTableField>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
@@ -151,7 +151,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
         /// <exception cref="Exception"></exception>
         public AdminTableField UpdateTableField(int databaseId, AdminTableField field)
         {
-            var Request = new RestRequest($"api/admin/databases/{databaseId}/tablefields/{field.Id}", Method.PUT);
+            var Request = new RestRequest($"api/admin/databases/{databaseId}/tablefields/{field.Id}", Method.Put);
             Request.AddJsonBody(field);
             var Response = ApiClient.Execute<AdminTableField>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
@@ -168,7 +168,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
         /// <exception cref="Exception"></exception>
         public void DeleteTableField(int databaseId, int fieldId)
         {
-            var Request = new RestRequest($"api/admin/databases/{databaseId}/tablefields/{fieldId}", Method.DELETE);
+            var Request = new RestRequest($"api/admin/databases/{databaseId}/tablefields/{fieldId}", Method.Delete);
             var Response = ApiClient.Execute(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
@@ -217,7 +217,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
         /// <exception cref="Exception"></exception>
         public AdminList CreateList(int databaseId, NewAdminList list)
         {
-            var Request = new RestRequest($"api/admin/databases/{databaseId}/lists", Method.POST);
+            var Request = new RestRequest($"api/admin/databases/{databaseId}/lists", Method.Post);
             Request.AddJsonBody(list);
             var Response = ApiClient.Execute<AdminList>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
@@ -235,7 +235,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
         /// <exception cref="Exception"></exception>
         public AdminList UpdateList(int databaseId, AdminList list)
         {
-            var Request = new RestRequest($"api/admin/databases/{databaseId}/lists/{list.Id}", Method.PUT);
+            var Request = new RestRequest($"api/admin/databases/{databaseId}/lists/{list.Id}", Method.Put);
             Request.AddJsonBody(list);
             var Response = ApiClient.Execute<AdminList>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
@@ -252,7 +252,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
         /// <exception cref="Exception"></exception>
         public void DeleteList(int databaseId, int listId)
         {
-            var Request = new RestRequest($"api/admin/databases/{databaseId}/lists/{listId}", Method.DELETE);
+            var Request = new RestRequest($"api/admin/databases/{databaseId}/lists/{listId}", Method.Delete);
             var Response = ApiClient.Execute(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
@@ -268,7 +268,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
         /// <exception cref="Exception"></exception>
         public AdminList LoadAssemblyList(int databaseId, AdminList list)
         {
-            var Request = new RestRequest($"api/admin/databases/{databaseId}/lists", Method.PUT);
+            var Request = new RestRequest($"api/admin/databases/{databaseId}/lists", Method.Put);
             Request.AddJsonBody(list);
             var Response = ApiClient.Execute<AdminList>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
@@ -302,7 +302,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
         /// <exception cref="Exception"></exception>
         public void DeleteAdvancedLink(int databaseId, AdvancedLink advancedLink)
         {
-            var Request = new RestRequest($"api/AdvancedLinks/databases/{databaseId}?id={advancedLink.Id}", Method.DELETE);
+            var Request = new RestRequest($"api/AdvancedLinks/databases/{databaseId}?id={advancedLink.Id}", Method.Delete);
             Request.AddHeader("Auth-Token", License.Token);
             var Response = ApiClient.Execute(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
@@ -319,7 +319,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
         /// <exception cref="Exception"></exception>
         public AdvancedLink CreateAdvancedLink(int databaseId, NewAdvancedLink newAdvancedLink)
         {
-            var Request = new RestRequest($"api/AdvancedLinks/databases/{databaseId}", Method.POST);
+            var Request = new RestRequest($"api/AdvancedLinks/databases/{databaseId}", Method.Post);
             Request.AddHeader("Auth-Token", License.Token);
             Request.AddJsonBody(newAdvancedLink);
             var Response = ApiClient.Execute<AdvancedLink>(Request);
@@ -338,7 +338,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
         /// <exception cref="Exception"></exception>
         public AdvancedLink UpdateAdvancedLink(int databaseId, AdvancedLink advancedLink)
         {
-            var Request = new RestRequest($"api/AdvancedLinks/databases/{databaseId}", Method.PUT);
+            var Request = new RestRequest($"api/AdvancedLinks/databases/{databaseId}", Method.Put);
             Request.AddHeader("Auth-Token", License.Token);
             Request.AddJsonBody(advancedLink);
             var Response = ApiClient.Execute<AdvancedLink>(Request);

@@ -16,8 +16,8 @@
     <tags>Square-9 Square9 HelperLibrary RestSharp Newtonsoft.Json</tags>
     <repository type="git" url="https://github.com/chrisstoll1/Square9APIHelperLibrary.git" branch="master" commit="5c27c5bd7c915d9e5846e6c250d5338cf269b9f9" />
     <dependencies>
-      <dependency id="Newtonsoft.Json" version="13.0.1" />
-      <dependency id="RestSharp" version="106.13.0" />
+      <dependency id="Newtonsoft.Json" version="13.0.2" />
+      <dependency id="RestSharp" version="107.3.0" />
     </dependencies>
   </metadata>
   <files>

@@ -4,6 +4,7 @@ using System.Net;
 using Newtonsoft.Json;
 using RestSharp;
 using Square9APIHelperLibrary.DataTypes;
+using File = Square9APIHelperLibrary.DataTypes.File;
 
 namespace Square9APIHelperLibrary.Square9APIComponents
 {
@@ -96,12 +97,15 @@ namespace Square9APIHelperLibrary.Square9APIComponents
         {
             var fileName = (savePath == "") ? $"{System.IO.Path.GetTempPath()}{Guid.NewGuid().ToString()}{document.FileType}" : $"{savePath}{document.Id}{document.FileType}";
             var writer = System.IO.File.OpenWrite(fileName);
-            var Request = new RestRequest($"api/dbs/{databaseId}/archives/{archiveId}/documents/{document.Id}/file?SecureId={document.Hash}");
-            Request.ResponseWriter = responseStream =>
+            var Request = new RestRequest($"api/dbs/{databaseId}/archives/{archiveId}/documents/{document.Id}/file?SecureId={document.Hash}")
             {
-                using (responseStream)
+                ResponseWriter = (responseStream) =>
                 {
-                    responseStream.CopyTo(writer);
+                    using (responseStream)
+                    {
+                        responseStream.CopyTo(writer);
+                    }
+                    return writer;
                 }
             };
             var Response = ApiClient.Execute(Request);
@@ -123,12 +127,15 @@ namespace Square9APIHelperLibrary.Square9APIComponents
         {
             var fileName = (savePath == "") ? $"{System.IO.Path.GetTempPath()}{Guid.NewGuid().ToString()}{file.FileType}" : $"{savePath}{file.FileName}{file.FileType}";
             var writer = System.IO.File.OpenWrite(fileName);
-            var Request = new RestRequest($"api/inboxes/{inboxId}?FileName={file.FileName}{file.FileType}");
-            Request.ResponseWriter = responseStream =>
+            var Request = new RestRequest($"api/inboxes/{inboxId}?FileName={file.FileName}{file.FileType}")
             {
-                using (responseStream)
+                ResponseWriter = (responseStream) =>
                 {
-                    responseStream.CopyTo(writer);
+                    using (responseStream)
+                    {
+                        responseStream.CopyTo(writer);
+                    }
+                    return writer;
                 }
             };
             var Response = ApiClient.Execute(Request);
@@ -153,12 +160,15 @@ namespace Square9APIHelperLibrary.Square9APIComponents
         {
             var fileName = (savePath == "") ? $"{System.IO.Path.GetTempPath()}{Guid.NewGuid().ToString()}.jpg" : $"{savePath}{document.Id}.jpg";
             var writer = System.IO.File.OpenWrite(fileName);
-            var Request = (height == 0 || width == 0) ? new RestRequest($"api/dbs/{databaseId}/archives/{archiveId}/documents/{document.Id}/thumb?SecureId={document.Hash}") : new RestRequest($"api/dbs/{databaseId}/archives/{archiveId}/documents/{document.Id}/thumb?SecureId={document.Hash}&height={height}&width={width}");
-            Request.ResponseWriter = responseStream =>
+            var Request = (height == 0 || width == 0) ? new RestRequest($"api/dbs/{databaseId}/archives/{archiveId}/documents/{document.Id}/thumb?SecureId={document.Hash}") : new RestRequest($"api/dbs/{databaseId}/archives/{archiveId}/documents/{document.Id}/thumb?SecureId={document.Hash}&height={height}&width={width}")
             {
-                using (responseStream)
+                ResponseWriter = (responseStream) =>
                 {
-                    responseStream.CopyTo(writer);
+                    using (responseStream)
+                    {
+                        responseStream.CopyTo(writer);
+                    }
+                    return writer;
                 }
             };
             var Response = ApiClient.Execute(Request);
@@ -178,7 +188,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
         /// <exception cref="Exception"></exception>
         public Doc UpdateDocumentIndexData(int databaseId, int archiveId, Doc document)
         {
-            var Request = new RestRequest($"api/dbs/{databaseId}/archives/{archiveId}/documents/{document.Id}/save?SecureId={document.Hash}", Method.POST);
+            var Request = new RestRequest($"api/dbs/{databaseId}/archives/{archiveId}/documents/{document.Id}/save?SecureId={document.Hash}", Method.Post);
             DocumentIndexData IndexData = new DocumentIndexData();
             IndexData.IndexData.IndexFields = document.Fields;
             Request.AddJsonBody(IndexData);
@@ -197,7 +207,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
         /// <exception cref="Exception"></exception>
         public UploadedFiles UploadDocument(string fileName)
         {
-            var Request = new RestRequest($"api/files", Method.POST);
+            var Request = new RestRequest($"api/files", Method.Post);
             Request.AddFile("File", fileName);
             var Response = ApiClient.Execute(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
@@ -215,7 +225,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
         /// <exception cref="Exception"></exception>
         public void ImportArchiveDocument(int databaseId, int archiveId, NewFile newFile, bool useViewerCache = false)
         {
-            var Request = new RestRequest((!useViewerCache) ? $"api/dbs/{databaseId}/archives/{archiveId}" : $"api/dbs/{databaseId}/archives/{archiveId}?useViewerCache=true", Method.POST);
+            var Request = new RestRequest((!useViewerCache) ? $"api/dbs/{databaseId}/archives/{archiveId}" : $"api/dbs/{databaseId}/archives/{archiveId}?useViewerCache=true", Method.Post);
             Request.AddJsonBody(newFile);
             var Response = ApiClient.Execute(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
@@ -231,7 +241,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
         /// <exception cref="Exception"></exception>
         public void ImportInboxDocument(int inboxId, FileDetails file)
         {
-            var Request = new RestRequest($"api/inboxes/{inboxId}?FilePath={file.Name}&newFileName={file.OriginalName}", Method.POST);
+            var Request = new RestRequest($"api/inboxes/{inboxId}?FilePath={file.Name}&newFileName={file.OriginalName}", Method.Post);
             var Response = ApiClient.Execute(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
@@ -269,7 +279,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
         /// <exception cref="Exception"></exception>
         public string ExportDocument(int databaseId, int fieldId, List<FileExport> files, string savePath = "")
         {
-            var CreateExportJobRequest = new RestRequest($"api/dbs/{databaseId}/export?alwaysExportZip=true&auditEntry=Document+Exported&field={fieldId}", Method.POST);
+            var CreateExportJobRequest = new RestRequest($"api/dbs/{databaseId}/export?alwaysExportZip=true&auditEntry=Document+Exported&field={fieldId}", Method.Post);
             CreateExportJobRequest.AddJsonBody(files);
             var CreateExportJobResponse = ApiClient.Execute(CreateExportJobRequest);
             if (CreateExportJobResponse.StatusCode != HttpStatusCode.OK)
@@ -279,12 +289,15 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var fileName = (savePath == "") ? $"{System.IO.Path.GetTempPath()}{Guid.NewGuid().ToString()}.zip" : $"{savePath}{CreateExportJobResponse.Content.Replace("\"", "")}.zip";
             var writer = System.IO.File.OpenWrite(fileName);
             Console.WriteLine($"api/dbs/{databaseId}/export?jobid={CreateExportJobResponse.Content.Replace("\"", "")}");
-            var GetJobZipRequest = new RestRequest($"api/dbs/{databaseId}/export?jobid={CreateExportJobResponse.Content.Replace("\"", "")}");
-            GetJobZipRequest.ResponseWriter = responseStream =>
+            var GetJobZipRequest = new RestRequest($"api/dbs/{databaseId}/export?jobid={CreateExportJobResponse.Content.Replace("\"", "")}")
             {
-                using (responseStream)
+                ResponseWriter = (responseStream) =>
                 {
-                    responseStream.CopyTo(writer);
+                    using (responseStream)
+                    {
+                        responseStream.CopyTo(writer);
+                    }
+                    return writer;
                 }
             };
             var GetJobZipResponse = ApiClient.Execute(GetJobZipRequest);
@@ -318,7 +331,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
         /// <exception cref="Exception"></exception>
         public void DeleteInboxDocument(int inboxId, File file)
         {
-            var Request = new RestRequest($"api/inboxes/{inboxId}?FilePath={file.FileName}{file.FileType}", Method.DELETE);
+            var Request = new RestRequest($"api/inboxes/{inboxId}?FilePath={file.FileName}{file.FileType}", Method.Delete);
             var Response = ApiClient.Execute(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
@@ -411,7 +424,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
         /// <exception cref="Exception"></exception>
         public void FireDocumentQueueAction(int databaseId, int archiveId, Doc document, DataTypes.Action action)
         {
-            var Request = new RestRequest($"api/useraction?Database={databaseId}&Archive={archiveId}&Document={document.Id}&ActionId={action.Key}&SecureId={document.Hash}", Method.POST);
+            var Request = new RestRequest($"api/useraction?Database={databaseId}&Archive={archiveId}&Document={document.Id}&ActionId={action.Key}&SecureId={document.Hash}", Method.Post);
             var Response = ApiClient.Execute(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {

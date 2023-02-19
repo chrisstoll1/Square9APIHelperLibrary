@@ -1,159 +1,18 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{FEAF9D8F-B693-49F8-8E7C-EC2E294B40D9}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Square9APIHelperLibrary</RootNamespace>
-    <AssemblyName>Square9APIHelperLibrary</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <Deterministic>true</Deterministic>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ApplicationIcon>images\Square9icon.ico</ApplicationIcon>
-  </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="RestSharp, Version=106.13.0.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
-      <HintPath>..\packages\RestSharp.106.13.0\lib\net452\RestSharp.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
+    <None Remove="nuget.exe" />
   </ItemGroup>
+
   <ItemGroup>
-    <Compile Include="DataTypes\Action.cs" />
-    <Compile Include="DataTypes\AdminArchive.cs" />
-    <Compile Include="DataTypes\AdminDatabase.cs" />
-    <Compile Include="DataTypes\AdminField.cs" />
-    <Compile Include="DataTypes\AdminFieldList.cs" />
-    <Compile Include="DataTypes\AdminInbox.cs" />
-    <Compile Include="DataTypes\AdminList.cs" />
-    <Compile Include="DataTypes\AdminMapping.cs" />
-    <Compile Include="DataTypes\AdminSearch.cs" />
-    <Compile Include="DataTypes\AdminTableField.cs" />
-    <Compile Include="DataTypes\AdvancedLink.cs" />
-    <Compile Include="DataTypes\Archive.cs" />
-    <Compile Include="DataTypes\ArchiveCount.cs" />
-    <Compile Include="DataTypes\ArchiveList.cs" />
-    <Compile Include="DataTypes\ArchivePermission.cs" />
-    <Compile Include="DataTypes\ArchiveSecurity.cs" />
-    <Compile Include="DataTypes\Auth.cs" />
-    <Compile Include="DataTypes\BasePath.cs" />
-    <Compile Include="DataTypes\ContentSearch.cs" />
-    <Compile Include="DataTypes\Database.cs" />
-    <Compile Include="DataTypes\DatabaseList.cs" />
-    <Compile Include="DataTypes\DatabasePermission.cs" />
-    <Compile Include="DataTypes\DatabaseSecurity.cs" />
-    <Compile Include="DataTypes\DBAuth.cs" />
-    <Compile Include="DataTypes\Doc.cs" />
-    <Compile Include="DataTypes\DocDetails.cs" />
-    <Compile Include="DataTypes\DocumentIndexData.cs" />
-    <Compile Include="DataTypes\DocumentIndexFields.cs" />
-    <Compile Include="DataTypes\EmailServer.cs" />
-    <Compile Include="DataTypes\ExtendedConfig.cs" />
-    <Compile Include="DataTypes\Field.cs" />
-    <Compile Include="DataTypes\FieldItem.cs" />
-    <Compile Include="DataTypes\FieldProp.cs" />
-    <Compile Include="DataTypes\File.cs" />
-    <Compile Include="DataTypes\FileDetails.cs" />
-    <Compile Include="DataTypes\FileExport.cs" />
-    <Compile Include="DataTypes\FileField.cs" />
-    <Compile Include="DataTypes\GlobalArchiveOptions.cs" />
-    <Compile Include="DataTypes\GlobalInboxOptions.cs" />
-    <Compile Include="DataTypes\Group.cs" />
-    <Compile Include="DataTypes\Inbox.cs" />
-    <Compile Include="DataTypes\InboxList.cs" />
-    <Compile Include="DataTypes\InboxPermission.cs" />
-    <Compile Include="DataTypes\InboxSecurity.cs" />
-    <Compile Include="DataTypes\License.cs" />
-    <Compile Include="DataTypes\LiveField.cs" />
-    <Compile Include="DataTypes\NewAdminArchive.cs" />
-    <Compile Include="DataTypes\NewAdminDatabase.cs" />
-    <Compile Include="DataTypes\NewAdminField.cs" />
-    <Compile Include="DataTypes\NewAdminInbox.cs" />
-    <Compile Include="DataTypes\NewAdminList.cs" />
-    <Compile Include="DataTypes\NewAdminSearch.cs" />
-    <Compile Include="DataTypes\NewAdminTableField.cs" />
-    <Compile Include="DataTypes\NewAdvancedLink.cs" />
-    <Compile Include="DataTypes\NewFile.cs" />
-    <Compile Include="DataTypes\Notification.cs" />
-    <Compile Include="DataTypes\Queue.cs" />
-    <Compile Include="DataTypes\Register.cs" />
-    <Compile Include="DataTypes\Registration.cs" />
-    <Compile Include="DataTypes\RegSample.cs" />
-    <Compile Include="DataTypes\Result.cs" />
-    <Compile Include="DataTypes\Revision.cs" />
-    <Compile Include="DataTypes\Search.cs" />
-    <Compile Include="DataTypes\SearchDetail.cs" />
-    <Compile Include="DataTypes\SearchParameter.cs" />
-    <Compile Include="DataTypes\SearchPermission.cs" />
-    <Compile Include="DataTypes\SearchProperties.cs" />
-    <Compile Include="DataTypes\SearchSecurity.cs" />
-    <Compile Include="DataTypes\SecuredDatabase.cs" />
-    <Compile Include="DataTypes\SecuredGroup.cs" />
-    <Compile Include="DataTypes\Security.cs" />
-    <Compile Include="DataTypes\SecurityNode.cs" />
-    <Compile Include="DataTypes\Session.cs" />
-    <Compile Include="DataTypes\SessionDoc.cs" />
-    <Compile Include="DataTypes\Stamp.cs" />
-    <Compile Include="DataTypes\Target.cs" />
-    <Compile Include="DataTypes\UnsecuredGroup.cs" />
-    <Compile Include="DataTypes\UploadedFiles.cs" />
-    <Compile Include="DataTypes\User.cs" />
-    <Compile Include="DataTypes\Views.cs" />
-    <Compile Include="DataTypes\ViewValue.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Square9API.cs" />
-    <Compile Include="Square9APIComponents\Administration.cs" />
-    <Compile Include="Square9APIComponents\Archives.cs" />
-    <Compile Include="Square9APIComponents\Databases.cs" />
-    <Compile Include="Square9APIComponents\Documents.cs" />
-    <Compile Include="Square9APIComponents\Fields.cs" />
-    <Compile Include="Square9APIComponents\Inboxes.cs" />
-    <Compile Include="Square9APIComponents\Searches.cs" />
-    <Compile Include="Square9CaptureAPI.cs" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+    <PackageReference Include="RestSharp" Version="108.0.3" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="images\Square9icon.ico" />
-    <Content Include="images\Square9icon.png" Pack="true" PackagePath="\" />
-  </ItemGroup>
-  <ItemGroup />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
-  </PropertyGroup>
+
 </Project>

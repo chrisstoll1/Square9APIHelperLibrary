@@ -107,7 +107,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
         /// <exception cref="Exception"></exception>
         public GlobalInboxOptions UpdateGlobalInboxOptions(GlobalInboxOptions option)
         {
-            var Request = new RestRequest($"api/admin/options/inboxes", Method.PUT);
+            var Request = new RestRequest($"api/admin/options/inboxes", Method.Put);
             Request.AddJsonBody(option);
             var Response = ApiClient.Execute<GlobalInboxOptions>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
@@ -124,7 +124,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
         /// <exception cref="Exception"></exception>
         public AdminInbox CreateInbox(NewAdminInbox inbox)
         {
-            var Request = new RestRequest($"api/admin/inboxes", Method.POST);
+            var Request = new RestRequest($"api/admin/inboxes", Method.Post);
             Request.AddJsonBody(inbox);
             var Response = ApiClient.Execute<AdminInbox>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
@@ -140,7 +140,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
         /// <exception cref="Exception"></exception>
         public void DeleteInbox(int inboxId)
         {
-            var Request = new RestRequest($"api/admin/inboxes/{inboxId}", Method.DELETE);
+            var Request = new RestRequest($"api/admin/inboxes/{inboxId}", Method.Delete);
             var Response = ApiClient.Execute(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {

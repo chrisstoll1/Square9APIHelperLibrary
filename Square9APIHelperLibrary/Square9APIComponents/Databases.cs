@@ -75,7 +75,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
         /// <returns><see cref="AdminDatabase"/></returns>
         public AdminDatabase CreateDatabase(AdminDatabase database)
         {
-            var Request = new RestRequest($"api/admin/databases", Method.POST);
+            var Request = new RestRequest($"api/admin/databases", Method.Post);
             if (database.Server == null) { database.Server = Default; }
             Request.AddJsonBody(database);
             var Response = ApiClient.Execute<AdminDatabase>(Request);
@@ -98,7 +98,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
         /// <returns><see cref="AdminDatabase"/></returns>
         public AdminDatabase UpdateDatabase(AdminDatabase database)
         {
-            var Request = new RestRequest($"api/admin/databases/{database.Id}", Method.PUT);
+            var Request = new RestRequest($"api/admin/databases/{database.Id}", Method.Put);
             if (database.Server == null) { database.Server = Default; }
             Request.AddJsonBody(database);
             var Response = ApiClient.Execute<AdminDatabase>(Request);
@@ -120,7 +120,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
         /// <param name="drop">Optional: Determines if the database should be dropped from SQL, set to false by default</param>
         public void DeleteDatabase(Database database, bool drop = false)
         {
-            var Request = new RestRequest($"api/admin/databases/{database.Id}?Drop={drop}", Method.DELETE);
+            var Request = new RestRequest($"api/admin/databases/{database.Id}?Drop={drop}", Method.Delete);
             var Response = ApiClient.Execute(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {

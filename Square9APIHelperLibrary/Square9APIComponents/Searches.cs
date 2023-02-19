@@ -119,7 +119,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
         /// <returns><see cref="AdminSearch"/></returns>
         public AdminSearch CreateSearch(int databaseId, NewAdminSearch search)
         {
-            var Request = new RestRequest($"api/admin/databases/{databaseId}/searches", Method.POST);
+            var Request = new RestRequest($"api/admin/databases/{databaseId}/searches", Method.Post);
             Request.AddJsonBody(search);
             var Response = ApiClient.Execute<AdminSearch>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
@@ -135,7 +135,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
         /// <param name="searchId">Search ID of the search to be deleted</param>
         public void DeleteSearch(int databaseId, int searchId)
         {
-            var Request = new RestRequest($"api/admin/databases/{databaseId}/searches/{searchId}", Method.DELETE);
+            var Request = new RestRequest($"api/admin/databases/{databaseId}/searches/{searchId}", Method.Delete);
             var Response = ApiClient.Execute(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
@@ -150,7 +150,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
         /// <returns></returns>
         public AdminSearch UpdateSearch(int databaseId, AdminSearch search)
         {
-            var Request = new RestRequest($"api/admin/databases/{databaseId}/searches/{search.Id}", Method.PUT);
+            var Request = new RestRequest($"api/admin/databases/{databaseId}/searches/{search.Id}", Method.Put);
             Request.AddJsonBody(search);
             var Response = ApiClient.Execute<AdminSearch>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)

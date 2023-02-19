@@ -60,7 +60,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
         /// <exception cref="Exception"></exception>
         public Stamp CreateStamp(Stamp stamp)
         {
-            var Request = new RestRequest($"api/admin/stamps", Method.POST);
+            var Request = new RestRequest($"api/admin/stamps", Method.Post);
             Request.AddJsonBody(stamp);
             var Response = ApiClient.Execute<Stamp>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
@@ -91,7 +91,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
         /// <exception cref="Exception"></exception>
         public void DeleteStamp(Stamp stamp)
         {
-            var Request = new RestRequest($"api/admin/stamps/{stamp.Id}", Method.DELETE);
+            var Request = new RestRequest($"api/admin/stamps/{stamp.Id}", Method.Delete);
             var Response = ApiClient.Execute(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
@@ -112,7 +112,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
                 throw new Exception($"An error occurred while retrieving registration: {Response.Content}");
             }
             Registration registration = Response.Data;
-            var FeatureRequest = new RestRequest($"api/admin/registration?features=true", Method.GET);
+            var FeatureRequest = new RestRequest($"api/admin/registration?features=true", Method.Get);
             var FeatureResponse = ApiClient.Execute(FeatureRequest);
             if (FeatureResponse.StatusCode != HttpStatusCode.OK)
             {
@@ -130,7 +130,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
         public void RequestWebRegistration(string uniqueId, string serial)
         {
             Register register = new Register(uniqueId, serial);
-            var Request = new RestRequest($"api/admin/registration", Method.POST);
+            var Request = new RestRequest($"api/admin/registration", Method.Post);
             Request.AddJsonBody(register);
             var Response = ApiClient.Execute(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
@@ -148,7 +148,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
         public void ManualRegistration(string uniqueId, string serial, string registration)
         {
             Register register = new Register(uniqueId, serial, registration);
-            var Request = new RestRequest($"api/admin/registration", Method.PUT);
+            var Request = new RestRequest($"api/admin/registration", Method.Put);
             Request.AddJsonBody(register);
             var Response = ApiClient.Execute(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
@@ -167,7 +167,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
         /// <exception cref="Exception"></exception>
         public EmailServer UpdateEmailOptions(EmailServer emailServer, int databaseId = 0)
         {
-            var Request = (databaseId == 0) ? new RestRequest($"api/admin/notifications") : new RestRequest($"api/admin/databases/{databaseId}/notifications", Method.PUT);
+            var Request = (databaseId == 0) ? new RestRequest($"api/admin/notifications") : new RestRequest($"api/admin/databases/{databaseId}/notifications", Method.Put);
             Request.AddJsonBody(emailServer);
             var Response = ApiClient.Execute<EmailServer>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
@@ -297,7 +297,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
         /// <exception cref="Exception"></exception>
         public void SetArchiveSecurity(ArchiveSecurity archiveSecurity)
         {
-            var Request = new RestRequest($"api/userAdmin/archives", Method.POST);
+            var Request = new RestRequest($"api/userAdmin/archives", Method.Post);
             Request.AddJsonBody(archiveSecurity);
             var Response = ApiClient.Execute(Request);
             if (Response.StatusCode != HttpStatusCode.OK || !Response.Content.Contains("\"Saved\":1"))
@@ -312,7 +312,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
         /// <exception cref="Exception"></exception>
         public void SetInboxSecurity(InboxSecurity inboxSecurity)
         {
-            var Request = new RestRequest($"api/userAdmin/inboxes", Method.POST);
+            var Request = new RestRequest($"api/userAdmin/inboxes", Method.Post);
             Request.AddJsonBody(inboxSecurity);
             var Response = ApiClient.Execute(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
@@ -327,7 +327,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
         /// <exception cref="Exception"></exception>
         public void SetDatabaseSecurity(DatabaseSecurity databaseSecurity)
         {
-            var Request = new RestRequest($"api/userAdmin/databases", Method.POST);
+            var Request = new RestRequest($"api/userAdmin/databases", Method.Post);
             Request.AddJsonBody(databaseSecurity);
             var Response = ApiClient.Execute(Request);
             if (Response.StatusCode != HttpStatusCode.OK || !Response.Content.Contains("\"Success\""))
@@ -342,7 +342,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
         /// <exception cref="Exception"></exception>
         public void SetSearchSecurity(SearchSecurity searchSecurity)
         {
-            var Request = new RestRequest($"api/userAdmin/searches", Method.POST);
+            var Request = new RestRequest($"api/userAdmin/searches", Method.Post);
             Request.AddJsonBody(searchSecurity);
             var Response = ApiClient.Execute(Request);
             if (Response.StatusCode != HttpStatusCode.OK || !Response.Content.Contains("\"Success\""))
@@ -357,7 +357,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
         /// <exception cref="Exception"></exception>
         public void SetSearchProperties(SearchSecurity searchSecurity)
         {
-            var Request = new RestRequest($"api/userAdmin/searchType", Method.POST);
+            var Request = new RestRequest($"api/userAdmin/searchType", Method.  Post);
             Request.AddJsonBody(searchSecurity);
             var Response = ApiClient.Execute(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
@@ -372,7 +372,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
         /// <exception cref="Exception"></exception>
         public void CreateUser(User newUser)
         {
-            var Request = new RestRequest($"api/userAdmin/user?create=", Method.POST);
+            var Request = new RestRequest($"api/userAdmin/user?create=", Method.Post);
             Request.AddJsonBody(newUser);
             var Response = ApiClient.Execute(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
@@ -387,7 +387,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
         /// <exception cref="Exception"></exception>
         public void DeleteUser(User user)
         {
-            var Request = new RestRequest($"api/userAdmin/user?name={user.Name}", Method.DELETE);
+            var Request = new RestRequest($"api/userAdmin/user?name={user.Name}", Method.Delete);
             var Response = ApiClient.Execute(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
@@ -401,7 +401,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
         /// <exception cref="Exception"></exception>
         public void UpdateUser(User user)
         {
-            var Request = new RestRequest($"api/userAdmin/user?name={user.Name}", Method.PUT);
+            var Request = new RestRequest($"api/userAdmin/user?name={user.Name}", Method.Put);
             Request.AddJsonBody(user);
             var Response = ApiClient.Execute(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
@@ -416,7 +416,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
         /// <exception cref="Exception"></exception>
         public void CreateGroup(Group newGroup)
         {
-            var Request = new RestRequest($"api/userAdmin/group?createGroup=", Method.POST);
+            var Request = new RestRequest($"api/userAdmin/group?createGroup=", Method.Post);
             Request.AddJsonBody(newGroup);
             var Response = ApiClient.Execute(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
@@ -431,7 +431,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
         /// <exception cref="Exception"></exception>
         public void DeleteGroup(Group group)
         {
-            var Request = new RestRequest($"api/userAdmin/group?name={group.Name}", Method.DELETE);
+            var Request = new RestRequest($"api/userAdmin/group?name={group.Name}", Method.Delete);
             var Response = ApiClient.Execute(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
@@ -445,7 +445,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
         /// <exception cref="Exception"></exception>
         public void UpdateGroup(Group group)
         {
-            var Request = new RestRequest($"api/userAdmin/group?groupName={group.Name}", Method.PUT);
+            var Request = new RestRequest($"api/userAdmin/group?groupName={group.Name}", Method.Put);
             Request.AddJsonBody(group);
             var Response = ApiClient.Execute(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
