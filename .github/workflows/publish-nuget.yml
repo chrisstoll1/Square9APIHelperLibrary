@@ -23,7 +23,7 @@ jobs:
       run: msbuild /p:Configuration=Release Square9APIHelperLibrary.sln
 
     - name: Create NuGet Package
-      run: nuget pack Square9APIHelperLibrary.csproj -Properties Configuration=Release
+      run: nuget pack Square9APIHelperLibrary/Square9APIHelperLibrary.csproj -Properties Configuration=Release
 
     - name: Push NuGet Package
       run: nuget push *.nupkg -ApiKey ${{ secrets.NUGET_API_KEY }} -Source https://api.nuget.org/v3/index.json
