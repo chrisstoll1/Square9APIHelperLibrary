@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
   <metadata>
     <id>Square9APIHelperLibrary</id>
-    <version>0.0.5</version>
+    <version>0.0.5.1</version>
     <title>Square9 API Helper Library</title>
     <authors>Chris Stoll</authors>
     <license type="expression">MIT</license>
@@ -10,11 +10,11 @@
     <icon>images/Square9icon.png</icon>
     <projectUrl>https://github.com/chrisstoll1/Square9APIHelperLibrary</projectUrl>
     <description>This .NET Class Library is intended to provide easy access to the Square9API and its endpoints. Built with RestSharp and Newtonsoft.Json, it includes all necessary methods and classes to exchange information with the Square9API.</description>
-    <releaseNotes>Added 6.3 Feature Compatibility</releaseNotes>
+    <releaseNotes>Added Table field helper methods. Fixed bug with downloading archive files</releaseNotes>
     <readme>docs/README.md</readme>
     <copyright>Copyright ©  2023</copyright>
     <tags>Square-9 Square9 HelperLibrary RestSharp Newtonsoft.Json</tags>
-    <repository type="git" url="https://github.com/chrisstoll1/Square9APIHelperLibrary.git" branch="master" commit="44a39095857fba9c3594bff4798b1d0983b405bf" />
+    <repository type="git" url="https://github.com/chrisstoll1/Square9APIHelperLibrary.git" branch="master" commit="3bb7f08e8a10efee3124674b5c4ec8d17f7a0053" />
     <dependencies>
       <dependency id="Newtonsoft.Json" version="13.0.1" />
       <dependency id="RestSharp" version="106.13.0" />

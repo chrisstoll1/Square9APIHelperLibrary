@@ -28,8 +28,8 @@ jobs:
       id: create_release
       uses: actions/create-release@v1
       with:
-        tag_name: dev-${{ github.sha }}
-        release_name: Dev Release ${{ github.sha }}
+        tag_name: dev-build
+        release_name: Dev Release
         draft: false
         prerelease: true
 
