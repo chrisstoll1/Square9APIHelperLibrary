@@ -1,0 +1,29 @@
+name: Publish NuGet Package
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v1
+
+    - name: Restore NuGet packages
+      run: nuget restore Square9APIHelperLibrary.sln
+
+    - name: Build
+      run: msbuild /p:Configuration=Release Square9APIHelperLibrary.sln
+
+    - name: Create NuGet Package
+      run: nuget pack Square9APIHelperLibrary.csproj -Properties Configuration=Release
+
+    - name: Push NuGet Package
+      run: nuget push *.nupkg -ApiKey ${{ secrets.NUGET_API_KEY }} -Source https://api.nuget.org/v3/index.json
