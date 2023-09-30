@@ -184,7 +184,7 @@ namespace Square9APIHelperLibrary
             Searches = new Searches(ApiClient, Default, License);
             Inboxes = new Inboxes(ApiClient, Default, License);
             Fields = new Fields(ApiClient, Default, License);
-            Documents = new Documents(ApiClient, Default, License);
+            Documents = new Documents(ApiClient, Default, License, Fields);
             Administration = new Administration(ApiClient, Default, License);
         }
 

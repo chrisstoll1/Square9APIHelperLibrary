@@ -126,6 +126,7 @@
     <Compile Include="DataTypes\Session.cs" />
     <Compile Include="DataTypes\SessionDoc.cs" />
     <Compile Include="DataTypes\Stamp.cs" />
+    <Compile Include="DataTypes\TableField.cs" />
     <Compile Include="DataTypes\Target.cs" />
     <Compile Include="DataTypes\UnsecuredGroup.cs" />
     <Compile Include="DataTypes\UploadedFiles.cs" />

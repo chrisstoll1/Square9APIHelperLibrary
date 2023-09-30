@@ -12,7 +12,7 @@ namespace APITest
     public class Square9APITests
     {
         #region Variables
-        private string Endpoint = "http://192.168.4.204/Square9API";
+        private string Endpoint = "http://192.168.4.234/Square9API";
         private string Username = "SSAdministrator";
         private string Password = "Square9!";
         #endregion
@@ -491,7 +491,7 @@ namespace APITest
         {
             Square9API Connection = new Square9API(Endpoint, Username, Password);
             Connection.CreateLicense();
-            Result DocResult = Connection.Documents.GetArchiveDocument(1, 14, 1);
+            Result DocResult = Connection.Documents.GetArchiveDocument(2057, 1, 1);
             Console.WriteLine(JsonConvert.SerializeObject(DocResult));
             Connection.DeleteLicense();
         }
@@ -501,10 +501,10 @@ namespace APITest
         {
             Square9API Connection = new Square9API(Endpoint, Username, Password);
             Connection.CreateLicense();
-            Search search = Connection.Searches.GetSearches(1, searchId: 20)[0];
-            Doc document = Connection.Searches.GetSearchResults(1, search).Docs[0];
+            Search search = Connection.Searches.GetSearches(2057, searchId: 1)[0];
+            Doc document = Connection.Searches.GetSearchResults(2057, search).Docs[0];
             Console.WriteLine(JsonConvert.SerializeObject(document));
-            Result result = Connection.Documents.GetArchiveDocumentMetaData(1, 1, document);
+            Result result = Connection.Documents.GetArchiveDocumentMetaData(2057, 1, document);
             Console.WriteLine(JsonConvert.SerializeObject(result));
             Connection.DeleteLicense();
         }
@@ -514,9 +514,9 @@ namespace APITest
         {
             Square9API Connection = new Square9API(Endpoint, Username, Password);
             Connection.CreateLicense();
-            Search search = Connection.Searches.GetSearches(1, searchId: 20)[0];
-            Doc document = Connection.Searches.GetSearchResults(1, search).Docs[0];
-            var fileName = Connection.Documents.GetArchiveDocumentFile(1, 1, document, "C:\\test\\");
+            Result DocResult = Connection.Documents.GetArchiveDocument(2, 1, 1);
+            Doc document = DocResult.Docs[0];
+            var fileName = Connection.Documents.GetArchiveDocumentFile(2, 1, document, "C:\\test\\testfile.pdf");
             Console.WriteLine(fileName);
             Connection.DeleteLicense();
         }
@@ -680,6 +680,19 @@ namespace APITest
             Console.WriteLine(JsonConvert.SerializeObject(file));
 
             Console.WriteLine(Connection.Documents.TransferInboxDocument(1, 2, file));
+
+            Connection.DeleteLicense();
+        }
+        [TestMethod]
+        [TestCategory("Document")]
+        public void TableFieldData()
+        {
+            Square9API Connection = new Square9API(Endpoint, Username, Password);
+            Connection.CreateLicense();
+
+            TableField tableField = Connection.Documents.GetTableFieldData(2057, 1, 1, 6);
+            tableField.Data[2][1] = "TEST VALUE";
+            Connection.Documents.UpdateTableFieldData(2057, 1, 1, tableField);
 
             Connection.DeleteLicense();
         }

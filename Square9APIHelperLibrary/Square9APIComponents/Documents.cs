@@ -14,12 +14,14 @@ namespace Square9APIHelperLibrary.Square9APIComponents
     {
         private RestClient ApiClient;
         private string Default;
+        private Fields Fields;
         private License License;
-        internal Documents(RestClient apiClient, string defaultSql, License license)
+        internal Documents(RestClient apiClient, string defaultSql, License license, Fields fields)
         {
             ApiClient = apiClient;
             Default = defaultSql;
             License = license;
+            Fields = fields;
         }
 
         #region Methods
@@ -39,7 +41,6 @@ namespace Square9APIHelperLibrary.Square9APIComponents
                 throw new Exception($"Unable to get document Secure ID: {SecureIDResponse.Content}");
             }
             string SecureID = SecureIDResponse.Content;
-            Console.WriteLine(SecureID);
             var DocRequest = new RestRequest($"api/dbs/{databaseId}/archives/{archiveId}/documents/{documentId}?SecureId={SecureID}");
             var Response = ApiClient.Execute<Result>(DocRequest);
             if (SecureIDResponse.StatusCode != HttpStatusCode.OK)
@@ -95,20 +96,27 @@ namespace Square9APIHelperLibrary.Square9APIComponents
         public string GetArchiveDocumentFile(int databaseId, int archiveId, Doc document, string savePath = "")
         {
             var fileName = (savePath == "") ? $"{System.IO.Path.GetTempPath()}{Guid.NewGuid().ToString()}{document.FileType}" : $"{savePath}{document.Id}{document.FileType}";
-            var writer = System.IO.File.OpenWrite(fileName);
-            var Request = new RestRequest($"api/dbs/{databaseId}/archives/{archiveId}/documents/{document.Id}/file?SecureId={document.Hash}");
-            Request.ResponseWriter = responseStream =>
+            var Request = new RestRequest($"api/dbs/{databaseId}/archives/{archiveId}/documents/{document.Id}/File?SecureId={document.Hash}&token={License.Token}");
+
+            using (var writer = System.IO.File.OpenWrite(fileName))
             {
-                using (responseStream)
+                Request.ResponseWriter = responseStream =>
                 {
-                    responseStream.CopyTo(writer);
+                    using (responseStream)
+                    {
+                        responseStream.CopyTo(writer);
+                        writer.Flush();
+                    }
+                };
+
+                var Response = ApiClient.Execute(Request);
+
+                if (Response.StatusCode != HttpStatusCode.OK)
+                {
+                    throw new Exception($"Unable to download file. HTTP Status: {Response.StatusCode}. Content: {Response.Content}");
                 }
-            };
-            var Response = ApiClient.Execute(Request);
-            if (Response.StatusCode != HttpStatusCode.OK)
-            {
-                throw new Exception($"Unable to download file: {Response.Content}");
             }
+
             return fileName;
         }
         /// <summary>
@@ -416,6 +424,63 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             if (Response.StatusCode != HttpStatusCode.OK)
             {
                 throw new Exception($"Unable to trigger document action: {Response.Content}");
+            }
+        }
+        /// <summary>
+        /// This is a helper function that will map out table field data returned by the <see cref="GetArchiveDocument(int, int, int)"/> method into the
+        /// <see cref="TableField"/> class. The <see cref="TableField"/> class can be passed directly into <see cref="UpdateTableFieldData(int, int, int, TableField)"/>
+        /// </summary>
+        /// <param name="databaseId"></param>
+        /// <param name="archiveId"></param>
+        /// <param name="documentId"></param>
+        /// <param name="tableFieldId"></param>
+        /// <returns></returns>
+        public TableField GetTableFieldData(int databaseId, int archiveId, int documentId, int tableFieldId)
+        {
+            Result document = GetArchiveDocument(databaseId, archiveId, documentId);
+            TableField tfield = new TableField(Fields.GetTableField(databaseId, tableFieldId));
+
+            // map out table field data
+            foreach (Doc row in document.Docs)
+            {
+                List<string> dataRow = new List<string>();
+                foreach (int tfColumnFieldId in tfield.Fields)
+                {
+                    foreach (FieldItem fieldItem in row.Fields)
+                    {
+                        if (fieldItem.Id == tfColumnFieldId)
+                        {
+                            dataRow.Add(fieldItem.Val);
+                            break;
+                        }
+                    }
+                }
+                tfield.Data.Add(dataRow);
+            }
+
+            return tfield;
+        }
+        /// <summary>
+        /// Updates a given table field
+        /// </summary>
+        /// <param name="databaseId"></param>
+        /// <param name="archiveId"></param>
+        /// <param name="documentId"></param>
+        /// <param name="tableField"></param>
+        public void UpdateTableFieldData(int databaseId, int archiveId, int documentId, TableField tableField)
+        {
+            Doc document = GetArchiveDocument(databaseId, archiveId, documentId).Docs[0];
+            var Request = new RestRequest($"api/UpdateDocument/databases/{databaseId}/archive/{archiveId}/document/{documentId}/TableData", Method.PUT);
+            Request.AddHeader("SecureId", document.Hash);
+            Request.AddHeader("Token", License.Token);
+            List<TableField> tableFieldItems = new List<TableField>();
+            tableFieldItems.Add(tableField);
+            Request.AddJsonBody(tableFieldItems);
+
+            var Response = ApiClient.Execute(Request);
+            if (Response.StatusCode != HttpStatusCode.OK)
+            {
+                throw new Exception($"Unable to update table field index data: {Response.Content}");
             }
         }
         #endregion
