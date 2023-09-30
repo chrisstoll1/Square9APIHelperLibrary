@@ -8,6 +8,8 @@ on:
 jobs:
   build:
     runs-on: windows-latest
+    env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
     - name: Checkout code
@@ -30,7 +32,6 @@ jobs:
         release_name: Dev Release ${{ github.sha }}
         draft: false
         prerelease: true
-        token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Upload DLL to GitHub Release
       uses: actions/upload-release-asset@v1
@@ -39,4 +40,3 @@ jobs:
         asset_path: ./Square9APIHelperLibrary/bin/Release/Square9APIHelperLibrary.dll  # Replace with your actual .dll file path
         asset_name: Square9APIHelperLibrary.dll  # Replace with your actual .dll file name
         asset_content_type: application/octet-stream
-        token: ${{ secrets.GITHUB_TOKEN }}
