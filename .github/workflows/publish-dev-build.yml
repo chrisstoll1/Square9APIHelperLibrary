@@ -1,0 +1,40 @@
+name: Publish Dev DLL to GitHub
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v1
+
+    - name: Restore NuGet packages
+      run: nuget restore Square9APIHelperLibrary.sln
+
+    - name: Build
+      run: msbuild /p:Configuration=Release Square9APIHelperLibrary.sln
+
+    - name: Create GitHub Release
+      id: create_release
+      uses: actions/create-release@v1
+      with:
+        tag_name: dev-${{ github.sha }}
+        release_name: Dev Release ${{ github.sha }}
+        draft: false
+        prerelease: true
+
+    - name: Upload DLL to GitHub Release
+      uses: actions/upload-release-asset@v1
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./Square9APIHelperLibrary/bin/Release/Square9APIHelperLibrary.dll  # Replace with your actual .dll file path
+        asset_name: Square9APIHelperLibrary.dll  # Replace with your actual .dll file name
+        asset_content_type: application/octet-stream
