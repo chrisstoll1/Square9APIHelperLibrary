@@ -24,6 +24,14 @@ jobs:
     - name: Build
       run: msbuild /p:Configuration=Release Square9APIHelperLibrary.sln
 
+    - name: Install GitHub CLI
+      run: |
+        choco install gh
+      
+    - name: Delete Existing Release
+      run: |
+        gh release delete dev-build --yes
+
     - name: Create GitHub Release
       id: create_release
       uses: actions/create-release@v1
