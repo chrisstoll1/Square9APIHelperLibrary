@@ -24,33 +24,12 @@ jobs:
     - name: Build
       run: msbuild /p:Configuration=Release Square9APIHelperLibrary.sln
 
-    - name: Get Release ID
-      id: get_release_id
-      run: |
-        RELEASE_ID=$(curl --header 'Authorization: token ${{ secrets.GITHUB_TOKEN }}' \
-          --url https://api.github.com/repos/${{ github.repository }}/releases/tags/dev-build \
-          --silent | jq '.id')
-        echo "RELEASE_ID=$RELEASE_ID" >> $GITHUB_ENV
-
-    - name: Delete Existing Release
-      run: |
-        curl -X DELETE \
-          --header 'Authorization: token ${{ secrets.GITHUB_TOKEN }}' \
-          --url https://api.github.com/repos/${{ github.repository }}/releases/${{ env.RELEASE_ID }}
-
-    - name: Create GitHub Release
-      id: create_release
-      uses: actions/create-release@v1
+    - name: Publish release
+      uses: marvinpinto/action-automatic-releases@latest
       with:
-        tag_name: dev-build
-        release_name: Dev Release
-        draft: false
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        automatic_release_tag: "latest"
         prerelease: true
-
-    - name: Upload DLL to GitHub Release
-      uses: actions/upload-release-asset@v1
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./Square9APIHelperLibrary/bin/Release/Square9APIHelperLibrary.dll  # Replace with your actual .dll file path
-        asset_name: Square9APIHelperLibrary.dll  # Replace with your actual .dll file name
-        asset_content_type: application/octet-stream
+        title: "Latest Development Build"
+        files: |
+          ./Square9APIHelperLibrary/bin/Release/Square9APIHelperLibrary.dll
