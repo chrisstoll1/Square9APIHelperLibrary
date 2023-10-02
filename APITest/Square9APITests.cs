@@ -560,13 +560,12 @@ namespace APITest
             Console.WriteLine(JsonConvert.SerializeObject(files));
             NewFile newFile = new NewFile();
             newFile.Files = files.Files;
-            newFile.Fields.Add(new FileField("2", "Test Last Name 1234"));
-            newFile.Fields.Add(new FileField("3", "11/16/2021"));
+            newFile.Fields.Add(new FileField("1", "Test Last Name 1234"));
             Console.WriteLine(JsonConvert.SerializeObject(newFile));
-            Connection.Documents.ImportArchiveDocument(1, 1, newFile);
-            Search search = Connection.Searches.GetSearches(1, searchId: 20)[0];
-            Doc document = Connection.Searches.GetSearchResults(1, search).Docs[0];
-            Connection.Documents.DeleteArchiveDocument(1, 1, document);
+            List<int> docIds = Connection.Documents.ImportArchiveDocument(2057, 1, newFile);
+            Console.Write(JsonConvert.SerializeObject(docIds));
+            Doc document = Connection.Documents.GetArchiveDocument(2057, 1, docIds[0]).Docs[0];
+            Connection.Documents.DeleteArchiveDocument(2057, 1, document);
             Connection.DeleteLicense();
         }
         [TestMethod]
@@ -691,8 +690,20 @@ namespace APITest
             Connection.CreateLicense();
 
             TableField tableField = Connection.Documents.GetTableFieldData(2057, 1, 1, 6);
-            tableField.Data[2][1] = "TEST VALUE";
+            tableField.Data[2][1] = "TEST VALUE1";
             Connection.Documents.UpdateTableFieldData(2057, 1, 1, tableField);
+            TableField tableField2 = Connection.Documents.GetTableFieldData(2057, 1, 2, 6);
+            tableField.Data[2][1] = "TEST VALUE2";
+            Connection.Documents.UpdateTableFieldData(2057, 1, 2, tableField2);
+            TableField tableField3 = Connection.Documents.GetTableFieldData(2057, 1, 3, 6);
+            tableField.Data[2][1] = "TEST VALUE3";
+            Connection.Documents.UpdateTableFieldData(2057, 1, 3, tableField3);
+            TableField tableField4 = Connection.Documents.GetTableFieldData(2057, 1, 4, 6);
+            tableField.Data[2][1] = "TEST VALUE4";
+            Connection.Documents.UpdateTableFieldData(2057, 1, 4, tableField4);
+            TableField tableField5 = Connection.Documents.GetTableFieldData(2057, 1, 5, 6);
+            tableField.Data[2][1] = "TEST VALUE5";
+            Connection.Documents.UpdateTableFieldData(2057, 1, 5, tableField5);
 
             Connection.DeleteLicense();
         }

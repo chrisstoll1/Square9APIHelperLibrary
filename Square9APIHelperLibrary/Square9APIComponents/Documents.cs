@@ -220,8 +220,8 @@ namespace Square9APIHelperLibrary.Square9APIComponents
         /// <param name="databaseId"><see cref="Database.Id"/></param>
         /// <param name="archiveId"><see cref="Archive.Id"/></param>
         /// <param name="newFile"><see cref="NewFile"/></param>
-        /// <exception cref="Exception"></exception>
-        public void ImportArchiveDocument(int databaseId, int archiveId, NewFile newFile, bool useViewerCache = false)
+        /// <returns>The document Id of the indexed document</returns>
+        public List<int> ImportArchiveDocument(int databaseId, int archiveId, NewFile newFile, bool useViewerCache = false)
         {
             var Request = new RestRequest((!useViewerCache) ? $"api/dbs/{databaseId}/archives/{archiveId}" : $"api/dbs/{databaseId}/archives/{archiveId}?useViewerCache=true", Method.POST);
             Request.AddJsonBody(newFile);
@@ -230,6 +230,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             {
                 throw new Exception($"Unable to index document: {Response.Content}");
             }
+            return JsonConvert.DeserializeObject<List<int>>(Response.Content);
         }
         /// <summary>
         /// Imports a new document into a inbox
