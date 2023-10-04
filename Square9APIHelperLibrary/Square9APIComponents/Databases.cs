@@ -38,7 +38,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute<DatabaseList>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable to get databases: {Response.Content}");
+                throw new Exception($"Unable to get databases: {Response.StatusDescription}");
             }
             return Response.Data;
         }
@@ -58,7 +58,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute<List<AdminDatabase>>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable to get databases: {Response.Content}");
+                throw new Exception($"Unable to get databases: {Response.StatusDescription}");
             }
             return Response.Data;
         }
@@ -81,7 +81,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute<AdminDatabase>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable to create database: {Response.Content}");
+                throw new Exception($"Unable to create database: {Response.StatusDescription}");
             }
             return Response.Data;
         }
@@ -104,7 +104,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute<AdminDatabase>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable to update database: {Response.Content}");
+                throw new Exception($"Unable to update database: {Response.StatusDescription}");
             }
             return Response.Data;
         }
@@ -124,7 +124,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable to delete database: {Response.Content}");
+                throw new Exception($"Unable to delete database: {Response.StatusDescription}");
             }
         }
         /// <summary>
@@ -142,7 +142,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable to rebuild database index: {Response.Content}");
+                throw new Exception($"Unable to rebuild database index: {Response.StatusDescription}");
             }
         }
         #endregion

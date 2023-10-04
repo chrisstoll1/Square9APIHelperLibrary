@@ -66,7 +66,7 @@ namespace Square9APIHelperLibrary
             var Response = ApiClient.Execute<string>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"An error occurred: {Response.Content}");
+                throw new Exception($"An error occurred: {Response.StatusDescription}");
             }
             return Response.Data;
         }
@@ -89,7 +89,7 @@ namespace Square9APIHelperLibrary
                 }
                 else if (Response.StatusCode == HttpStatusCode.BadRequest)
                 {
-                    throw new Exception($"Unable to get a License: {Response.Content}");
+                    throw new Exception($"Unable to get a License: {Response.StatusDescription}");
                 }
                 else if (Response.StatusCode == HttpStatusCode.NotFound)
                 {
@@ -126,7 +126,7 @@ namespace Square9APIHelperLibrary
                 var Response = ApiClient.Execute(Request);
                 if (Response.StatusCode != HttpStatusCode.OK)
                 {
-                    throw new Exception($"Unable to release license token: {Response.Content}");
+                    throw new Exception($"Unable to release license token: {Response.StatusDescription}");
                 }
                 License = null; //Delete cached license
             }
@@ -142,7 +142,7 @@ namespace Square9APIHelperLibrary
             var Response = ApiClient.Execute<List<License>>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable to get licenses: {Response.Content}");
+                throw new Exception($"Unable to get licenses: {Response.StatusDescription}");
             }
             return Response.Data;
         }
@@ -158,7 +158,7 @@ namespace Square9APIHelperLibrary
             var Response = ApiClient.Execute(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable to release license: {Response.Content}");
+                throw new Exception($"Unable to release license: {Response.StatusDescription}");
             }
         }
         /// <summary>
@@ -172,7 +172,7 @@ namespace Square9APIHelperLibrary
             var Response = ApiClient.Execute(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable to release licenses: {Response.Content}");
+                throw new Exception($"Unable to release licenses: {Response.StatusDescription}");
             }
         }
         #endregion

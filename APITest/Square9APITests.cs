@@ -707,6 +707,33 @@ namespace APITest
 
             Connection.DeleteLicense();
         }
+        [TestMethod]
+        [TestCategory("Document")]
+        public void GetHistory()
+        {
+            Square9API Connection = new Square9API(Endpoint, Username, Password);
+            Connection.CreateLicense();
+            
+            Doc doc = Connection.Documents.GetArchiveDocument(2057, 1, 1).Docs[0];
+            LogEntry newEntry = new LogEntry();
+            newEntry.DatabaseID = 2057;
+            newEntry.DocumentID = 1;
+            newEntry.ArchiveID = 1;
+            Random random = new Random();
+            string randomMessage = random.Next(5000).ToString();
+            newEntry.Message = randomMessage;
+            newEntry.UserName = Connection.License.Username;
+            newEntry.Time = DateTime.Now;
+
+            Console.WriteLine(JsonConvert.SerializeObject(newEntry));
+
+            Connection.Documents.CreateArchiveDocumentHistoryEntry(2057, 1, doc, newEntry);
+            List<LogEntry> logs = Connection.Documents.GetArchiveDocumentHistory(2057, 1, doc);
+
+            Assert.AreEqual(randomMessage, logs[logs.Count - 1].Message);
+
+            Connection.DeleteLicense();
+        }
         #endregion
 
         #region Administration

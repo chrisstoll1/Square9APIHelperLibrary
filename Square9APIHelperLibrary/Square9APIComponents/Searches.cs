@@ -37,7 +37,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute<List<Search>>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable to get searches: {Response.Content}");
+                throw new Exception($"Unable to get searches: {Response.StatusDescription}");
             }
             return Response.Data;
         }
@@ -72,7 +72,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute<Result>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable to get search results: {Response.Content}");
+                throw new Exception($"Unable to get search results: {Response.StatusDescription}");
             }
             return Response.Data;
         }
@@ -107,7 +107,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute<ArchiveCount>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable to get search count: {Response.Content}");
+                throw new Exception($"Unable to get search count: {Response.StatusDescription}");
             }
             return Response.Data;
         }
@@ -124,7 +124,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute<AdminSearch>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable to create search: {Response.Content} \n {JsonConvert.SerializeObject(search)}");
+                throw new Exception($"Unable to create search: {Response.StatusDescription} \n {JsonConvert.SerializeObject(search)}");
             }
             return Response.Data;
         }
@@ -139,7 +139,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable to delete search: {Response.Content}");
+                throw new Exception($"Unable to delete search: {Response.StatusDescription}");
             }
         }
         /// <summary>
@@ -155,7 +155,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute<AdminSearch>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable to update search: {Response.Content} \n {JsonConvert.SerializeObject(search)}");
+                throw new Exception($"Unable to update search: {Response.StatusDescription} \n {JsonConvert.SerializeObject(search)}");
             }
             return Response.Data;
         }
@@ -172,7 +172,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute<List<AdminSearch>>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable to get searches: {Response.Content}");
+                throw new Exception($"Unable to get searches: {Response.StatusDescription}");
             }
             return Response.Data;
         }

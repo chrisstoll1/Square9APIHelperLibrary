@@ -97,6 +97,7 @@
     <Compile Include="DataTypes\InboxSecurity.cs" />
     <Compile Include="DataTypes\License.cs" />
     <Compile Include="DataTypes\LiveField.cs" />
+    <Compile Include="DataTypes\LogEntry.cs" />
     <Compile Include="DataTypes\NewAdminArchive.cs" />
     <Compile Include="DataTypes\NewAdminDatabase.cs" />
     <Compile Include="DataTypes\NewAdminField.cs" />

@@ -33,7 +33,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute<bool>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"An error occurred: {Response.Content}");
+                throw new Exception($"An error occurred: {Response.StatusDescription}");
             }
             return Response.Data;
         }
@@ -48,7 +48,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute<string>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"An error occurred: {Response.Content}");
+                throw new Exception($"An error occurred: {Response.StatusDescription}");
             }
             return Response.Data;
         }
@@ -65,7 +65,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute<Stamp>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"An error occurred creating stamp: {Response.Content}");
+                throw new Exception($"An error occurred creating stamp: {Response.StatusDescription}");
             }
             return Response.Data;
         }
@@ -80,7 +80,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute<List<Stamp>>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"An error occurred while retrieving stamps: {Response.Content}");
+                throw new Exception($"An error occurred while retrieving stamps: {Response.StatusDescription}");
             }
             return Response.Data;
         }
@@ -95,7 +95,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"An error occurred deleting stamp: {Response.Content}");
+                throw new Exception($"An error occurred deleting stamp: {Response.StatusDescription}");
             }
         }
         /// <summary>
@@ -109,7 +109,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute<Registration>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"An error occurred while retrieving registration: {Response.Content}");
+                throw new Exception($"An error occurred while retrieving registration: {Response.StatusDescription}");
             }
             Registration registration = Response.Data;
             var FeatureRequest = new RestRequest($"api/admin/registration?features=true", Method.GET);
@@ -135,7 +135,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"An error occurred while requesting web registration: {Response.Content}");
+                throw new Exception($"An error occurred while requesting web registration: {Response.StatusDescription}");
             }
         }
         /// <summary>
@@ -153,7 +153,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"An error occurred while performing manual registration: {Response.Content}");
+                throw new Exception($"An error occurred while performing manual registration: {Response.StatusDescription}");
             }
         }
         /// <summary>
@@ -172,7 +172,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute<EmailServer>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"An error occurred while updating email options: {Response.Content}");
+                throw new Exception($"An error occurred while updating email options: {Response.StatusDescription}");
             }
             return JsonConvert.DeserializeObject<EmailServer>(Response.Content);
         }
@@ -189,7 +189,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute<EmailServer>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"An error occurred while retrieving email options: {Response.Content}");
+                throw new Exception($"An error occurred while retrieving email options: {Response.StatusDescription}");
             }
             return JsonConvert.DeserializeObject<EmailServer>(Response.Content);
         }
@@ -204,7 +204,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute<List<SecuredGroup>>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable to get secured users and groups: {Response.Content}");
+                throw new Exception($"Unable to get secured users and groups: {Response.StatusDescription}");
             }
             return Response.Data;
         }
@@ -219,7 +219,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute<List<UnsecuredGroup>>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable to get unsecured users and groups: {Response.Content}");
+                throw new Exception($"Unable to get unsecured users and groups: {Response.StatusDescription}");
             }
             return Response.Data;
         }
@@ -234,7 +234,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute<List<SecurityNode>>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable to get server tree view: {Response.Content}");
+                throw new Exception($"Unable to get server tree view: {Response.StatusDescription}");
             }
             return Response.Data;
         }
@@ -252,7 +252,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute<int>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable to get archive permissions: {Response.Content}");
+                throw new Exception($"Unable to get archive permissions: {Response.StatusDescription}");
             }
             return new ArchivePermission(Response.Data);
         }
@@ -269,7 +269,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute<int>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable to get archive permissions: {Response.Content}");
+                throw new Exception($"Unable to get archive permissions: {Response.StatusDescription}");
             }
             return new InboxPermission(Response.Data);
         }
@@ -286,7 +286,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute<List<SearchProperties>>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Cannot get user search properties: {Response.Content}");
+                throw new Exception($"Cannot get user search properties: {Response.StatusDescription}");
             }
             return Response.Data;
         }
@@ -302,7 +302,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute(Request);
             if (Response.StatusCode != HttpStatusCode.OK || !Response.Content.Contains("\"Saved\":1"))
             {
-                throw new Exception($"Unable to save archive security: {Response.Content}");
+                throw new Exception($"Unable to save archive security: {Response.StatusDescription}");
             }
         }
         /// <summary>
@@ -317,7 +317,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable to save inbox security: {Response.Content}");
+                throw new Exception($"Unable to save inbox security: {Response.StatusDescription}");
             }
         }
         /// <summary>
@@ -332,7 +332,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute(Request);
             if (Response.StatusCode != HttpStatusCode.OK || !Response.Content.Contains("\"Success\""))
             {
-                throw new Exception($"Unable to save database security: {Response.Content}");
+                throw new Exception($"Unable to save database security: {Response.StatusDescription}");
             }
         }
         /// <summary>
@@ -347,7 +347,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute(Request);
             if (Response.StatusCode != HttpStatusCode.OK || !Response.Content.Contains("\"Success\""))
             {
-                throw new Exception($"Unable to save search security: {Response.Content}");
+                throw new Exception($"Unable to save search security: {Response.StatusDescription}");
             }
         }
         /// <summary>
@@ -362,7 +362,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable to save search properties: {Response.Content}");
+                throw new Exception($"Unable to save search properties: {Response.StatusDescription}");
             }
         }
         /// <summary>
@@ -377,7 +377,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable to create new user: {Response.Content}");
+                throw new Exception($"Unable to create new user: {Response.StatusDescription}");
             }
         }
         /// <summary>
@@ -391,7 +391,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable to delete user: {Response.Content}");
+                throw new Exception($"Unable to delete user: {Response.StatusDescription}");
             }
         }
         /// <summary>
@@ -406,7 +406,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable to update user: {Response.Content}");
+                throw new Exception($"Unable to update user: {Response.StatusDescription}");
             }
         }
         /// <summary>
@@ -421,7 +421,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable to create new group: {Response.Content}");
+                throw new Exception($"Unable to create new group: {Response.StatusDescription}");
             }
         }
         /// <summary>
@@ -435,7 +435,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable to delete group: {Response.Content}");
+                throw new Exception($"Unable to delete group: {Response.StatusDescription}");
             }
         }
         /// <summary>
@@ -450,7 +450,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable to update group: {Response.Content}");
+                throw new Exception($"Unable to update group: {Response.StatusDescription}");
             }
         }
         /// <summary>
@@ -464,7 +464,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute<List<Group>>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable to get groups: {Response.Content}");
+                throw new Exception($"Unable to get groups: {Response.StatusDescription}");
             }
             return Response.Data;
         }

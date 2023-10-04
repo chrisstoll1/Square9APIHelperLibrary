@@ -41,7 +41,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute<ArchiveList>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable to get archives: {Response.Content}");
+                throw new Exception($"Unable to get archives: {Response.StatusDescription}");
             }
             return Response.Data;
         }
@@ -57,7 +57,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute<List<AdminArchive>>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable to get archives: {Response.Content}");
+                throw new Exception($"Unable to get archives: {Response.StatusDescription}");
             }
             return Response.Data;
         }
@@ -73,7 +73,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute<List<Field>>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable to get archive fields: {Response.Content}");
+                throw new Exception($"Unable to get archive fields: {Response.StatusDescription}");
             }
             return Response.Data;
         }
@@ -90,7 +90,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute<AdminArchive>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable to create archive: {Response.Content} \n {JsonConvert.SerializeObject(archive)}");
+                throw new Exception($"Unable to create archive: {Response.StatusDescription} \n {JsonConvert.SerializeObject(archive)}");
             }
             return Response.Data;
         }
@@ -105,7 +105,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable to delete archive: {Response.Content}");
+                throw new Exception($"Unable to delete archive: {Response.StatusDescription}");
             }
         }
         /// <summary>
@@ -121,7 +121,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute<AdminArchive>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable to update archive: {Response.Content} \n {JsonConvert.SerializeObject(archive)}");
+                throw new Exception($"Unable to update archive: {Response.StatusDescription} \n {JsonConvert.SerializeObject(archive)}");
             }
             return Response.Data;
         }
@@ -136,7 +136,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute<GlobalArchiveOptions>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable to get GlobalArchiveOptions: {Response.Content}");
+                throw new Exception($"Unable to get GlobalArchiveOptions: {Response.StatusDescription}");
             }
             return Response.Data;
         }
@@ -153,7 +153,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute<GlobalArchiveOptions>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable to update GlobalArchiveOptions: {Response.Content}");
+                throw new Exception($"Unable to update GlobalArchiveOptions: {Response.StatusDescription}");
             }
             return Response.Data;
         }
@@ -170,7 +170,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute<bool>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable to rebuild archive content index: {Response.Content}");
+                throw new Exception($"Unable to rebuild archive content index: {Response.StatusDescription}");
             }
             return Response.Data;
         }

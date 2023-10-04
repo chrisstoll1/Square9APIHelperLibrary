@@ -33,7 +33,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute<InboxList>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable to get inboxes: {Response.Content}");
+                throw new Exception($"Unable to get inboxes: {Response.StatusDescription}");
             }
             return Response.Data;
         }
@@ -49,7 +49,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute<Inbox>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable to get inbox: {Response.Content}");
+                throw new Exception($"Unable to get inbox: {Response.StatusDescription}");
             }
             return Response.Data;
         }
@@ -64,7 +64,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute<List<AdminInbox>>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable to get admin inbox: {Response.Content}");
+                throw new Exception($"Unable to get admin inbox: {Response.StatusDescription}");
             }
             return Response.Data;
         }
@@ -80,7 +80,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute<List<Security>>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable to get admin inbox security: {Response.Content}");
+                throw new Exception($"Unable to get admin inbox security: {Response.StatusDescription}");
             }
             return Response.Data;
         }
@@ -95,7 +95,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute<GlobalInboxOptions>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable to get global inbox options: {Response.Content}");
+                throw new Exception($"Unable to get global inbox options: {Response.StatusDescription}");
             }
             return Response.Data;
         }
@@ -112,7 +112,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute<GlobalInboxOptions>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable to update Global Inbox Options: {Response.Content}");
+                throw new Exception($"Unable to update Global Inbox Options: {Response.StatusDescription}");
             }
             return Response.Data;
         }
@@ -129,7 +129,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute<AdminInbox>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable to create inbox: {Response.Content}");
+                throw new Exception($"Unable to create inbox: {Response.StatusDescription}");
             }
             return Response.Data;
         }
@@ -144,7 +144,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable to delete inbox: {Response.Content}");
+                throw new Exception($"Unable to delete inbox: {Response.StatusDescription}");
             }
         }
         #endregion

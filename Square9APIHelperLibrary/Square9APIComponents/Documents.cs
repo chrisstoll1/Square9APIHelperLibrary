@@ -45,7 +45,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute<Result>(DocRequest);
             if (SecureIDResponse.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable to get document: {Response.Content}");
+                throw new Exception($"Unable to get document: {Response.StatusDescription}");
             }
             return Response.Data;
         }
@@ -63,7 +63,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute<Result>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable to get document Meta Data: {Response.Content}");
+                throw new Exception($"Unable to get document Meta Data: {Response.StatusDescription}");
             }
             return Response.Data;
         }
@@ -80,7 +80,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute<DocDetails>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable to get document Details: {Response.Content}");
+                throw new Exception($"Unable to get document Details: {Response.StatusDescription}");
             }
             return JsonConvert.DeserializeObject<DocDetails>(Response.Content);
         }
@@ -113,7 +113,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
 
                 if (Response.StatusCode != HttpStatusCode.OK)
                 {
-                    throw new Exception($"Unable to download file. HTTP Status: {Response.StatusCode}. Content: {Response.Content}");
+                    throw new Exception($"Unable to download file. HTTP Status: {Response.StatusCode}. Content: {Response.StatusDescription}");
                 }
             }
 
@@ -142,7 +142,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable to download file: {Response.Content}");
+                throw new Exception($"Unable to download file: {Response.StatusDescription}");
             }
             return fileName;
         }
@@ -172,7 +172,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable to download thumbnail: {Response.Content}");
+                throw new Exception($"Unable to download thumbnail: {Response.StatusDescription}");
             }
             return fileName;
         }
@@ -193,7 +193,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable to update document index data: {Response.Content}");
+                throw new Exception($"Unable to update document index data: {Response.StatusDescription}");
             }
             return document;
         }
@@ -210,7 +210,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable to upload file: {Response.Content}");
+                throw new Exception($"Unable to upload file: {Response.StatusDescription}");
             }
             return JsonConvert.DeserializeObject<UploadedFiles>(Response.Content);
         }
@@ -228,7 +228,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable to index document: {Response.Content}");
+                throw new Exception($"Unable to index document: {Response.StatusDescription}");
             }
             return JsonConvert.DeserializeObject<List<int>>(Response.Content);
         }
@@ -244,7 +244,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable to import document: {Response.Content}");
+                throw new Exception($"Unable to import document: {Response.StatusDescription}");
             }
         }
         /// <summary>
@@ -316,7 +316,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable delete document: {Response.Content}");
+                throw new Exception($"Unable delete document: {Response.StatusDescription}");
             }
         }
         /// <summary>
@@ -331,7 +331,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable delete document: {Response.Content}");
+                throw new Exception($"Unable delete document: {Response.StatusDescription}");
             }
         }
         /// <summary>
@@ -351,7 +351,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute<int>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable to transfer document: {Response.Content}");
+                throw new Exception($"Unable to transfer document: {Response.StatusDescription}");
             }
             return Response.Data;
         }
@@ -370,7 +370,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute<string>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable to transfer document: {Response.Content}");
+                throw new Exception($"Unable to transfer document: {Response.StatusDescription}");
             }
             return Response.Data;
         }
@@ -388,7 +388,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute<List<Revision>>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable to get document revisions: {Response.Content}");
+                throw new Exception($"Unable to get document revisions: {Response.StatusDescription}");
             }
             return Response.Data;
         }
@@ -406,7 +406,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute<Queue>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable to get document queue: {Response.Content}");
+                throw new Exception($"Unable to get document queue: {Response.StatusDescription}");
             }
             return Response.Data;
         }
@@ -424,7 +424,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable to trigger document action: {Response.Content}");
+                throw new Exception($"Unable to trigger document action: {Response.StatusDescription}");
             }
         }
         /// <summary>
@@ -481,7 +481,49 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable to update table field index data: {Response.Content}");
+                throw new Exception($"Unable to update table field index data: {Response.StatusDescription}");
+            }
+        }
+        /// <summary>
+        /// Gets a list of audit log entrys on a given document 
+        /// </summary>
+        /// <param name="databaseId"></param>
+        /// <param name="archiveId"></param>
+        /// <param name="document"></param>
+        /// <returns>List of <see cref="LogEntry"/></returns>
+        public List<LogEntry> GetArchiveDocumentHistory(int databaseId, int archiveId, Doc document)
+        {
+            var Request = new RestRequest($"api/dbs/{databaseId}/archives/{archiveId}/documents/{document.Id}/audit", Method.GET);
+            Request.AddParameter("secureId", document.Hash);
+            Request.AddParameter("token", License.Token);
+
+            var Response = ApiClient.Execute<List<LogEntry>>(Request);
+            if (Response.StatusCode != HttpStatusCode.OK)
+            {
+                throw new Exception($"Unable to retrieve document history: {Response.StatusDescription}");
+            }
+            return Response.Data;
+        }
+        /// <summary>
+        /// Adds a new audit log entry to a given document
+        /// </summary>
+        /// <param name="databaseId"></param>
+        /// <param name="archiveId"></param>
+        /// <param name="document"></param>
+        /// <param name="logEntry"></param>
+        /// <exception cref="Exception"></exception>
+        public void CreateArchiveDocumentHistoryEntry(int databaseId, int archiveId, Doc document, LogEntry logEntry)
+        {
+            var Request = new RestRequest($"api/dbs/{databaseId}/archives/{archiveId}", Method.POST);
+            Request.AddParameter("documentID", document.Id, ParameterType.QueryString);
+            Request.AddParameter("secureid", document.Hash, ParameterType.QueryString);
+            Request.AddParameter("token", License.Token, ParameterType.QueryString);
+            Request.AddJsonBody(logEntry);
+
+            var Response = ApiClient.Execute(Request);
+            if (Response.StatusCode != HttpStatusCode.OK)
+            {
+                throw new Exception($"Unable to add document history entry: {Response.StatusDescription}");
             }
         }
         #endregion

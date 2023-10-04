@@ -36,7 +36,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute<List<AdminField>>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable to get fields: {Response.Content}");
+                throw new Exception($"Unable to get fields: {Response.StatusDescription}");
             }
             return Response.Data;
         }
@@ -54,7 +54,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute<AdminField>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable to create field: {Response.Content}");
+                throw new Exception($"Unable to create field: {Response.StatusDescription}");
             }
             return Response.Data;
         }
@@ -72,7 +72,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute<AdminField>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable to update field: {Response.Content}");
+                throw new Exception($"Unable to update field: {Response.StatusDescription}");
             }
             return Response.Data;
         }
@@ -88,7 +88,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable delete field: {Response.Content}");
+                throw new Exception($"Unable delete field: {Response.StatusDescription}");
             }
         }
         /// <summary>
@@ -104,7 +104,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute<AdminTableField>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable to get table field: {Response.Content}");
+                throw new Exception($"Unable to get table field: {Response.StatusDescription}");
             }
             return Response.Data;
         }
@@ -120,7 +120,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute<List<AdminTableField>>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable to get table fields: {Response.Content}");
+                throw new Exception($"Unable to get table fields: {Response.StatusDescription}");
             }
             return Response.Data;
         }
@@ -138,7 +138,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute<AdminTableField>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable to create table field: {Response.Content}");
+                throw new Exception($"Unable to create table field: {Response.StatusDescription}");
             }
             return Response.Data;
         }
@@ -156,7 +156,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute<AdminTableField>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable to update table field: {Response.Content}");
+                throw new Exception($"Unable to update table field: {Response.StatusDescription}");
             }
             return Response.Data;
         }
@@ -172,7 +172,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable delete table field: {Response.Content}");
+                throw new Exception($"Unable delete table field: {Response.StatusDescription}");
             }
         }
         /// <summary>
@@ -188,7 +188,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute<AdminList>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable to get list: {Response.Content}");
+                throw new Exception($"Unable to get list: {Response.StatusDescription}");
             }
             return Response.Data;
         }
@@ -204,7 +204,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute<List<AdminList>>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable to get lists: {Response.Content}");
+                throw new Exception($"Unable to get lists: {Response.StatusDescription}");
             }
             return Response.Data;
         }
@@ -222,7 +222,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute<AdminList>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable to create list: {Response.Content}");
+                throw new Exception($"Unable to create list: {Response.StatusDescription}");
             }
             return Response.Data;
         }
@@ -240,7 +240,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute<AdminList>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable to update list: {Response.Content}");
+                throw new Exception($"Unable to update list: {Response.StatusDescription}");
             }
             return Response.Data;
         }
@@ -256,7 +256,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable delete list: {Response.Content}");
+                throw new Exception($"Unable delete list: {Response.StatusDescription}");
             }
         }
         /// <summary>
@@ -273,7 +273,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute<AdminList>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable to get assembly list: {Response.Content}");
+                throw new Exception($"Unable to get assembly list: {Response.StatusDescription}");
             }
             return Response.Data;
         }
@@ -290,7 +290,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute<List<AdvancedLink>>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable to get advanced links: {Response.Content}");
+                throw new Exception($"Unable to get advanced links: {Response.StatusDescription}");
             }
             return Response.Data;
         }
@@ -307,7 +307,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable to delete advanced link: {Response.Content}");
+                throw new Exception($"Unable to delete advanced link: {Response.StatusDescription}");
             }
         }
         /// <summary>
@@ -325,7 +325,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute<AdvancedLink>(Request);
             if (Response.StatusCode != HttpStatusCode.OK)
             {
-                throw new Exception($"Unable to create Advanced Link: {Response.Content} \n {JsonConvert.SerializeObject(newAdvancedLink)}");
+                throw new Exception($"Unable to create Advanced Link: {Response.StatusDescription} \n {JsonConvert.SerializeObject(newAdvancedLink)}");
             }
             return Response.Data as AdvancedLink;
         }
@@ -344,7 +344,7 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             var Response = ApiClient.Execute<AdvancedLink>(Request);
             if (Response.StatusCode != HttpStatusCode.OK )
             {
-                throw new Exception($"Unable to update Advanced Link: {Response.Content}");
+                throw new Exception($"Unable to update Advanced Link: {Response.StatusDescription}");
             }
             return Response.Data as AdvancedLink;
         }
