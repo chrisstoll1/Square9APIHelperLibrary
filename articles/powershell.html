@@ -1,0 +1,157 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+    
+    <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Why Powershell? | Square9APIHelperLibrary </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Why Powershell? | Square9APIHelperLibrary ">
+      <meta name="generator" content="docfx 2.56.7.0">
+      
+      <link rel="shortcut icon" href="../images/Square9icon_16x16.png">
+      <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+      <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/night-owl.min.css">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" integrity="sha384-EvBWSlnoFgZlXJvpzS+MAUEjvN7+gcCwH+qh7GRFOGgZO0PuwOFro7qPOJnLfe7l" crossorigin="anonymous">
+      <link rel="stylesheet" href="../styles/config.css">
+      <link rel="stylesheet" href="../styles/discord.css">
+      <link rel="stylesheet" href="../styles/singulink.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+      
+      
+      <meta property="docfx:newtab" content="true">
+    </head>
+    <body>
+        <div class="top-navbar">
+            <a class="burger-icon" onclick="toggleMenu()">
+                <svg name="Hamburger" style="vertical-align: middle;" width="34" height="34" viewbox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M20 6H4V9H20V6ZM4 10.999H20V13.999H4V10.999ZM4 15.999H20V18.999H4V15.999Z"></path></svg>
+            </a>
+
+            
+            <a class="brand" href="../index.html">
+              <img src="../images/Square9icon_70x70.png" alt="Square9APIHelperLibrary" class="logomark">
+              <span class="brand-title">Square9APIHelperLibrary</span>
+            </a>        </div>
+
+        <div class="body-content">
+            <div id="blackout" class="blackout" onclick="toggleMenu()"></div>
+
+            <nav id="sidebar" role="navigation">
+                <div class="sidebar">
+                    
+                    <div>
+                      <div class="mobile-hide">
+                        
+                        <a class="brand" href="../index.html">
+                          <img src="../images/Square9icon_70x70.png" alt="Square9APIHelperLibrary" class="logomark">
+                          <span class="brand-title">Square9APIHelperLibrary</span>
+                        </a>  </div>
+
+                    
+                      <div id="navbar">
+                      </div>
+                    </div>                    <div class="sidebar-item-separator"></div>
+                        
+                        <div id="sidetoggle">
+                          <div id="sidetoc"></div>
+                        </div>
+                </div>
+                <div class="footer">
+                  <a href='https://github.com/chrisstoll1/Square9APIHelperLibrary'>Square 9 Helper Library</a>
+                  
+                </div>            </nav>
+
+            <main class="main-panel">
+
+                <div role="main" class="hide-when-search">
+                        
+                        <div class="subnav navbar navbar-default">
+                          <div class="container hide-when-search" id="breadcrumb">
+                            <ul class="breadcrumb">
+                              <li></li>
+                            </ul>
+                          </div>
+                        </div>
+
+                    <article class="content wrap" id="_content" data-uid="">
+<h1 id="why-powershell">Why Powershell?</h1>
+
+<p>The Square9API Helper library and Powershell make a great combination because they offer a number of benefits when used together. First, the Square9API Helper library provides a set of easy-to-use, pre-defined functions that can be used to interact with the Square9 API, making it easier for developers to access and manipulate data stored in Square9. This can help to streamline development and reduce the amount of time and effort required to build applications that integrate with Square9. Additionally, Powershell is a powerful scripting language that allows developers to automate and manage a wide range of tasks, including interacting with APIs such as the Square9API. This means that developers can use Powershell to quickly and easily access data from Square9, making it possible to build complex, data-driven applications with minimal effort. Overall, the combination of the Square9API Helper library and Powershell provides a powerful and flexible toolset for working with the Square9 API and building applications that integrate with Square9.</p>
+<h2 id="getting-started">Getting Started</h2>
+<ol>
+<li><p>Download the <a href="https://github.com/chrisstoll1/Square9APIHelperLibrary/releases">PowerShell Example</a> from releases or the <a href="https://github.com/chrisstoll1/Square9APIHelperLibrary/releases">.dll</a> along with the <a href="https://github.com/chrisstoll1/Square9APIHelperLibrary#prerequisites">prerequisites</a>. Place these in the same directory as your powershell script</p>
+</li>
+<li><p>Open up PowerShell ISE and create a new script (Note: Powershell 5.0 or higher is required to import the Square9APIHelperLibrary.dll with a using statement)</p>
+</li>
+<li><p>Add the following using statements to the top of your new script</p>
+</li>
+</ol>
+<pre><code>using assembly &quot;.\Square9APIHelperLibrary.dll&quot;
+using namespace Square9APIHelperLibrary
+using namespace Square9APIHelperLibrary.DataTypes
+</code></pre>
+<ol start="4">
+<li>Create a new <a href="../api/Square9APIHelperLibrary.Square9API.html">Square9API</a> object, it will take three <a href="../api/Square9APIHelperLibrary.Square9API.html#Square9APIHelperLibrary_Square9API__ctor_System_String_System_String_System_String_">parameters</a> for the <strong>Endpoint</strong>, <strong>Username</strong>, and <strong>Password</strong></li>
+</ol>
+<pre><code>$connection = New-Object Square9APIHelperLibrary.Square9API($Endpoint, $User, $Pass)
+</code></pre>
+<ol start="5">
+<li>Before you can start interfacing with the API, you must first get a license from the server by calling the <a href="../api/Square9APIHelperLibrary.Square9API.html#Square9APIHelperLibrary_Square9API_CreateLicense">CreateLicense</a> method</li>
+</ol>
+<pre><code>$connection.CreateLicense()
+</code></pre>
+<p>You are now ready to start using the Square9API Helper Library in Powershell!</p>
+<h3 id="example-move-documents-between-archives">Example: Move documents between archives</h3>
+<p>To move documents between archives we need to run through the following steps</p>
+<ul>
+<li>Get a Search Object from the API on our source archive</li>
+</ul>
+<blockquote>
+<p>This code calls <a href="../api/Square9APIHelperLibrary.Square9APIComponents.Searches.html#Square9APIHelperLibrary_Square9APIComponents_Searches_GetSearches_System_Int32_System_Int32_System_Int32_">Searches.GetSearches</a> which retrieves a list of searches from our database &gt; source archive and stores the first one in our $search variable</p>
+</blockquote>
+<pre><code>[Search]$search = $connection.Searches.GetSearches($database.Id, $sourceArchive.Id)[0]
+</code></pre>
+<ul>
+<li>Get a list of documents by running $search</li>
+</ul>
+<blockquote>
+<p>This code calls <a href="../api/Square9APIHelperLibrary.Square9APIComponents.Searches.html#Square9APIHelperLibrary_Square9APIComponents_Searches_GetSearchResults_System_Int32_Square9APIHelperLibrary_DataTypes_Search_System_Int32_System_Int32_System_Int32_System_Int32_System_Int32_">Searches.GetSearchResults</a> which retrieves the first 1000 documents from the first page of search results and stores it in our $searchResult variable (based on additonal parameters).</p>
+</blockquote>
+<pre><code>[Result]$searchResult = $connection.Searches.GetSearchResults($database.Id, $search, 1, 1000)
+</code></pre>
+<ul>
+<li>Loop through list of documents and move each one to our destination archive</li>
+</ul>
+<blockquote>
+<p>This code loops through our search results and calls <a href="../api/Square9APIHelperLibrary.Square9APIComponents.Documents.html#Square9APIHelperLibrary_Square9APIComponents_Documents_TransferArchiveDocument_System_Int32_System_Int32_System_Int32_Square9APIHelperLibrary_DataTypes_Doc_System_Boolean_">Documents.TransferArchiveDocument</a> which takes a source archive, and a destination archive and either copies or moves the file based on the move boolean parameters (if move is set to true, document in the source archive will be removed).</p>
+</blockquote>
+<pre><code>foreach($doc in $searchResult.Docs){
+       #move document
+       $connection.Documents.TransferArchiveDocument($database.Id, $sourceArchive.Id, $destArchive.Id, $doc, $true)
+}
+</code></pre>
+<p>Your documents should now be moving between archives through powershell!</p>
+</article>
+                </div>
+
+                <div class="copyright-footer">
+                    <span>&#169; chrisstoll1. All rights reserved.</span>
+                </div>
+            </main>
+        </div>
+
+        
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+        <script type="text/javascript" src="../styles/jquery.twbsPagination.js"></script>
+        <script type="text/javascript" src="../styles/url.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/anchor-js/anchor.min.js"></script>
+        <script type="text/javascript" src="../styles/docfx.js"></script>
+        <script type="text/javascript" src="../styles/singulink.js"></script>
+        <script type="text/javascript" src="../styles/main.js"></script>    </body>
+</html>

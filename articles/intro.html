@@ -1,0 +1,133 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+    
+    <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Welcome to the Square9APIHelperLibrary wiki | Square9APIHelperLibrary </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Welcome to the Square9APIHelperLibrary wiki | Square9APIHelperLibrary ">
+      <meta name="generator" content="docfx 2.56.7.0">
+      
+      <link rel="shortcut icon" href="../images/Square9icon_16x16.png">
+      <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+      <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/night-owl.min.css">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" integrity="sha384-EvBWSlnoFgZlXJvpzS+MAUEjvN7+gcCwH+qh7GRFOGgZO0PuwOFro7qPOJnLfe7l" crossorigin="anonymous">
+      <link rel="stylesheet" href="../styles/config.css">
+      <link rel="stylesheet" href="../styles/discord.css">
+      <link rel="stylesheet" href="../styles/singulink.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+      
+      
+      <meta property="docfx:newtab" content="true">
+    </head>
+    <body>
+        <div class="top-navbar">
+            <a class="burger-icon" onclick="toggleMenu()">
+                <svg name="Hamburger" style="vertical-align: middle;" width="34" height="34" viewbox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M20 6H4V9H20V6ZM4 10.999H20V13.999H4V10.999ZM4 15.999H20V18.999H4V15.999Z"></path></svg>
+            </a>
+
+            
+            <a class="brand" href="../index.html">
+              <img src="../images/Square9icon_70x70.png" alt="Square9APIHelperLibrary" class="logomark">
+              <span class="brand-title">Square9APIHelperLibrary</span>
+            </a>        </div>
+
+        <div class="body-content">
+            <div id="blackout" class="blackout" onclick="toggleMenu()"></div>
+
+            <nav id="sidebar" role="navigation">
+                <div class="sidebar">
+                    
+                    <div>
+                      <div class="mobile-hide">
+                        
+                        <a class="brand" href="../index.html">
+                          <img src="../images/Square9icon_70x70.png" alt="Square9APIHelperLibrary" class="logomark">
+                          <span class="brand-title">Square9APIHelperLibrary</span>
+                        </a>  </div>
+
+                    
+                      <div id="navbar">
+                      </div>
+                    </div>                    <div class="sidebar-item-separator"></div>
+                        
+                        <div id="sidetoggle">
+                          <div id="sidetoc"></div>
+                        </div>
+                </div>
+                <div class="footer">
+                  <a href='https://github.com/chrisstoll1/Square9APIHelperLibrary'>Square 9 Helper Library</a>
+                  
+                </div>            </nav>
+
+            <main class="main-panel">
+
+                <div role="main" class="hide-when-search">
+                        
+                        <div class="subnav navbar navbar-default">
+                          <div class="container hide-when-search" id="breadcrumb">
+                            <ul class="breadcrumb">
+                              <li></li>
+                            </ul>
+                          </div>
+                        </div>
+
+                    <article class="content wrap" id="_content" data-uid="">
+<h1 id="welcome-to-the-square9apihelperlibrary-wiki">Welcome to the Square9APIHelperLibrary wiki</h1>
+
+<p>This wiki is still a work in progress, please feel free to come back to this page to see new content as it is added.</p>
+<p>To start using this library add the <a href="https://github.com/chrisstoll1/Square9APIHelperLibrary/releases">.dll</a> as a reference in your project along with the dependencies, or install the <a href="https://www.nuget.org/packages/Square9APIHelperLibrary/">NuGet</a> package.</p>
+<h1 id="quickstart">Quickstart</h1>
+<ol>
+<li><p>Add the following using statements to the top of your application</p>
+<pre><code>using Square9APIHelperLibrary;
+using Square9APIHelperLibrary.DataTypes;
+</code></pre>
+</li>
+<li><p>Create a new <a href="../api/Square9APIHelperLibrary.Square9API.html">Square9API</a> object, it will take three <a href="../api/Square9APIHelperLibrary.Square9API.html#Square9APIHelperLibrary_Square9API__ctor_System_String_System_String_System_String_">parameters</a> for the <strong>Endpoint</strong>, <strong>Username</strong>, and <strong>Password</strong></p>
+<pre><code>Square9API Connection = new Square9API(Endpoint, Username, Password);
+</code></pre>
+</li>
+<li><p>Before you can start interfacing with the API, you must first get a license from the server by calling the <a href="../api/Square9APIHelperLibrary.Square9API.html#Square9APIHelperLibrary_Square9API_CreateLicense">CreateLicense</a> method</p>
+<pre><code>Connection.CreateLicense();
+</code></pre>
+</li>
+<li><p>In this example, we will loop through and print the ID of each database on the server</p>
+<pre><code>DatabaseList databases = Connection.Databases.GetDatabases();
+
+foreach (Database database in databases.Databases)
+{
+Console.WriteLine(database.Name);
+}
+</code></pre>
+</li>
+<li><p>Once you are done with your connection, it is best practice to delete the license on the server to free it up for anyone who may need it</p>
+<pre><code>Connection.DeleteLicense();
+</code></pre>
+</li>
+</ol>
+</article>
+                </div>
+
+                <div class="copyright-footer">
+                    <span>&#169; chrisstoll1. All rights reserved.</span>
+                </div>
+            </main>
+        </div>
+
+        
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+        <script type="text/javascript" src="../styles/jquery.twbsPagination.js"></script>
+        <script type="text/javascript" src="../styles/url.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/anchor-js/anchor.min.js"></script>
+        <script type="text/javascript" src="../styles/docfx.js"></script>
+        <script type="text/javascript" src="../styles/singulink.js"></script>
+        <script type="text/javascript" src="../styles/main.js"></script>    </body>
+</html>
