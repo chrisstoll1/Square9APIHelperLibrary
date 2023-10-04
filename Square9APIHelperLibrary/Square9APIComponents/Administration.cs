@@ -468,6 +468,22 @@ namespace Square9APIHelperLibrary.Square9APIComponents
             }
             return Response.Data;
         }
+        /// <summary>
+        /// Executes a QueryBridge Request on the server
+        /// </summary>
+        /// <param name="queryBridgeRequest"></param>
+        /// <returns>The response content</returns>
+        public string QueryBridge(QueryBridgeRequest queryBridgeRequest)
+        {
+            var Request = new RestRequest($"api/querybridge/sql", Method.POST);
+            Request.AddJsonBody(queryBridgeRequest);
+            var Response = ApiClient.Execute(Request);
+            if (Response.StatusCode != HttpStatusCode.OK)
+            {
+                throw new Exception($"Unable to execute query: {Response.StatusDescription}");
+            }
+            return Response.Content;
+        }
         #endregion
 
     }

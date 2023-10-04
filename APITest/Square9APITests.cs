@@ -714,16 +714,16 @@ namespace APITest
             Square9API Connection = new Square9API(Endpoint, Username, Password);
             Connection.CreateLicense();
             
-            Doc doc = Connection.Documents.GetArchiveDocument(2057, 1, 1).Docs[0];
+            Doc doc = Connection.Documents.GetArchiveDocument(2057, 1, 16).Docs[0];
             LogEntry newEntry = new LogEntry();
             newEntry.DatabaseID = 2057;
-            newEntry.DocumentID = 1;
+            newEntry.DocumentID = 16;
             newEntry.ArchiveID = 1;
             Random random = new Random();
             string randomMessage = random.Next(5000).ToString();
             newEntry.Message = randomMessage;
             newEntry.UserName = Connection.License.Username;
-            newEntry.Time = DateTime.Now;
+            newEntry.Time = DateTime.Now.AddDays(-1);
 
             Console.WriteLine(JsonConvert.SerializeObject(newEntry));
 
@@ -1066,6 +1066,27 @@ namespace APITest
             Assert.AreEqual(updatedAdvancedLink.Name, advancedLink.Name);
 
             Connection.Fields.DeleteAdvancedLink(1, updatedAdvancedLink);
+
+            Connection.DeleteLicense();
+        }
+
+        [TestMethod]
+        [TestCategory("Administration")]
+        public void QueryBridge()
+        {
+            Square9API Connection = new Square9API(Endpoint, Username, Password);
+            Connection.CreateLicense();
+
+            string server = "WIN-BJF3UC2AH2G\\SQLEXPRESS";
+            string sqlUser = "test";
+            string sqlPassword = "Square9!";
+            string sqlDatabase = "DestinationDatabase";
+            string query = "INSERT INTO [ssAudit] ([DocID], [ArchiveID], [UserName], [Action], [Date]) VALUES(1, 1, 'Test2', 'test2', GETDATE());";
+
+            QueryBridgeRequest queryBridgeRequest = new QueryBridgeRequest(server, sqlUser, sqlPassword, sqlDatabase, query);
+            Console.WriteLine(JsonConvert.SerializeObject(queryBridgeRequest));
+            string response = Connection.Administration.QueryBridge(queryBridgeRequest);
+            Console.WriteLine(response);
 
             Connection.DeleteLicense();
         }
