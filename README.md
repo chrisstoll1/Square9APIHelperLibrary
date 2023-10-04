@@ -11,5 +11,5 @@ Documentation for this library can be found [here](https://chrisstoll1.github.io
 ## Installation
 To get started, download the Square9APIHelperLibrary.dll from [releases](https://github.com/chrisstoll1/Square9APIHelperLibrary/releases), or install the package via [Nuget](https://www.nuget.org/packages/Square9APIHelperLibrary/)
 
-    dotnet add package Square9APIHelperLibrary --version 0.0.5
+    dotnet add package Square9APIHelperLibrary --version 0.0.5.3
 
